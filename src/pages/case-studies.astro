@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Testimonial from "../components/Testimonial.astro";
+import Skill from "../components/Skill.astro";
+---
+
+<Layout title="Josh Wright - Case studies">
+	<header id="masthead" class="site-header outer">
+		<div class="inner">
+			<div class="site-header-inside">
+				<div class="site-branding">
+					<h1 class="site-title"><a href="/">Josh Wright</a></h1>
+				</div><!-- .site-branding -->
+
+				<nav
+					id="main-navigation"
+					class="site-navigation"
+					aria-label="Main Navigation"
+				>
+					<div class="site-nav-inside">
+						<ul class="menu">
+							<li class="menu-item">
+								<a href="case-studies.html">Case studies</a>
+							</li>
+							<li class="menu-item">
+								<a href="index.html#about">About</a>
+							</li>
+							<li class="menu-item">
+								<a href="index.html#testimonials">Testimonials</a>
+							</li>
+							<li class="menu-item">
+								<a href="mailto:josh@joshux.com"
+									>Contact</a
+								>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div><!-- .site-header-inside -->
+		</div><!-- .inner -->
+	</header><!-- .site-header -->
+	<main id="content" class="site-content">
+		
+		<section class="portfolio-block block outer" id="case-studies">
+			<div class="inner">
+				<div class="block-header">
+					<h1 class="block-title line-top">Selected case studies</h1>
+				</div><!-- .block-header -->
+				<div class="block-content"><p style="max-width:850px">Each project highlights a unique challenge and reflects my approach to solving it with creativity, collaboration, and impact. For brevity and confidentiality purposes, all case studies have been condensed.<br><br> <strong>If you have any questions or would like to see more, please <a href="mailto:josh@joshux.com">get in touch</a>.</strong></p></div>
+				<h3>Mobile app redesign</h3>
+				<div class="block-content">
+					<div class="portfolio-feed layout-tiles">
+						<Card
+							href="/work/axs-mobile-app-event-entry.html"
+							title="AXS mobile app: Event entry"
+							img="/images/block-axs.png"
+						/>
+						<Card
+							href="/work/axs-mobile-app-resale.html"
+							title="AXS mobile app: Ticket resale"
+							img="/images/block-axs-alt.png"
+						/>
+				</div>
+				<h3>End-to-end product development</h3>
+				<div class="block-content">
+					<div class="portfolio-feed layout-tiles">
+						<Card
+							href="/work/ribbon-case-study.html"
+							title="Legalzoom business formation product launch"
+							img="/images/block-ribbon.png"
+						/>
+						<Card
+							href="/work/makerspace-case-study.html"
+							title="MakerSpace social product launch"
+							img="/images/block-make.png"
+						/>
+						
+				</div>
+				<h3>Research studies</h3>
+				<div class="block-content">
+					<div class="portfolio-feed layout-tiles">
+						<Card
+							href="/work/cerebral-case-study.html"
+							title="Cerebral foundational research study"
+							img="/images/block-cerebral.png"
+						/>
+						<Card
+							href="/work/jump-rope-nationals-case-study.html"
+							title="Jump Rope Nationals research study"
+							img="/images/block-jumprope.png"
+						/>
+						
+					</div>
+				</div>
+				<h3>Enterprise UX design</h3>
+				<div class="block-content">
+					<div class="portfolio-feed layout-tiles">
+						<Card
+							href="/work/oreilly-case-study.html"
+							title="O'Reily enterprise app design"
+							img="/images/block-orly.png"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="block-content"><p style="text-align:center;"><a href="case-studies.html" class="button">Get in touch</a></p></div>
+		</section>
+	</main>
+</Layout><!-- .site -->

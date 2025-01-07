@@ -1,0 +1,25 @@
+---
+interface Props {
+	name: string;
+	portrait: string;
+	quote: string;
+}
+
+const { name, portrait, quote } = Astro.props;
+---
+
+<blockquote class="testimonial">
+	<p class="testimonial-text">
+		{quote}
+	</p>
+	<footer class="testimonial-footer">
+		<img
+			class="testimonial-avatar"
+			src={portrait}
+			alt={name}
+		/>
+		<cite class="testimonial-author">
+			{name}
+		</cite>
+	</footer>
+</blockquote>
