@@ -701,8 +701,8 @@ img {
   font-weight: bold;
   line-height: 1.2;
   margin: 0;
-  font-family: "Unica One",sans-serif;
-  text-transform: uppercase; }
+  font-family: "Merriweather",serif; ;
+  text-transform: lowercase; }
   .site-title a {
     border: 0;
     color: inherit !important;
