@@ -10,12 +10,16 @@ const { title } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta property="og:title" content="Josh Wright - UX Designer, Product Strategist, Educator" />
+		<meta property="og:description" content="Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin" />
+		<meta property="og:url" content="https://joshux.com" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,800&display=swap" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Merriweather:900,400' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/main.css">
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
