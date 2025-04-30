@@ -1,0 +1,111 @@
+---
+// src/pages/work/[slug].astro
+import { getCollection, getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+
+// Generate static paths for all case studies
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('case-studies');
+  return caseStudies.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Get other case studies for "Other case studies" section
+const otherCaseStudies = await getCollection('case-studies', ({ slug }) => slug !== entry.slug);
+// Get 2 random case studies
+const randomCaseStudies = otherCaseStudies
+  .sort(() => 0.5 - Math.random())
+  .slice(0, 2);
+
+// Check if this case study requires a password
+const isPasswordProtected = !!entry.data.password;
+---
+
+<Layout title={`Josh Wright - ${entry.data.title}`} currentNav="case-studies">
+  
+  <main id="content" class="site-content">
+    <div class="outer">
+      <div class="inner">
+        <article class="post project post-full">
+          <header class="post-header inner-small">
+            <h1 class="post-title line-top">{entry.data.title}</h1>
+
+            <div class="post-subtitle">
+              {entry.data.subtitle}
+            </div>
+          </header>
+
+          {entry.data.banner && (
+            <div class="post-thumbnail">
+              <img
+                src={entry.data.banner}
+                alt={entry.data.title}
+                transition:name={`project-image-${entry.slug}`}
+              />
+            </div>
+          )}
+
+          <div class="post-content inner-small">
+            {isPasswordProtected ? (
+              <div>
+                <h3>Password required</h3>
+                <p>
+                  This case study requires a password to view. Please feel free to <a href="mailto:josh@joshuajwright.com">reach out</a> if you'd like the password or to chat further about my work or <a href="/case-studies.html">check out my other case studies</a>.
+                </p>
+              </div>
+            ) : (
+              <Content />
+            )}
+          </div>
+        </article>
+
+        {entry.data.outcomes && (
+          <section class="outcomes block outer">
+            <div class="inner">
+              <div class="block-inside">
+                <div class="block-header">
+                  <h2 class="block-title line-top">Outcomes</h2>
+                </div>
+              </div>
+              <div class="outcomes-container">
+                {entry.data.outcomes.map((outcome, index) => (
+                  <div class={`circle circle${index + 1}`}>{outcome}</div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+        
+        <section class="portfolio-block block outer">
+          <div class="inner">
+            <div class="block-header">
+              <h2 class="block-title line-top">Other case studies</h2>
+            </div>
+            <div class="block-content">
+              <div class="portfolio-feed layout-tiles">
+                {randomCaseStudies.map(caseStudy => (
+                  <Card
+                    href={`/work/${caseStudy.slug}`}
+                    title={caseStudy.data.title}
+                    img={caseStudy.data.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="block-content">
+            <p style="text-align:center;">
+              <a href="mailto:josh@joshuajwright.com" class="button">Get in touch</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>

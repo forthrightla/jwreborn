@@ -1,0 +1,37 @@
+---
+title: "AXS mobile app: Event entry"
+subtitle: "UX design, Product strategy, UX discovery, customer research"
+thumbnail: "/images/block-axs.png"
+banner: "/images/case-studies/axs-banner.png"
+tags: ["UX Design", "Product Strategy", "Mobile App"]
+featured: true
+outcomes: [
+  "68% improvement in event entry success rate",
+  "13% increase in app-based ticket revenue",
+  "4.7 stars on the iOS app store with 361K reviews"
+]
+---
+
+## Background
+
+### Overview
+
+AXS is a leading event ticketing platform with over 50 million ticket sales annually across 30,000+ global events, generating $2 billion in sales volume.
+
+The AXS mobile app, required for event entry, serves **55 million yearly users** and powers ticketing in 28 client apps including Coachella, Firefly Festival, the LA Lakers, and Wembley Stadium.
+
+Despite its reach, the app and ticketing functionality hadn't meaningfully changed in over seven years. I was brought on to lead a research-based redesign effort.
+
+### My role
+
+- **UX & product strategy:** Led UX discovery, design strategy, and end-to-end UX design. Collaborated closely with two visual designers, offering feedback and support while aligning with the overall vision. Stepped into a product leadership role in the absence of a PM, driving stakeholder engagement and shaping the overall product direction.
+
+- **Lean research:** Initiated and led both qualitative and quantitative research efforts with minimal resources, collaborating with two UX peers to uncover insights that directly shaped design decisions and product priorities.
+
+- **Engineering partner:** Worked closely with engineers to keep development on track and ensure the final product matched the designs in functionality, visual detail, and animation.
+
+### Streamlined event entry on day of event
+
+![Two taps to enter an event](/images/case-studies/axs-dayof-entry.png)
+
+**More coming soon!**

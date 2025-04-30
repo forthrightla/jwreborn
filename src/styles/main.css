@@ -946,3 +946,7 @@
       scroll-behavior: auto !important;
     }
   }
+
+  @view-transition {
+    /* enabled! */ 
+  }

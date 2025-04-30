@@ -1,82 +1,127 @@
 ---
+// src/pages/case-studies.astro
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import Testimonial from "../components/Testimonial.astro";
-import Skill from "../components/Skill.astro";
+import { getCollection } from "astro:content";
+
+// Get all case studies, sorted by featured status
+const allCaseStudies = await getCollection("case-studies");
+const caseStudies = allCaseStudies.sort((a, b) => {
+  // Sort by featured first, then by whatever other criteria you want
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return 0;
+});
+
+// Group case studies by tag categories
+const mobileAppStudies = caseStudies.filter(study => 
+  study.data.tags.includes("Mobile App")
+);
+
+const productDevelopmentStudies = caseStudies.filter(study => 
+  study.data.tags.includes("Product Launch") || 
+  study.data.tags.includes("Product Strategy")
+);
+
+const researchStudies = caseStudies.filter(study => 
+  study.data.tags.includes("Research") || 
+  study.data.tags.includes("Field Research")
+);
+
+const enterpriseStudies = caseStudies.filter(study => 
+  study.data.tags.includes("Enterprise UX") || 
+  study.data.tags.includes("Enterprise Software")
+);
 ---
 
-<Layout title="Josh Wright - Case studies">
-	
-	<main id="content" class="site-content">
-		
-		<section class="portfolio-block block outer" id="case-studies">
-			<div class="inner">
-				<div class="block-header">
-					<h1 class="block-title line-top">Selected case studies</h1>
-				</div><!-- .block-header -->
-				<div class="block-content"><p style="max-width:850px">Each project highlights a unique challenge and reflects my approach to solving it with creativity, collaboration, and impact. For brevity and confidentiality purposes, all case studies have been condensed.<br><br> <strong>If you have any questions or would like to see more, please <a href="mailto:josh@joshux.com">get in touch</a>.</strong></p></div>
-				<h3>Mobile app design</h3>
-				<div class="block-content">
-					<div class="portfolio-feed layout-tiles">
-						<Card
-							href="/work/axs-mobile-app-event-entry.html"
-							title="AXS mobile app: Event entry"
-							img="/images/block-axs.png"
-						/>
-						<!--<Card
-							href="/work/axs-mobile-app-resale.html"
-							title="AXS mobile app: Ticket resale"
-							img="/images/block-axs-alt.png"
-						/>  -->
-				</div>
-				<h3>End-to-end product development</h3>
-				<div class="block-content">
-					<div class="portfolio-feed layout-tiles">
-						<Card
-							href="/work/indeed-ai-integration.html"
-							title="🔒 Indeed AI product discovery &amp; implementation"
-							img="/images/block-indeedai.gif"
-						/>
-						<Card
-							href="/work/ribbon-case-study.html"
-							title="Legalzoom business formation product launch"
-							img="/images/block-ribbon.png"
-						/>
-						<Card
-							href="/work/makerspace-case-study.html"
-							title="MakerSpace social product launch"
-							img="/images/block-make.png"
-						/>
-						
-				</div>
-				<h3>Research studies</h3>
-				<div class="block-content">
-					<div class="portfolio-feed layout-tiles">
-						<Card
-							href="/work/cerebral-case-study.html"
-							title="Cerebral foundational research study"
-							img="/images/block-cerebral.png"
-						/>
-						<Card
-							href="/work/jump-rope-nationals-case-study.html"
-							title="Jump Rope Nationals research study"
-							img="/images/block-jumprope.png"
-						/>
-						
-					</div>
-				</div>
-				<h3>Enterprise UX design</h3>
-				<div class="block-content">
-					<div class="portfolio-feed layout-tiles">
-						<Card
-							href="/work/oreilly-case-study.html"
-							title="O'Reily enterprise app design"
-							img="/images/block-orly.png"
-						/>
-					</div>
-				</div>
-			</div>
-			<div class="block-content"><p style="text-align:center;"><a href="case-studies.html" class="button">Get in touch</a></p></div>
-		</section>
-	</main>
-</Layout><!-- .site -->
+<Layout title="Josh Wright - Case studies" currentNav="case-studies">
+  <main id="content" class="site-content">
+    <section class="portfolio-block block outer" id="case-studies">
+      <div class="inner">
+        <div class="block-header">
+          <h1 class="block-title line-top">Selected case studies</h1>
+        </div>
+        <div class="block-content">
+          <p style="max-width:850px">
+            Each project highlights a unique challenge and reflects my approach to solving it with creativity, collaboration, and impact. For brevity and confidentiality purposes, all case studies have been condensed.<br><br>
+            <strong>If you have any questions or would like to see more, please <a href="mailto:josh@joshux.com">get in touch</a>.</strong>
+          </p>
+        </div>
+
+        {mobileAppStudies.length > 0 && (
+          <>
+            <h3>Mobile app design</h3>
+            <div class="block-content">
+              <div class="portfolio-feed layout-tiles">
+                {mobileAppStudies.map(study => (
+                  <Card
+                    href={`/work/${study.slug}`}
+                    title={study.data.title}
+                    img={study.data.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {productDevelopmentStudies.length > 0 && (
+          <>
+            <h3>End-to-end product development</h3>
+            <div class="block-content">
+              <div class="portfolio-feed layout-tiles">
+                {productDevelopmentStudies.map(study => (
+                  <Card
+                    href={`/work/${study.slug}`}
+                    title={study.data.title}
+                    img={study.data.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {researchStudies.length > 0 && (
+          <>
+            <h3>Research studies</h3>
+            <div class="block-content">
+              <div class="portfolio-feed layout-tiles">
+                {researchStudies.map(study => (
+                  <Card
+                    href={`/work/${study.slug}`}
+                    title={study.data.title}
+                    img={study.data.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {enterpriseStudies.length > 0 && (
+          <>
+            <h3>Enterprise UX design</h3>
+            <div class="block-content">
+              <div class="portfolio-feed layout-tiles">
+                {enterpriseStudies.map(study => (
+                  <Card
+                    href={`/work/${study.slug}`}
+                    title={study.data.title}
+                    img={study.data.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        <div class="block-content">
+          <p style="text-align:center;">
+            <a href="mailto:josh@joshux.com" class="button">Get in touch</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
