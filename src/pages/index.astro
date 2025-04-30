@@ -6,247 +6,211 @@ import Skill from "../components/Skill.astro";
 ---
 
 <Layout title="Josh Wright - UX Designer, Product Strategist, Educator">
-	<header id="masthead" class="site-header outer">
+	<section id="hero" class="block hero-block outer">
 		<div class="inner">
-			<div class="site-header-inside">
-				<div class="site-branding">
-					<h1 class="site-title"><a href="/">josh wright</a></h1>
-				</div><!-- .site-branding -->
-
-				<nav
-					id="main-navigation"
-					class="site-navigation"
-					aria-label="Main Navigation"
-				>
-				
-					<div class="site-nav-inside">
-						<ul class="menu">
-							<li class="menu-item">
-								<a href="case-studies.html">Case studies</a>
-							</li>
-							<li class="menu-item">
-								<a href="index.html#about">About</a>
-							</li>
-							<li class="menu-item">
-								<a href="#testimonials">Testimonials</a>
-							</li>
-							<li class="menu-item">
-								<a href="mailto:josh@joshux.com"
-									>Contact</a
-								>
-							</li>
-						</ul>
-					</div>
-				</nav>
-			</div><!-- .site-header-inside -->
+			<div class="block-header">
+				<h1 class="block-title">
+					Josh Wright is a <strong>UX Designer</strong>, <strong
+						>Product Strategist</strong
+					>, and <strong>Educator</strong> working in <strong
+						>Austin.</strong
+					>
+				</h1>
+				<!-- <h2 class="block-subtitle">I design meaningful products that have real impact.</h2>  -->
+			</div><!-- .block-header -->
 		</div><!-- .inner -->
-	</header><!-- .site-header -->
-	<main id="content" class="site-content">
-		<section id="hero" class="block hero-block outer">
-			<div class="inner-small">
-				<div class="block-header">
-					<h1 class="block-title">
-						Josh Wright is a <strong>UX Designer</strong>, <strong
-							>Product Strategist</strong
-						>, and <strong>Educator</strong> working in <strong
-							>Austin.</strong
-						>
-					</h1>
-					<!-- <h2 class="block-subtitle">I design meaningful products that have real impact.</h2>  -->
-				</div><!-- .block-header -->
-			</div><!-- .inner -->
-		</section><!-- .block -->
+	</section><!-- .block -->
 
-		<section id="latest-projects" class="portfolio-block block outer">
-			<div class="inner">
-				<div class="block-header">
-					<h2 class="block-title line-top">Expertise</h2>
-				</div><!-- .block-header -->
-				<div class="block-content">
-					<div class="expertise">
-						<Skill
-							title="Design"
-							description="Leads the creation of seamless, user-focused experiences across mobile, web, and desktop, prioritizing usability and aesthetics."
-							img="/images/icon-design.png"
-						/>
-						<Skill
-							title="Strategy"
-							description="Aligns product goals and executes strategic roadmaps with cross-functional teams, driving collaboration and business success."
-							img="/images/icon-strategy.png"
-						/>
-						<Skill
-							title="Research"
-							description="Conducts qualitative and quantitative research to uncover user needs and behaviors, transforming insights into solutions."
-							img="/images/icon-research.png"
-						/>
-					</div>
-					<div class="expertise">
-						<Skill
-							title="Ideation"
-							description="Facilitates ideation sessions to generate innovative, customer-focused ideas, fostering continuous product innovation."
-							img="/images/icon-ideation.png"
-						/>
-						<Skill
-							title="Prototyping"
-							description="Builds and tests prototypes to validate concepts, ensuring they meet user needs and business goals before development."
-							img="/images/icon-prototyping.png"
-						/>
-						<Skill
-							title="Education"
-							description="Mentors future design leaders through curriculum development and guidance on prototyping, testing, and strategy."
-							img="/images/icon-education.png"
-						/>
-					</div>
+	<section id="latest-projects" class="portfolio-block block outer">
+		<div class="inner">
+			<div class="block-header">
+				<h2 class="block-title line-top">Expertise</h2>
+			</div><!-- .block-header -->
+			<div class="block-content">
+				<div class="expertise">
+					<Skill
+						title="Design"
+						description="Leads the creation of seamless, user-focused experiences across mobile, web, and desktop, prioritizing usability and aesthetics."
+						img="/images/icon-design.png"
+					/>
+					<Skill
+						title="Strategy"
+						description="Aligns product goals and executes strategic roadmaps with cross-functional teams, driving collaboration and business success."
+						img="/images/icon-strategy.png"
+					/>
+					<Skill
+						title="Research"
+						description="Conducts qualitative and quantitative research to uncover user needs and behaviors, transforming insights into solutions."
+						img="/images/icon-research.png"
+					/>
+				</div>
+				<div class="expertise">
+					<Skill
+						title="Ideation"
+						description="Facilitates ideation sessions to generate innovative, customer-focused ideas, fostering continuous product innovation."
+						img="/images/icon-ideation.png"
+					/>
+					<Skill
+						title="Prototyping"
+						description="Builds and tests prototypes to validate concepts, ensuring they meet user needs and business goals before development."
+						img="/images/icon-prototyping.png"
+					/>
+					<Skill
+						title="Education"
+						description="Mentors future design leaders through curriculum development and guidance on prototyping, testing, and strategy."
+						img="/images/icon-education.png"
+					/>
 				</div>
 			</div>
-		</section>
-		<section class="portfolio-block block outer" id="case-studies">
-			<div class="inner">
+		</div>
+	</section>
+	<section class="portfolio-block block outer" id="case-studies">
+		<div class="inner">
+			<div class="block-header">
+				<h2 class="block-title line-top">Selected case studies</h2>
+			</div><!-- .block-header -->
+			<div class="block-content">
+				<div class="portfolio-feed layout-tiles">
+					<!--<Card
+					href="/work/axs-mobile-app-event-entry.html"
+					title="AXS mobile app redesign: Event entry"
+					img="/images/block-axs.png"
+					/> -->
+					<Card
+						href="/work/indeed-ai-integration.html"
+						title="🔒 Indeed AI product discovery &amp; implementation"
+						img="/images/block-indeedai.gif"
+					/>
+					<Card
+					href="/work/cerebral-case-study.html"
+					title="Cerebral foundational research study"
+					img="/images/block-cerebral.png"
+					/>
+					<Card
+					href="/work/makerspace-case-study.html"
+					title="MakerSpace social product launch"
+					img="/images/block-make.png"
+					/>
+					<Card
+						href="/work/ribbon-case-study.html"
+						title="Legalzoom business formation product launch"
+						img="/images/block-ribbon.png"
+					/>
+					<!--
+					<Card
+						href="/work/jump-rope-nationals-case-study.html"
+						title="Jump Rope Nationals research study"
+						img="/images/block-jumprope.png"
+					/>
+					<Card
+						href="/work/oreilly-case-study.html"
+						title="O'Reily enterprise app design"
+						img="/images/block-orly.png"
+					/>  -->
+				</div>
+				<div class="block-content"><p style="text-align:center;"><a href="case-studies.html" class="button">View more case studies</a></p></div>
+
+			</div>
+		</div>
+	</section>
+	<section class="about block outer" id="about">
+		<div class="inner">
+			<div class="block-inside">
 				<div class="block-header">
-					<h2 class="block-title line-top">Selected case studies</h2>
+					<h2 class="block-title line-top">About</h2>
+				</div>
+			</div>
+			<div class="post-thumbnail">
+				<img src="images/ribbon-portraits.png" />
+			</div>
+
+			<div
+				class="post-content inner-small"
+				style="margin-bottom:64px;margin-top:64px;"
+			>
+				<h3>I design meaningful products that have real impact.</h3>
+				<p>
+					For over 10 years I've had the privilege to serve tens
+					of millions of users, collaborating with diverse
+					cross-functional teams and executive leadership to
+					identify and solve complex problems. I’ve led design
+					initiatives for top brands like Indeed, AXS, and
+					LegalZoom, and thrive at the intersection of business and
+					design.
+				</p>
+				<p>
+					As an instructor and the Assistant Managing Director at the
+					<a href="http://ac4d.com" target="_blank">Austin Center for Design (AC4D)</a>, I strive to empower the next
+					generation of designers to tackle complex societal
+					challenges with creativity and autonomy. Additionally, I serve on
+					the <a href="https://sopa.tulane.edu/about-sopa/advisory-boards/media-design-advisory-board" target="_blank">Media &amp; Design Advisory Board</a> for Tulane University's School of Professional Advancement, 
+					helping to refine and shape a design curriculum that meets
+					the constantly evolving needs of the field.
+				</p>
+				<p><strong>Let's build something!</strong></p>
+			</div>
+				<div class="logos-outer">
+					<div class="logos-container">
+					  <div class="logo"><img src="images/logo-indeed.png" alt="Indeed logo" /></div>
+					  <div class="logo"><img src="images/logo-ac4d.png" alt="Austin Center for Design logo" /></div>
+					  <div class="logo"><img src="images/logo-legalzoom.png" alt="LegalZoom logo" /></div>
+					  <div class="logo"><img src="images/logo-axs.png" alt="AXS logo" /></div>
+					</div>
+					<div class="logos-container">
+					  <div class="logo"><img src="images/logo-cerebral.png" alt="Cerebral logo" /></div>
+					  <div class="logo"><img src="images/logo-make.png" alt="Make Magazine logo" /></div>
+					  <div class="logo"><img src="images/logo-orly.png" alt="O'Reilly logo" /></div>
+					  <div class="logo"><img src="images/logo-forthright.png" alt="Forthright logo" /></div>
+					  <div class="logo"><img src="images/logo-tulane-sopa.png" alt="Tulane University School of Professional Advancement logo" /></div>
+					</div>
+				  </div>
+			</div>
+
+
+		</div>
+	</section>
+	<section id="testimonials" class="block testimonials-block outer">
+		<div class="inner">
+			<div class="block-inside">
+				<div class="block-header">
+					<h2 class="block-title line-top">Kind words</h2>
 				</div><!-- .block-header -->
+
 				<div class="block-content">
-					<div class="portfolio-feed layout-tiles">
-						<!--<Card
-						href="/work/axs-mobile-app-event-entry.html"
-						title="AXS mobile app redesign: Event entry"
-						img="/images/block-axs.png"
-						/> -->
-						<Card
-							href="/work/indeed-ai-integration.html"
-							title="🔒 Indeed AI product discovery &amp; implementation"
-							img="/images/block-indeedai.gif"
+					<div class="testimonials-list">
+						<Testimonial
+							name="Christine Catsifas, UX Director at Indeed"
+							portrait="/images/portrait-christine.jpeg"
+							quote="Josh is a design leader who has significantly enhanced our team dynamics. His ability to quickly adapt and contribute effectively has been a catalyst for the success of multiple design efforts."
 						/>
-						<Card
-						href="/work/cerebral-case-study.html"
-						title="Cerebral foundational research study"
-						img="/images/block-cerebral.png"
+						<Testimonial
+							name="Louis Elfman, Head of Design at Cerebral"
+							portrait="/images/portrait-louis.jpeg"
+							quote="It was with supreme confidence that I tapped Josh to run my initial research program at Cerebral. It had to both serve as a template and convince critical leadership, and as usual he delivered top shelf work."
 						/>
-						<Card
-						href="/work/makerspace-case-study.html"
-						title="MakerSpace social product launch"
-						img="/images/block-make.png"
+						<Testimonial
+							name="Bill Franz, Associate UX Director at AXS"
+							portrait="/images/portrait-bill.jpeg"
+							quote="Josh is a thoughtful and creative problem solver. He asks the right questions and gets people engaged and invested to help answer them. I’d jump at the chance to collaborate with him again."
 						/>
-						<Card
-							href="/work/ribbon-case-study.html"
-							title="Legalzoom business formation product launch"
-							img="/images/block-ribbon.png"
+						<Testimonial
+							name="Evan Geerlings, Sr Director of Product at LegalZoom"
+							portrait="/images/portrait-evan.jpeg"
+							quote="I always get excited when I get to work with Josh on a project. He brings innovative thinking and a unique ability to solve complex interaction and user experience problems."
 						/>
-						<!--
-						<Card
-							href="/work/jump-rope-nationals-case-study.html"
-							title="Jump Rope Nationals research study"
-							img="/images/block-jumprope.png"
+						<!-- <Testimonial
+							name="Girmant Ragus, Sr Creative Director at LegalZoom"
+							portrait="/images/portrait-girmant.jpeg"
+							quote="Josh is great - period! He's very detail oriented and extremely capable in both UX & visual design disciplines. As a person Josh is dependable, no nonsense and fun - a total pleasure."
 						/>
-						<Card
-							href="/work/oreilly-case-study.html"
-							title="O'Reily enterprise app design"
-							img="/images/block-orly.png"
+						<Testimonial
+							name="JC Casas, UX Design Director at LegalZoom"
+							portrait="/images/portrait-jc.jpeg"
+							quote="Josh strives for excellence and always goes the extra mile. An exceptional thinker and one of the best UX professionals I’ve had the pleasure to work with, Josh would be a great addition to any team."
 						/>  -->
 					</div>
-					<div class="block-content"><p style="text-align:center;"><a href="case-studies.html" class="button">View more case studies</a></p></div>
-
 				</div>
 			</div>
-		</section>
-		<section class="about block outer" id="about">
-			<div class="inner">
-				<div class="block-inside">
-					<div class="block-header">
-						<h2 class="block-title line-top">About</h2>
-					</div>
-				</div>
-				<div class="post-thumbnail">
-					<img src="images/ribbon-portraits.png" />
-				</div>
-
-				<div
-					class="post-content inner-small"
-					style="margin-bottom:64px;margin-top:64px;"
-				>
-					<h3>I design meaningful products that have real impact.</h3>
-					<p>
-						For over 10 years I've had the privilege to serve tens
-						of millions of users, collaborating with diverse
-						cross-functional teams and executive leadership to
-						identify and solve complex problems. I’ve led design
-						initiatives for top brands like Indeed, AXS, and
-						LegalZoom, and thrive at the intersection of business and
-						design.
-					</p>
-					<p>
-						As an instructor and the Assistant Managing Director at the
-						<a href="http://ac4d.com" target="_blank">Austin Center for Design (AC4D)</a>, I strive to empower the next
-						generation of designers to tackle complex societal
-						challenges with creativity and autonomy. Additionally, I serve on
-						the <a href="https://sopa.tulane.edu/about-sopa/advisory-boards/media-design-advisory-board" target="_blank">Media &amp; Design Advisory Board</a> for Tulane University's School of Professional Advancement, 
-						helping to refine and shape a design curriculum that meets
-						the constantly evolving needs of the field.
-					</p>
-					<p><strong>Let's build something!</strong></p>
-					<div class="logos-outer">
-					<div class="logos-container">
-						<div class="logo"><img src="images/logo-indeed.png" /></div>
-						<div class="logo"><img src="images/logo-ac4d.png" /></div>
-						<div class="logo"><img src="images/logo-legalzoom.png" /></div>
-						<div class="logo"><img src="images/logo-axs.png" /></div>
-					</div>
-					<div class="logos-container">
-						<div class="logo"><img src="images/logo-cerebral.png" /></div>
-						<div class="logo"><img src="images/logo-make.png" /></div>
-						<div class="logo"><img src="images/logo-orly.png" /></div>
-						<div class="logo"><img src="images/logo-forthright.png" /></div>
-						<div class="logo"><img src="images/logo-tulane-sopa.png" /></div>
-					</div>
-				</div>
-				</div>
-
-
-			</div>
-		</section>
-		<section id="testimonials" class="block testimonials-block outer">
-			<div class="inner">
-				<div class="block-inside">
-					<div class="block-header">
-						<h2 class="block-title line-top">Kind words</h2>
-					</div><!-- .block-header -->
-
-					<div class="block-content">
-						<div class="testimonials-list">
-							<Testimonial
-								name="Christine Catsifas, UX Director at Indeed"
-								portrait="/images/portrait-christine.jpeg"
-								quote="Josh is a design leader who has significantly enhanced our team dynamics. His ability to quickly adapt and contribute effectively has been a catalyst for the success of multiple design efforts."
-							/>
-							<Testimonial
-								name="Louis Elfman, Head of Design at Cerebral"
-								portrait="/images/portrait-louis.jpeg"
-								quote="It was with supreme confidence that I tapped Josh to run my initial research program at Cerebral. It had to both serve as a template and convince critical leadership, and as usual he delivered top shelf work."
-							/>
-							<Testimonial
-								name="Bill Franz, Associate UX Director at AXS"
-								portrait="/images/portrait-bill.jpeg"
-								quote="Josh is a thoughtful and creative problem solver. He asks the right questions and gets people engaged and invested to help answer them. I’d jump at the chance to collaborate with him again."
-							/>
-							<Testimonial
-								name="Evan Geerlings, Sr Director of Product at LegalZoom"
-								portrait="/images/portrait-evan.jpeg"
-								quote="I always get excited when I get to work with Josh on a project. He brings innovative thinking and a unique ability to solve complex interaction and user experience problems."
-							/>
-							<!-- <Testimonial
-								name="Girmant Ragus, Sr Creative Director at LegalZoom"
-								portrait="/images/portrait-girmant.jpeg"
-								quote="Josh is great - period! He's very detail oriented and extremely capable in both UX & visual design disciplines. As a person Josh is dependable, no nonsense and fun - a total pleasure."
-							/>
-							<Testimonial
-								name="JC Casas, UX Design Director at LegalZoom"
-								portrait="/images/portrait-jc.jpeg"
-								quote="Josh strives for excellence and always goes the extra mile. An exceptional thinker and one of the best UX professionals I’ve had the pleasure to work with, Josh would be a great addition to any team."
-							/>  -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</main>
+		</div>
+	</section>
 </Layout><!-- .site -->

@@ -1,9 +1,18 @@
 ---
+// Import components
+import NavBar from '../components/Navbar.astro';
+
 interface Props {
 	title: string;
+    currentNav?: string;
 }
 
-const { title } = Astro.props;
+// Import CSS
+import '../styles/reset.css';
+import '../styles/main.css';
+
+const { title, currentNav } = Astro.props;
+
 ---
 
 <!doctype html>
@@ -18,7 +27,6 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,800&display=swap" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Merriweather:900,400' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="/main.css">
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -32,12 +40,15 @@ const { title } = Astro.props;
 		</script>
 	</head>
 	<body>
-		<slot />
+		<NavBar current={currentNav} />
+		<main id="content" class="site-content">
+			<slot />
+		</main>
 		<footer id="colophon" class="site-footer outer">
 			<div class="inner">
 				<div class="site-footer-inside">
 					<p class="site-info">
-						&copy; 2025 Forthright. All rights reserved. &nbsp;
+						&copy; {new Date().getFullYear()} Forthright. All rights reserved. &nbsp;
 					</p><!-- .site-info -->
 	
 					<ul class="social-links">
@@ -54,6 +65,17 @@ const { title } = Astro.props;
 				</div><!-- .site-footer-inside -->
 			</div><!-- .inner -->
 		</footer><!-- .site-footer -->
+		<script>
+            // If there's a video player on the page, load the MuxPlayer script
+            if (document.querySelector('mux-player')) {
+                const script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/@mux/mux-player";
+                script.defer = true;
+                document.body.appendChild(script);
+            }
+        </script>
 	</body>
-	<script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+	
 </html>
+
+

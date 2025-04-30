@@ -1,0 +1,298 @@
+---
+// Define props for the component
+interface Props {
+  current?: string;
+}
+
+const { current } = Astro.props;
+---
+
+<header id="masthead" class="site-header outer">
+  <div class="inner">
+    <div class="site-header-inside">
+      <div class="site-branding">
+        <h1 class="site-title"><a href="/">josh wright</a></h1>
+      </div>
+
+      <button id="menu-open" class="menu-toggle" aria-label="Open Menu">
+        <span class="icon-menu" aria-hidden="true"></span>
+      </button>
+
+      <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+        <div class="site-nav-inside">
+          <button id="menu-close" class="menu-toggle" aria-label="Close Menu">
+            <span class="icon-close" aria-hidden="true"></span>
+          </button>
+          <ul class="menu">
+            <li class={`menu-item ${current === 'case-studies' ? 'current-menu-item' : ''}`}>
+              <a href="/case-studies.html">Case studies</a>
+            </li>
+            <li class={`menu-item ${current === 'about' ? 'current-menu-item' : ''}`}>
+              <a href="/index.html#about">About</a>
+            </li>
+            <li class={`menu-item ${current === 'testimonials' ? 'current-menu-item' : ''}`}>
+              <a href="/index.html#testimonials">Testimonials</a>
+            </li>
+            <li class="menu-item">
+              <a href="mailto:josh@joshux.com">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    padding-bottom: 1.33333em;
+    padding-top: 1.33333em;
+    background: linear-gradient(to right, #00296b, #00509d);
+    color: #fff;
+  }
+
+  .site-header-inside {
+    display: flex;
+    align-items: center;
+  }
+
+  .site-branding {
+    flex: 0 0 auto;
+  }
+
+  .site-title {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 0;
+    font-family: "Merriweather", serif;
+    text-transform: lowercase;
+  }
+
+  .site-title a {
+    border: 0;
+    color: inherit !important;
+    display: inline-block;
+    padding: 5px 0;
+  }
+
+  .site-navigation {
+    margin-left: auto;
+  }
+
+  .site-navigation .menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-navigation .menu-item {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 0 30px;
+  }
+
+  .site-navigation .menu-item.current-menu-item {
+    color: #f93b6b;
+  }
+
+  #main-navigation a {
+    border: 0;
+    color: inherit;
+  }
+
+  #main-navigation a:hover,
+  #main-navigation a:focus {
+    color: #f93b6b;
+  }
+
+  .menu-toggle {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    display: none;
+    height: 30px;
+    padding: 0;
+    position: relative;
+    width: 30px;
+  }
+
+  .icon-menu,
+  .icon-close {
+    background: currentColor;
+    border-radius: 1px;
+    color: inherit;
+    height: 2px;
+    margin-top: -1px;
+    margin-left: -12px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 30px;
+  }
+
+  .icon-menu:before,
+  .icon-menu:after,
+  .icon-close:before,
+  .icon-close:after {
+    background: currentColor;
+    border-radius: 1px;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .icon-menu:before {
+    top: -8px;
+  }
+
+  .icon-menu:after {
+    bottom: -8px;
+  }
+
+  .icon-close {
+    background: 0;
+    margin-left: -17px;
+    width: 34px;
+  }
+
+  .icon-close:before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .icon-close:after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  @media only screen and (max-width: 800px) {
+    .menu-toggle {
+      display: block;
+      margin-left: auto;
+    }
+
+    .site-navigation {
+      background: #fff;
+      color: #272c30;
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      position: fixed;
+      right: -360px;
+      top: 0;
+      transition: right 0.3s ease, visibility 0.3s;
+      visibility: hidden;
+      width: 360px;
+      z-index: 999;
+    }
+
+    .site-navigation .menu {
+      padding: 4.5rem 4vw 3.33333rem;
+    }
+
+    .site-navigation .menu-item {
+      border-bottom: 1px solid #e8e8e8;
+      display: block;
+      margin: 0;
+    }
+
+    .site-navigation .menu-item:first-child {
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .site-navigation a {
+      display: block;
+      padding: 0.83333rem 0;
+    }
+
+    .site-navigation #menu-close {
+      display: block;
+      position: absolute;
+      right: 4vw;
+      top: 1.33333rem;
+    }
+
+    .site-navigation.is-open {
+      right: 0;
+      visibility: visible;
+    }
+
+    .site-nav-inside {
+      height: 100%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .site-overlay {
+      background: rgba(39, 44, 48, 0.6);
+      content: "";
+      height: 100vh;
+      left: 0;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      transition: opacity 0.15s ease-in-out, visibility 0s ease-in-out 0.15s;
+      visibility: hidden;
+      width: 100%;
+      z-index: 998;
+    }
+
+    .site-overlay.is-visible {
+      opacity: 1;
+      transition-delay: 0s;
+      visibility: visible;
+    }
+  }
+
+  @media only screen and (max-width: 360px) {
+    .site-navigation {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Initialize mobile menu
+  function initMobileMenu() {
+    const menuOpen = document.getElementById('menu-open');
+    const menuClose = document.getElementById('menu-close');
+    const nav = document.getElementById('main-navigation');
+    const siteHeader = document.getElementById('masthead');
+    
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'site-overlay';
+    document.body.appendChild(overlay);
+    
+    if (menuOpen) {
+      menuOpen.addEventListener('click', function() {
+        nav.classList.add('is-open');
+        overlay.classList.add('is-visible');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+    
+    if (menuClose) {
+      menuClose.addEventListener('click', function() {
+        nav.classList.remove('is-open');
+        overlay.classList.remove('is-visible');
+        document.body.style.overflow = '';
+      });
+    }
+    
+    overlay.addEventListener('click', function() {
+      nav.classList.remove('is-open');
+      overlay.classList.remove('is-visible');
+      document.body.style.overflow = '';
+    });
+  }
+  
+  // Run after the DOM is loaded
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
+</script>
