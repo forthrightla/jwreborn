@@ -1,0 +1,32 @@
+---
+// src/components/Video.astro
+interface Props {
+  playbackId: string;
+  title?: string;
+  accentColor?: string;
+}
+
+const { 
+  playbackId, 
+  title = "Video", 
+  accentColor = "#FF0000" 
+} = Astro.props;
+---
+
+<div class="video-container">
+  <mux-player
+    playback-id={playbackId}
+    metadata-video-title={title}
+    accent-color={accentColor}
+  ></mux-player>
+</div>
+
+<script>
+  // Dynamically load the Mux Player script when the component is used
+  if (document.querySelector('mux-player')) {
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/@mux/mux-player";
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+</script>
