@@ -177,9 +177,9 @@
     background: linear-gradient(to right, #00296b, #00509d);
     color: #fcfdfd;
     margin-bottom: 2.33333em;
-    padding-bottom: 0 !important;
+    padding-bottom: 25px !important;
     padding-top: 0 !important;
-    min-height: 300px;
+    min-height: 240px;
     display: flex;
     align-items: center;
   }
@@ -292,8 +292,8 @@
   
   /* Block styles */
   .block {
-    padding-bottom: 3.33333em;
-    padding-top: 3.33333em;
+    padding-bottom: 3.3em;
+    padding-top: 3.3em;
   }
   
   .block:not(.contact-block) + .block:not(.contact-block) {
@@ -476,7 +476,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin: 0 auto 20px;
+    margin: 0 auto 3.3em;
   }
   
   .logo {
@@ -752,8 +752,8 @@
     }
     
     .block {
-      padding-bottom: 5em;
-      padding-top: 5em;
+      padding-bottom: 2em;
+      padding-top: 2em;
     }
   
     .block-inside {
