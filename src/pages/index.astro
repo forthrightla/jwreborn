@@ -6,11 +6,28 @@ import Testimonial from "../components/Testimonial.astro";
 import Skill from "../components/Skill.astro";
 import { getCollection } from "astro:content";
 
-// Get featured case studies
+// Define the specific order by slug for homepage showcase
+const homepageCaseStudies = [
+  'indeed-ai-case-study',
+  'cerebral-case-study',
+  'ribbon-legalzoom-case-study',
+  'makerspace-case-study',
+  // Add other slugs in the desired order
+];
+
+// Get all case studies
 const allCaseStudies = await getCollection("case-studies");
-const featuredCaseStudies = allCaseStudies
-  .filter(study => study.data.featured)
-  .slice(0, 4); // Limit to first 4 featured studies
+
+// Create a map of case studies by slug for quick lookup
+const caseStudiesBySlug = Object.fromEntries(
+  allCaseStudies.map(study => [study.slug, study])
+);
+
+// Get case studies in the specified order
+const featuredCaseStudies = homepageCaseStudies
+  .map(slug => caseStudiesBySlug[slug])
+  .filter(study => study) // Filter out any that don't exist
+  .slice(0, 4);
 ---
 
 <Layout title="Josh Wright - UX Designer, Product Strategist, Educator">
