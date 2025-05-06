@@ -23,3 +23,40 @@ const { name, portrait, quote } = Astro.props;
 		</cite>
 	</footer>
 </blockquote>
+
+
+<style>
+	
+	@media only screen and (max-width: 767px) {
+	  .testimonial {
+		background-color: #f9f9f9;
+		border-radius: 12px;
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+	  }
+	  
+	  .testimonial-text {
+		padding-top: 1.5rem;
+		font-size: 1rem;
+		line-height: 1.5;
+	  }
+	  
+	  .testimonial-text:before {
+		font-size: 2.5rem;
+	  }
+	  
+	  .testimonial-footer {
+		margin-bottom: 0;
+	  }
+	  
+	  .testimonial-avatar {
+		height: 50px;
+		width: 50px;
+	  }
+	  
+	  .testimonial-author {
+		font-size: 0.9rem;
+	  }
+	}
+  </style>

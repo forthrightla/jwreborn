@@ -54,4 +54,37 @@ const {
 		justify-content: center;
 		color: #000;
 	}
+  
+  @media only screen and (max-width: 767px) {
+    .post-link {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .post-link:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .post-thumbnail {
+      margin-bottom: 0;
+    }
+    
+    .post-header {
+      padding: 0.75rem 1rem;
+    }
+    
+    .post-title {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    .thumbnail {
+      border-radius: 12px 12px 0 0;
+    }
+  }
+
 </style>
