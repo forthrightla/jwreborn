@@ -21,3 +21,4 @@ const caseStudiesCollection = defineCollection({
 export const collections = {
   'case-studies': caseStudiesCollection,
 };
+
