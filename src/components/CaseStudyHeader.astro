@@ -1,0 +1,115 @@
+---
+
+interface Props {
+  title: string;
+  subtitle: string;
+  bannerImage: string;
+  overview?: string;
+  quote?: {
+    text: string;
+    author?: string;
+  };
+}
+
+const { title, subtitle, bannerImage, overview, quote } = Astro.props;
+---
+
+<section class="case-study-header">
+  <div class="header-content">
+    <div class="header-text">
+      <h1>{title}</h1>
+      <p class="subtitle">{subtitle}</p>
+      
+      {overview && <p class="overview">{overview}</p>}
+      
+      {quote && (
+        <blockquote class="header-quote">
+          <p>"{quote.text}"</p>
+          {quote.author && <cite>— {quote.author}</cite>}
+        </blockquote>
+      )}
+    </div>
+    
+    <div class="header-image">
+      <img src={bannerImage} alt={`${title} case study banner`} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-study-header {
+    padding: 2rem 0;
+    background: linear-gradient(to right, #00296b, #00509d);
+    color: white;
+  }
+  
+  .header-content {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 2rem 4vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  .header-text h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  .subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+  
+  .overview {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .header-quote {
+    border-left: 3px solid #f93b6b;
+    padding-left: 1.5rem;
+    font-style: italic;
+    margin: 2rem 0;
+  }
+  
+  .header-quote p {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header-quote cite {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+  
+  .header-image img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .header-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .header-text {
+      order: 1;
+    }
+    
+    .header-image {
+      order: 0;
+    }
+    
+    .header-text h1 {
+      font-size: 2.2rem;
+    }
+  }
+</style>

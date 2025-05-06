@@ -1,8 +1,19 @@
 ---
-// src/pages/work/[slug].astro
+// src/pages/work/[slug].astro - the final template
 import { getCollection, getEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
+
+// Import streamlined components
+import CaseStudyHeader from '../../components/CaseStudyHeader.astro';
+import ContentSection from '../../components/ContentSection.astro';
+
+// Import layouts
+import TwoColumnLayout from '../../components/layouts/TwoColumnLayout.astro';
+import ImageGrid from '../../components/layouts/ImageGrid.astro';
+import OutcomeGrid from '../../components/layouts/OutcomeGrid.astro';
+import QuoteGrid from '../../components/layouts/QuoteGrid.astro';
+import ProcessSteps from '../../components/layouts/ProcessSteps.astro';
 
 // Generate static paths for all case studies
 export async function getStaticPaths() {
@@ -25,47 +36,138 @@ const randomCaseStudies = otherCaseStudies
 
 // Check if this case study requires a password
 const isPasswordProtected = !!entry.data.password;
+
+// Check if the case study has the enhanced structure
+const hasEnhancedStructure = !!(
+  entry.data.sections ||
+  entry.data.enhancedOutcomes
+);
 ---
 
 <Layout title={`Josh Wright - ${entry.data.title}`} currentNav="case-studies">
-  
   <main id="content" class="site-content">
     <div class="outer">
       <div class="inner">
-        <article class="post project post-full">
-          <header class="post-header inner-small">
-            <h1 class="post-title line-top">{entry.data.title}</h1>
+        {isPasswordProtected ? (
+          <article class="post project post-full">
+            <header class="post-header inner-small">
+              <h1 class="post-title line-top">{entry.data.title}</h1>
+              <div class="post-subtitle">{entry.data.subtitle}</div>
+            </header>
 
-            <div class="post-subtitle">
-              {entry.data.subtitle}
-            </div>
-          </header>
+            {entry.data.banner && (
+              <div class="post-thumbnail">
+                <img
+                  src={entry.data.banner}
+                  alt={entry.data.title}
+                />
+              </div>
+            )}
 
-          {entry.data.banner && (
-            <div class="post-thumbnail">
-              <img
-                src={entry.data.banner}
-                alt={entry.data.title}
-                transition:name={`project-image-${entry.slug}`}
-              />
-            </div>
-          )}
-
-          <div class="post-content inner-small">
-            {isPasswordProtected ? (
+            <div class="post-content inner-small">
               <div>
                 <h3>Password required</h3>
                 <p>
                   This case study requires a password to view. Please feel free to <a href="mailto:josh@joshuajwright.com">reach out</a> if you'd like the password or to chat further about my work or <a href="/case-studies.html">check out my other case studies</a>.
                 </p>
               </div>
-            ) : (
-              <Content />
+            </div>
+          </article>
+        ) : hasEnhancedStructure ? (
+          // Enhanced structure using flexible components
+          <>
+            <CaseStudyHeader
+              title={entry.data.title}
+              subtitle={entry.data.subtitle}
+              bannerImage={entry.data.banner || ''}
+              overview={entry.data.overview}
+              quote={entry.data.quote}
+            />
+            
+            {/* Display enhanced outcomes if available */}
+            {entry.data.enhancedOutcomes && (
+              <ContentSection title="Outcomes" variant="alternate">
+                <OutcomeGrid outcomes={entry.data.enhancedOutcomes} />
+              </ContentSection>
             )}
-          </div>
-        </article>
+            
+            {/* Render each custom section based on its content type */}
+            {entry.data.sections && entry.data.sections.map((section, index) => (
+              <ContentSection 
+                title={section.title} 
+                variant={section.variant} 
+                hasDivider={index < entry.data.sections.length - 1}
+              >
+                {/* If section has image and no special content, use two column layout */}
+                {section.image && !section.userQuotes && !section.processSteps && !section.images && !section.testimonial ? (
+                  <TwoColumnLayout imageUrl={section.image}>
+                    <div set:html={section.content} />
+                  </TwoColumnLayout>
+                ) : (
+                  <>
+                    {/* Render standard content */}
+                    {section.content && <div set:html={section.content} />}
+                    
+                    {/* Render user quotes if present */}
+                    {section.userQuotes && (
+                      <QuoteGrid quotes={section.userQuotes} />
+                    )}
+                    
+                    {/* Render process steps if present */}
+                    {section.processSteps && (
+                      <ProcessSteps steps={section.processSteps} />
+                    )}
+                    
+                    {/* Render image grid if present */}
+                    {section.images && (
+                      <ImageGrid images={section.images} columns={3} />
+                    )}
+                    
+                    {/* Render testimonial if present */}
+                    {section.testimonial && (
+                      <div class="testimonial-wrapper">
+                        <blockquote class="case-testimonial">
+                          <p>"{section.testimonial.quote}"</p>
+                          <footer>
+                            <img src={section.testimonial.avatar} alt={section.testimonial.name} />
+                            <cite>
+                              <strong>{section.testimonial.name}</strong>
+                              {section.testimonial.role && <span>{section.testimonial.role}</span>}
+                            </cite>
+                          </footer>
+                        </blockquote>
+                      </div>
+                    )}
+                  </>
+                )}
+              </ContentSection>
+            ))}
+          </>
+        ) : (
+          // Default rendering for other case studies
+          <article class="post project post-full">
+            <header class="post-header inner-small">
+              <h1 class="post-title line-top">{entry.data.title}</h1>
+              <div class="post-subtitle">{entry.data.subtitle}</div>
+            </header>
 
-        {entry.data.outcomes && (
+            {entry.data.banner && (
+              <div class="post-thumbnail">
+                <img
+                  src={entry.data.banner}
+                  alt={entry.data.title}
+                />
+              </div>
+            )}
+
+            <div class="post-content inner-small">
+              <Content />
+            </div>
+          </article>
+        )}
+        
+        {/* Show legacy outcomes only if not using enhanced structure */}
+        {entry.data.outcomes && !hasEnhancedStructure && (
           <section class="outcomes block outer">
             <div class="inner">
               <div class="block-inside">
@@ -109,3 +211,68 @@ const isPasswordProtected = !!entry.data.password;
     </div>
   </main>
 </Layout>
+
+<style>
+  .testimonial-wrapper {
+    margin: 2rem auto;
+    max-width: 800px;
+  }
+  
+  .case-testimonial {
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    position: relative;
+    border-left: 4px solid #f93b6b;
+    margin: 0;
+  }
+  
+  .case-testimonial:before {
+    content: '"';
+    font-size: 5rem;
+    color: rgba(249, 59, 107, 0.2);
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-family: Georgia, serif;
+  }
+  
+  .case-testimonial p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    color: #49535a;
+    margin-bottom: 1.5rem;
+  }
+  
+  .case-testimonial footer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .case-testimonial img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .case-testimonial cite {
+    display: flex;
+    flex-direction: column;
+    font-style: normal;
+  }
+  
+  .case-testimonial strong {
+    font-size: 1.1rem;
+    color: #00296b;
+  }
+  
+  .case-testimonial span {
+    font-size: 0.9rem;
+    color: #777;
+  }
+</style>

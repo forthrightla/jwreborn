@@ -1,0 +1,66 @@
+---
+interface Props {
+  imagePosition?: 'left' | 'right';
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+const { 
+  imagePosition = 'right', 
+  imageUrl, 
+  imageAlt = 'Case study image' 
+} = Astro.props;
+
+const reverseClass = imagePosition === 'left' ? 'reverse' : '';
+---
+
+<div class={`two-column-layout ${reverseClass}`}>
+  <div class="content-column">
+    <slot />
+  </div>
+  
+  {imageUrl && (
+    <div class="image-column">
+      <img src={imageUrl} alt={imageAlt} />
+    </div>
+  )}
+</div>
+
+<style>
+  .two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .two-column-layout.reverse {
+    direction: rtl;
+  }
+  
+  .two-column-layout.reverse .content-column,
+  .two-column-layout.reverse .image-column {
+    direction: ltr;
+  }
+  
+  .image-column img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .two-column-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .two-column-layout.reverse {
+      direction: ltr;
+    }
+    
+    .image-column {
+      margin-bottom: 2rem;
+    }
+  }
+</style>

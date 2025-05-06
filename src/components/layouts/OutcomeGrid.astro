@@ -1,0 +1,45 @@
+---
+import OutcomeCard from '../OutcomeCard.astro';
+
+interface Outcome {
+  stat: string;
+  description: string;
+  colorClass?: 'primary' | 'secondary' | 'accent';
+  icon?: string;
+}
+
+interface Props {
+  outcomes: Outcome[];
+}
+
+const { outcomes } = Astro.props;
+
+// Default colors if none specified
+const defaultColors = ['primary', 'secondary', 'accent'];
+---
+
+<div class="outcome-grid">
+  {outcomes.map((outcome, index) => (
+    <OutcomeCard
+      stat={outcome.stat}
+      description={outcome.description}
+      colorClass={outcome.colorClass || defaultColors[index % defaultColors.length]}
+      icon={outcome.icon}
+    />
+  ))}
+</div>
+
+<style>
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    .outcome-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

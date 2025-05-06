@@ -1,0 +1,98 @@
+---
+interface Quote {
+  name: string;
+  avatar: string;
+  quote: string;
+  role?: string;
+}
+
+interface Props {
+  quotes: Quote[];
+  columns?: 1 | 2;
+}
+
+const { quotes, columns = 2 } = Astro.props;
+---
+
+<div class={`quote-grid columns-${columns}`}>
+  {quotes.map(quote => (
+    <div class="quote-card">
+      <div class="quote-avatar">
+        <img src={quote.avatar} alt={quote.name} />
+      </div>
+      <div class="quote-content">
+        <h3>{quote.name}</h3>
+        {quote.role && <p class="quote-role">{quote.role}</p>}
+        <blockquote>
+          "{quote.quote}"
+        </blockquote>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .quote-grid {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .columns-1 {
+    grid-template-columns: 1fr;
+  }
+  
+  .columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quote-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .quote-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .quote-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .quote-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+    color: #00296b;
+  }
+  
+  .quote-role {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  .quote-content blockquote {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: #49535a;
+    border-left: 3px solid #f93b6b;
+    padding-left: 1rem;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .columns-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
