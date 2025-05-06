@@ -6,7 +6,7 @@
  html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    font-family: "Work Sans", sans-serif;
+    font-family: "Funnel Sans", sans-serif;
     font-size: 120%;
     height: 100%;
     min-height: 100%;
@@ -235,11 +235,11 @@
   h4,
   h5,
   h6 {
-    font-weight: bold;
+    font-weight: 700;
     line-height: 1.2;
     margin: 2.5rem 0 0.83333rem;
     text-rendering: optimizeLegibility;
-    font-family: "Merriweather", serif;
+    font-family: "IBM Plex Serif", serif;
   }
   
   h1:first-child,
