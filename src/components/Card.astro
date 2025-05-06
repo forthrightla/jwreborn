@@ -3,9 +3,15 @@ interface Props {
 	title: string;
 	href: string;
 	img: string;
+	isPasswordProtected?: boolean;
 }
 
-const { href, title, img } = Astro.props;
+const { 
+	href, 
+	title, 
+	img, 
+	isPasswordProtected = false
+} = Astro.props;
 ---
 
 
@@ -17,7 +23,13 @@ const { href, title, img } = Astro.props;
 				src={img}
 				alt={title}
 			/>
-		</div>
+			{isPasswordProtected && (
+				<div class="lock-icon">	
+					<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-5.0 -10.0 110.0 135.0">
+ 						<path d="m76.562 45.312v-10.938c0-14.648-11.914-26.562-26.562-26.562s-26.562 11.914-26.562 26.562v10.938c-4.3086 0-7.8125 3.5039-7.8125 7.8125v31.25c0 4.3086 3.5039 7.8125 7.8125 7.8125h53.125c4.3086 0 7.8125-3.5039 7.8125-7.8125v-31.25c0-4.3086-3.5039-7.8125-7.8125-7.8125zm-21.203 35.938h-10.715l1.8008-11.695c-2.1328-1.2344-3.5859-3.5156-3.5859-6.1602 0-3.9453 3.1992-7.1406 7.1406-7.1406 3.9453 0 7.1406 3.1992 7.1406 7.1406 0 2.6406-1.4531 4.9219-3.5859 6.1602l1.8008 11.695zm10.266-35.938h-31.25v-10.938c0-8.6172 7.0078-15.625 15.625-15.625s15.625 7.0078 15.625 15.625z"/>
+					</svg>
+				</div>
+			)}
 		<header class="post-header">
 			<h3 class="post-title">
 				{title}
@@ -25,3 +37,21 @@ const { href, title, img } = Astro.props;
 		</header>
 	</a>
 </article>
+
+<style>
+	.post-thumbnail {
+		position: relative;
+	}
+	
+	.lock-icon {
+		position: absolute;
+		bottom: 12px;
+		right: 12px;
+		width: 45px;
+		height: 45px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #000;
+	}
+</style>

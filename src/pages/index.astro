@@ -101,6 +101,7 @@ const featuredCaseStudies = homepageCaseStudies
               href={`/work/${study.slug}`}
               title={study.data.title}
               img={study.data.thumbnail}
+              isPasswordProtected={!!study.data.password}
             />
           ))}
         </div>
