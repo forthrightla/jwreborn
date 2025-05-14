@@ -50,10 +50,13 @@
  * ----------------------------------------------------------------------------
  */
 .site-header {
-  padding-bottom: 1.33333em;
-  padding-top: 1.33333em;
+  padding: 1.33333em 0;
   background: linear-gradient(to right, #00296b, #00509d);
   color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease, border-bottom 0.3s ease;
 }
 
 .site-header-inside {
@@ -68,12 +71,12 @@
 .site-title {
   color: #f9eafa;
   font-size: 1.3rem;
-  font-weight: 100;
+  font-weight: 800;
   line-height: 1.2;
   margin: 0;
   font-family: "Funnel Sans", sans-serif;
-  text-transform: lowercase;
-  letter-spacing: -0.9px;
+  
+  letter-spacing: -0.4px;
 }
 
 .site-title strong {
