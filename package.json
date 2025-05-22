@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.2.6",
     "@astrojs/sitemap": "^3.3.1",
-    "astro": "^5.7.2"
+    "astro": "^5.7.2",
+    "decap-cms-app": "^3.6.3"
   }
 }

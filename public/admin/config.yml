@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main # or your default branch
+
+# Uncomment below for local development
+# local_backend: true
+
+media_folder: "public/images" # Where media files will be stored
+public_folder: "/images" # Where the media files can be accessed from the server
+
+collections:
+  - name: "case-studies"
+    label: "Case Studies"
+    folder: "src/content/case-studies"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: true }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: true }
+      - { label: "Banner", name: "banner", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: true }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Password", name: "password", widget: "string", required: false, hint: "Leave empty for public case studies" }
+      - label: "Outcomes"
+        name: "outcomes"
+        widget: "list"
+        required: false
+        field: { label: "Outcome", name: "outcome", widget: "string" }
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        required: true
