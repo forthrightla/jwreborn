@@ -13,6 +13,7 @@ outcomes: [
 ---
 
 import Video from '../../components/Video.astro';
+import Table from '../../components/Table.astro';
 
 ## Background
 
@@ -24,15 +25,129 @@ Despite its reach, the app and ticketing functionality hadn't meaningfully chang
 
 ### My role
 
-- **UX & product strategy:** Led UX discovery, design strategy, and end-to-end UX design. Collaborated closely with two visual designers, offering feedback and support while aligning with the overall vision. Stepped into a product leadership role in the absence of a PM, driving stakeholder engagement and shaping the overall product direction.
+**UX & product strategy**  
+Led UX discovery, design strategy, and end-to-end UX design. Collaborated closely with two visual designers, offering feedback and support while aligning with the overall vision. Stepped into a product leadership role in the absence of a PM, driving stakeholder engagement and shaping the overall product direction.
 
-- **Lean research:** Initiated and led both qualitative and quantitative research efforts with minimal resources, collaborating with two UX peers to uncover insights that directly shaped design decisions and product priorities.
+**Lean research**  
+Initiated and led both qualitative and quantitative research efforts with minimal resources, collaborating with two UX peers to uncover insights that directly shaped design decisions and product priorities.
 
-- **Engineering partner:** Worked closely with engineers to keep development on track and ensure the final product matched the designs in functionality, visual detail, and animation.
+**Engineering partner**  
+Worked closely with engineers to keep development on track and ensure the final product matched the designs in functionality, visual detail, and animation.
+
+## The challenge
+
+The AXS Mobile ID (a QR code for event entry) was confusing users. Customer service flagged it as a top support issue. Meanwhile, stakeholders wanted the Mobile ID shown automatically 100% of the time.
+
+**The core question:** How do we make this feature intuitive for millions of users while building for future functionality?
+
+## Discovery process
+
+### Research questions
+
+I focused on three areas:
+1. How do other apps use QR codes?
+2. Do users understand "Mobile ID"?
+3. Where should the Mobile ID live?
+
+### Competitive analysis
+
+I analyzed 13 apps across different categories:
+
+<Table
+  headers={['Category', 'Apps', 'QR Code Placement', 'Context Provided', 'Taps to QR Code']}
+  data={[
+    ['Events', 'Ticketmaster, Seatgeek, Vividseats', 'Tied to tickets', 'Context at each step', '2'],
+    ['Rewards', 'Starbucks, Chipotle', 'Front and center', 'Minimal', '0-1'],
+    ['Payments', 'Venmo, PayPal', 'Multiple locations', 'Clear labels ("Get Paid")', '2']
+  ]}
+/>
+
+**Key insight:** Similar apps require 2 taps to QR codes, providing context at each step.
+
+### User testing round 1
+
+**Setup:** 40 participants, 2 test variations
+
+<Table
+  headers={['Variation', 'User Behavior', 'Success Rate', 'Key Quote']}
+  data={[
+    ['Button labeled "Mobile ID"', 'Clicked event card instead', 'Low', '"Mobile ID means nothing"'],
+    ['Unlabeled QR code', 'Associated code with tickets but confused by multiple uses', 'Medium', '"I had no idea where to click"']
+  ]}
+  variant="compact"
+/>
+
+**Takeaways:**
+- "Mobile ID" as a term was not understood by participants
+- Using a QR code for multiple purposes was confusing
+- Familiar patterns matter under stress
+
+### User testing round 2
+
+**New hypothesis:** Context before code reduces friction
+
+<Table
+  headers={['Test', 'Approach', 'Success Rate', 'User Feedback']}
+  data={[
+    ['C', '"Entry Pass" with context', '90%', '"It looks like a barcode which I would assume would be scanned"'],
+    ['D', '"Mobile ID" with context', 'Low', '"Mobile ID rather than Ticket(s) made me think twice"']
+  ]}
+  variant="compact"
+/>
+
+## The solution
+
+### Design principle: Context before code
+
+Most users download the app right before events (high stress moment). Instead of teaching "Mobile ID," we provide clear context for each use.
+
+**The framework:**
+1. User starts action (view tickets, pay, etc.)
+2. Clear label explains the QR code purpose
+3. Mobile ID appears with context
+
+This scales for future features like mobile ordering while reducing cognitive load.
 
 ### Streamlined event entry on day of event
 
 ![Two taps to enter an event](/images/case-studies/axs-dayof-entry.png)
+
+## Impact
+
+**By the numbers:**
+
+<Table
+  headers={['Metric', 'Result']}
+  data={[
+    ['Event entry success rate', '+68%'],
+    ['App-based ticket revenue', '+13%'],
+    ['iOS App Store rating', '4.7 stars (361K reviews)']
+  ]}
+  variant="striped"
+/>
+
+**Beyond metrics:**
+- Fewer customer service tickets
+- Scalable patterns for new features
+- Better experience for 55M+ users
+
+## Key learnings
+
+**Users don't learn under pressure**  
+Design for existing mental models, especially during stressful moments like event entry.
+
+**Context beats education**  
+Don't teach terminology. Show features when users already understand why they need them.
+
+**One code, one purpose**  
+Multi-purpose QR codes confuse users regardless of labeling.
+
+**Patterns matter**  
+Users bring expectations from other apps. Work with them, not against them.
+
+## Reflection
+
+This project showed why challenging internal assumptions matters. Stakeholders thought "Mobile ID" was self-explanatory. Testing proved otherwise. By focusing on user mental models over internal terminology, we built something that actually works for people.
 
 ### Press
 
