@@ -50,7 +50,7 @@
  * ----------------------------------------------------------------------------
  */
 .site-header {
-  padding: 1.33333em 0;
+  padding: 1.33333em 1.33333em;
   background: linear-gradient(to right, #00296b, #00509d);
   color: #fff;
   position: sticky;
@@ -232,7 +232,7 @@
 }
 
 .post-header {
-  margin-bottom: 2.5em;
+  margin-bottom: 1.5em;
   padding-top: 2em;
 }
 
@@ -265,7 +265,7 @@
   font-size: 1.33333rem;
   line-height: 1.5;
   margin-top: 1em;
-  margin-bottom: 2em;
+  margin-bottom: 0;
 }
 
 .post-thumbnail {
@@ -481,7 +481,6 @@
 
 .post-thumbnail {
   position: relative;
-  margin-bottom: 0;
 }
 
 .lock-icon {
@@ -1652,7 +1651,6 @@ mux-player {
   }
   
   .expertise .skill {
-    width: 80%;
     margin: 0 auto 3rem;
     text-align: center;
   }
