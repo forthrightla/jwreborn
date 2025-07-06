@@ -1,18 +1,18 @@
 ---
 
 interface Props {
-  title: string;
+  goal: string;
   responsibilities: string;
   duration: string;
 }
 
-const { title, responsibilities, duration } = Astro.props;
+const { goal, responsibilities, duration } = Astro.props;
 ---
 
 <div class="project-details">
     <div class="detail-item">
-      <span class="detail-label">TITLE</span>
-      <span class="detail-value">{title}</span>
+      <span class="detail-label">GOAL</span>
+      <span class="detail-value">{goal}</span>
     </div>
   <div class="detail-item">
     <span class="detail-label">RESPONSIBILITIES</span>

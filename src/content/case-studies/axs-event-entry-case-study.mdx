@@ -28,7 +28,7 @@ import ProjectDetails from '../../components/ProjectDetails.astro';
 
 
 <ProjectDetails 
-title="Senior UX Designer"
+goal="Reduce event entry friction, increase customer understanding"
 responsibilities="UX design, customer research, product strategy"
 duration="6 months"
 />
@@ -61,21 +61,23 @@ I led a research-driven redesign of the AXS mobile app, focusing on clarifying t
 
 ## Background
 
-
-### My role
-
-I led UX discovery and product strategy, collaborating closely with visual designers to ensure alignment and consistency, and stepped into a product leadership role when we didn't have a dedicated PM. With limited resources, I drove lean qualitative and quantitative research alongside UX peers to uncover insights that informed our design decisions and product priorities. Throughout the process, I partnered closely with engineers, ensuring the final product matched our vision down to functionality, visual details, and animations.
-
-
 ### The challenge
 
-The AXS Mobile ID (a QR code for event entry) was confusing users. Customer service flagged it as a top support issue. Meanwhile, stakeholders wanted the Mobile ID shown automatically 100% of the time.
+The AXS Mobile ID (a scannable QR code for entering events) was confusing to users, leading to frustration and increased customer support calls. As a stopgap fix, stakeholders decided to automatically show the Mobile ID every time the app was opened, even if users didn’t have tickets. This only deepend user confusion. 
 
-**The core question:** How do we make this feature intuitive for millions of users while building for future functionality?
+The goal of this project was to improve this essential feature -- easily the most important in the app -- so millions of users could easily understand it, while also designing with future improvements in mind.
 
 ![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-promo.png)
 
 ![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-mobileid.gif)
+
+### My role
+
+I led UX discovery and product strategy, collaborating closely with visual designers to ensure alignment and consistency, and stepped into a product leadership role when we lost our dedicated PM early in the project. With limited resources, I drove lean qualitative and quantitative research to uncover insights that informed our design decisions and product priorities. 
+
+Throughout the process, I partnered closely with engineering, ensuring the final product matched our vision down to functionality, visual details, and animations.
+
+
 
 
 ## Discovery 
@@ -85,14 +87,14 @@ The AXS Mobile ID (a QR code for event entry) was confusing users. Customer serv
 <EnhancedOutcomeGrid 
     outcomes={[
       {
-        stat: "",
-        description: "What context is required for users to understand Mobile ID?",
+        stat: "1",
+        description: "What do users need to know to confidently use the AXS Mobile ID?",
         colorClass: "accent"
       },
 
       {
-        stat: "",
-        description: "Do users understand the phrasing Mobile ID?",
+        stat: "2",
+        description: "How can we deliver that understanding with minimal friction?",
         colorClass: "accent"
       }
      
@@ -101,12 +103,6 @@ The AXS Mobile ID (a QR code for event entry) was confusing users. Customer serv
     showStripes={false}
     animateOnScroll={false}
   />
-
-
-I focused on three areas:
-1. How do other apps use QR codes?
-2. Do users understand "Mobile ID"?
-3. Where should the Mobile ID live?
 
 ### Competitive analysis
 
@@ -121,7 +117,7 @@ I analyzed 13 apps across different categories:
   ]}
 />
 
-**Key insight:** Similar apps require 2 taps to QR codes, providing context at each step.
+**Key insight:** Apps always provide context around the functionality of a QR code before displaying it
 
 ### User testing round 1
 
