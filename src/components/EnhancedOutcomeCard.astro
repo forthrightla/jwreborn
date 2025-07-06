@@ -1,22 +1,16 @@
 ---
-
-
 interface Props {
-  stat: string;
+  stat?: string;
   description: string;
   colorClass?: 'primary' | 'secondary' | 'accent';
-  icon?: string;
-  showAccentShape?: boolean;
-  showStripes?: boolean;
+  variant?: 'with-stat' | 'text-only';
 }
 
 const { 
   stat, 
   description, 
   colorClass = 'primary',
-  icon,
-  showAccentShape = true,
-  showStripes = true
+  variant = 'with-stat'
 } = Astro.props;
 
 // Map color classes to actual CSS classes
@@ -25,31 +19,12 @@ const colorMap = {
   secondary: 'card-secondary',
   accent: 'card-accent'
 };
-
-// Default icons for each color type
-const defaultIcons = {
-  primary: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`,
-  secondary: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M17 6H23V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`,
-  accent: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`
-};
-
-const selectedIcon = icon || defaultIcons[colorClass];
 ---
 
-<div class={`enhanced-outcome-card ${colorMap[colorClass]} ${showStripes ? 'with-stripes' : ''}`}>
-  {showAccentShape && <div class="accent-shape"></div>}
-  
-  <div class="outcome-icon" set:html={selectedIcon}></div>
-  
-  <div class="outcome-stat">{stat}</div>
+<div class={`enhanced-outcome-card ${colorMap[colorClass]} ${variant}`}>
+  {variant === 'with-stat' && stat && (
+    <div class="outcome-stat">{stat}</div>
+  )}
   <div class="outcome-description">{description}</div>
 </div>
 
@@ -57,7 +32,7 @@ const selectedIcon = icon || defaultIcons[colorClass];
   .enhanced-outcome-card {
     flex: 1;
     min-width: 250px;
-    padding: 1.5rem 1rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -67,11 +42,15 @@ const selectedIcon = icon || defaultIcons[colorClass];
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
+    border-radius: 8px;
   }
 
+  .enhanced-outcome-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
 
-
-  /* Enhanced color classes with gradients */
+  /* Color variations */
   .card-primary {
     background: linear-gradient(135deg, #d3dde5 0%, #e8eff4 100%);
     color: #272c30;
@@ -87,75 +66,7 @@ const selectedIcon = icon || defaultIcons[colorClass];
     color: white;
   }
 
-  /* Accent shape */
-  .accent-shape {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    top: -75px;
-    right: -75px;
-    opacity: 0.3;
-    transition: all 0.3s ease;
-  }
-
-  .card-primary .accent-shape {
-    background: rgba(0, 41, 107, 0.1);
-  }
-
-  .card-secondary .accent-shape,
-  .card-accent .accent-shape {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .enhanced-outcome-card:hover .accent-shape {
-    transform: scale(1.2);
-    opacity: 0.4;
-  }
-
-  /* Stripes pattern */
-  .enhanced-outcome-card.with-stripes::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 35px,
-        rgba(255, 255, 255, 0.02) 35px,
-        rgba(255, 255, 255, 0.02) 70px
-      );
-    pointer-events: none;
-  }
-
-  /* Icon styles */
-  .outcome-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
-    display:none;
-  }
-
-  .outcome-icon :global(svg) {
-    width: 100%;
-    height: 100%;
-  }
-
-  .card-primary .outcome-icon {
-    color: #00296b;
-  }
-
-  .card-secondary .outcome-icon,
-  .card-accent .outcome-icon {
-    color: white;
-  }
-
+  /* Stat styles */
   .outcome-stat {
     font-size: 2.8rem;
     font-weight: 700;
@@ -170,6 +81,7 @@ const selectedIcon = icon || defaultIcons[colorClass];
     color: #00296b;
   }
 
+  /* Description styles */
   .outcome-description {
     font-size: 1rem;
     line-height: 1.4;
@@ -180,24 +92,32 @@ const selectedIcon = icon || defaultIcons[colorClass];
 
   .card-secondary .outcome-description,
   .card-accent .outcome-description {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Text-only variant adjustments */
+  .enhanced-outcome-card.text-only {
+    min-height: 120px;
+  }
+
+  .enhanced-outcome-card.text-only .outcome-description {
+    font-size: 1.1rem;
+    font-weight: 500;
   }
 
   /* Responsive */
   @media (max-width: 768px) {
     .enhanced-outcome-card {
-      padding: 2rem;
+      padding: 1.5rem 1rem;
+      min-width: auto;
     }
 
     .outcome-stat {
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
 
-    .accent-shape {
-      width: 120px;
-      height: 120px;
-      top: -60px;
-      right: -60px;
+    .outcome-description {
+      font-size: 0.95rem;
     }
   }
 </style>

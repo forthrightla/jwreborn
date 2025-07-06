@@ -1,6 +1,6 @@
 ---
 title: "AXS mobile app redesign"
-subtitle: "Improving the event entry experience for 55 million fans"
+subtitle: "Improving the event entry experience for 55 million fans each year"
 thumbnail: "/images/block-axs.png"
 banner: "/images/case-studies/axs-banner.png"
 tags: ["UX Design", "Product Strategy", "Mobile App"]
@@ -35,29 +35,29 @@ duration="6 months"
 
 The AXS mobile app powers event ticketing experiences for over 55 million people annually across venues and events like Coachella, Firefly Festival, LA Lakers games, O2 London, Red Rocks, and Wembley Stadium.
 
-I led a research-driven redesign of the AXS mobile app. In this case study, I'll focus on the work I did around clarifying the confusing "Mobile ID" entry process. Through rapid prototyping and usability testing, I <strong>improved event entry success by 68% and reduced app-related support calls by 42%</strong>, enhancing the overall experience for millions of fans.
+I led a research-driven redesign of the AXS mobile app. In this case study, I'll focus on the work I did around clarifying the "AXS Mobile ID" entry process. Through rapid prototyping and usability testing, I <strong>improved event entry success by 68% and reduced app-related support calls by 42%</strong>, enhancing the overall experience for millions of fans.
 
 
   
   
-  <EnhancedOutcomeGrid 
-    outcomes={[
-      {
-        stat: "68%",
-        description: "improvement in event entry success rate",
-        colorClass: "primary"
-      },
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "68%",
+      description: "improvement in successful event entry",
+      colorClass: "primary"
+    },
+    {
+      stat: "42%",
+      description: "reduction in app customer support calls",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>
 
-      {
-        stat: "42%",
-        description: "reduction in app-related customer support calls",
-        colorClass: "primary"
-      }
-    ]}
-    showAccentShape={false}
-    showStripes={false}
-    animateOnScroll={false}
-  />
+
 
 ## Background
 
@@ -85,24 +85,21 @@ Throughout the process, I partnered closely with engineering, ensuring the final
 ### Key research questions
 
 <EnhancedOutcomeGrid 
-    outcomes={[
-      {
-        stat: "1",
-        description: "What do users need to know to confidently use the AXS Mobile ID?",
-        colorClass: "accent"
-      },
-
-      {
-        stat: "2",
-        description: "How can we deliver that understanding with minimal friction?",
-        colorClass: "accent"
-      }
-     
-    ]}
-    showAccentShape={false}
-    showStripes={false}
-    animateOnScroll={false}
-  />
+  outcomes={[
+    {
+      description: "What do users need to know to confidently use the AXS Mobile ID?",
+      variant: "text-only",
+      colorClass: "primary"
+    },
+    {
+      description: "How can we deliver that understanding with minimal friction?",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+   
+  ]}
+  columns={2}
+/>
 
 ### Competitive analysis
 
@@ -144,8 +141,8 @@ I analyzed 13 apps across different categories:
 <Table
   headers={['Variation', 'User Behavior', 'Success Rate', 'Key Quote']}
   data={[
-    ['"Entry Pass" with context', 'Womp', 'Very high', '"It looks like a barcode which I would assume would be scanned"'],
-    ['"Mobile ID" with context', 'Womp', 'Low', '"Mobile ID rather than Ticket(s) made me think twice"']
+    ['"Entry Pass" with context', '', 'Very high', '"It looks like a barcode which I would assume would be scanned"'],
+    ['"Mobile ID" with context', '', 'Low', '"Mobile ID rather than Ticket(s) made me think twice"']
   ]}
   variant="compact"
 />
@@ -177,7 +174,11 @@ Most users download the app right before events (high stress moment). Instead of
 
 This scales for future features like mobile ordering while reducing cognitive load.
 
-### Streamlined event entry on day of event
+### Providing additional context to each use of the AXS Mobile ID
+
+
+
+### New feature: "Day of" event entry
 
 ![Two taps to enter an event](/images/case-studies/axs-dayof-entry.png)
 
