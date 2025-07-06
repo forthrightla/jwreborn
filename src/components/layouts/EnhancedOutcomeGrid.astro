@@ -1,0 +1,93 @@
+---
+
+import EnhancedOutcomeCard from '../EnhancedOutcomeCard.astro';
+
+interface Outcome {
+  stat: string;
+  description: string;
+  colorClass?: 'primary' | 'secondary' | 'accent';
+  icon?: string;
+}
+
+interface Props {
+  outcomes: Outcome[];
+  showAccentShape?: boolean;
+  showStripes?: boolean;
+  animateOnScroll?: boolean;
+}
+
+const { 
+  outcomes, 
+  showAccentShape = true,
+  showStripes = true,
+  animateOnScroll = true
+} = Astro.props;
+
+// Default colors if none specified
+const defaultColors = ['primary', 'secondary', 'accent'];
+---
+
+<div class={`enhanced-outcome-grid ${animateOnScroll ? 'animate-on-scroll' : ''}`}>
+  {outcomes.map((outcome, index) => (
+    <div class="outcome-wrapper" data-delay={index}>
+      <EnhancedOutcomeCard
+        stat={outcome.stat}
+        description={outcome.description}
+        colorClass={outcome.colorClass || defaultColors[index % defaultColors.length]}
+        icon={outcome.icon}
+        showAccentShape={showAccentShape}
+        showStripes={showStripes}
+      />
+    </div>
+  ))}
+</div>
+
+<style>
+  .enhanced-outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Animation wrapper */
+  .outcome-wrapper {
+    display: contents;
+  }
+
+  /* Animation on scroll */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-on-scroll .outcome-wrapper > :global(.enhanced-outcome-card) {
+    opacity: 0;
+  }
+
+  .animate-on-scroll .outcome-wrapper[data-delay="0"] > :global(.enhanced-outcome-card) {
+    animation: fadeInUp 0.6s ease 0.1s forwards;
+  }
+
+  .animate-on-scroll .outcome-wrapper[data-delay="1"] > :global(.enhanced-outcome-card) {
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+  }
+
+  .animate-on-scroll .outcome-wrapper[data-delay="2"] > :global(.enhanced-outcome-card) {
+    animation: fadeInUp 0.6s ease 0.3s forwards;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .enhanced-outcome-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

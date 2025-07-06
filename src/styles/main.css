@@ -571,6 +571,221 @@
 }
 
 /**
+ * Table Component
+ * ----------------------------------------------------------------------------
+ */
+.table-wrapper {
+  margin: 2rem 0;
+  overflow-x: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  font-size: 0.95rem;
+}
+
+/* Header styles */
+.modern-table thead tr {
+  background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+}
+
+.modern-table thead th {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  white-space: nowrap;
+}
+
+.modern-table thead th:first-child {
+  border-top-left-radius: 16px;
+}
+
+.modern-table thead th:last-child {
+  border-top-right-radius: 16px;
+}
+
+/* Add subtle separator between header columns */
+.modern-table thead th:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Body styles */
+.modern-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.modern-table tbody tr:hover {
+  background-color: #f9f9fb;
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.modern-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.modern-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 16px;
+}
+
+.modern-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.modern-table tbody td {
+  padding: 1.25rem 1.5rem;
+  color: #49535a;
+  line-height: 1.5;
+}
+
+/* First column emphasis */
+.modern-table tbody td.first-col {
+  font-weight: 600;
+  color: #00296b;
+  position: relative;
+  background: white;
+  z-index: 2;
+}
+
+/* Add accent bar to first column on hover */
+.modern-table tbody tr:hover td.first-col::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #f93b6b;
+}
+
+/* Compact variant */
+.table-wrapper.compact .modern-table thead th,
+.table-wrapper.compact .modern-table tbody td {
+  padding: 0.875rem 1.25rem;
+}
+
+/* Striped variant */
+.table-wrapper.striped .modern-table tbody tr:nth-child(even) {
+  background-color: #f9f9fb;
+}
+
+.table-wrapper.striped .modern-table tbody tr:nth-child(even):hover {
+  background-color: #f0f0f2;
+}
+
+/* Last column styling for numeric data */
+.modern-table tbody td:last-child {
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .table-wrapper {
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .modern-table {
+    font-size: 0.875rem;
+    width: 100%;
+    min-width: auto;
+  }
+
+  .modern-table thead th,
+  .modern-table tbody td {
+    padding: 1rem 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .modern-table thead th {
+    font-size: 0.8rem;
+  }
+
+  /* Make first column sticky on mobile for better context */
+  .modern-table tbody td.first-col,
+  .modern-table thead th:first-child {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 3;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+    max-width: 120px;
+  }
+
+  .modern-table thead th:first-child {
+    background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+    z-index: 4;
+  }
+
+  .modern-table tbody tr:hover td.first-col {
+    background-color: #f9f9fb;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-table thead th,
+  .modern-table tbody td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .modern-table thead th {
+    font-size: 0.75rem;
+  }
+
+  .modern-table tbody td.first-col,
+  .modern-table thead th:first-child {
+    max-width: 100px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .table-wrapper {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    overflow: visible;
+  }
+
+  .modern-table {
+    min-width: auto;
+  }
+
+  .modern-table tbody tr:hover {
+    background-color: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .table-wrapper::after {
+    display: none;
+  }
+}
+
+
+/**
  * Skill Component
  * ----------------------------------------------------------------------------
  */

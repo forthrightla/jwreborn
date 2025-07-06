@@ -1,6 +1,6 @@
 ---
-title: "AXS mobile app: Event entry"
-subtitle: "UX design, Product strategy, UX discovery, customer research"
+title: "AXS mobile app redesign"
+subtitle: "Improving the event entry experience for 55 million fans"
 thumbnail: "/images/block-axs.png"
 banner: "/images/case-studies/axs-banner.png"
 tags: ["UX Design", "Product Strategy", "Mobile App"]
@@ -14,6 +14,50 @@ outcomes: [
 
 import Video from '../../components/Video.astro';
 import Table from '../../components/Table.astro';
+import ContentSection from '../../components/ContentSection.astro';
+import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
+import ProjectDetails from '../../components/ProjectDetails.astro';
+
+
+
+
+
+
+
+## At a glance
+
+
+<ProjectDetails 
+title="Senior UX Designer"
+responsibilities="UX design, customer research, product strategy"
+duration="6 months"
+/>
+
+The AXS mobile app powers event ticketing experiences for over 55 million people annually, managing $2 billion in sales across venues and events like Coachella, Firefly Festival, LA Lakers games, and Wembley Stadium.
+
+I led a research-driven redesign of the AXS mobile app, focusing on clarifying the confusing "Mobile ID" entry process. Through rapid prototyping and usability testing, I <strong>improved event entry success by 68% and reduced app-related support calls by 42%</strong>, enhancing the overall experience for millions of fans.
+
+
+  
+  
+  <EnhancedOutcomeGrid 
+    outcomes={[
+      {
+        stat: "68%",
+        description: "improvement in event entry success rate",
+        colorClass: "primary"
+      },
+
+      {
+        stat: "42%",
+        description: "reduction in app-related customer support calls",
+        colorClass: "primary"
+      }
+    ]}
+    showAccentShape={false}
+    showStripes={false}
+    animateOnScroll={false}
+  />
 
 ## Background
 
@@ -22,6 +66,10 @@ AXS is a leading event ticketing platform with over 50 million ticket sales annu
 The AXS mobile app, required for event entry, serves **55 million yearly users** and powers ticketing in 28 client apps including Coachella, Firefly Festival, the LA Lakers, and Wembley Stadium.
 
 Despite its reach, the app and ticketing functionality hadn't meaningfully changed in over seven years. I was brought on to lead a research-based redesign effort.
+
+### An outdated experience with issues
+
+![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-promo.png)
 
 ### My role
 
@@ -40,9 +88,33 @@ The AXS Mobile ID (a QR code for event entry) was confusing users. Customer serv
 
 **The core question:** How do we make this feature intuitive for millions of users while building for future functionality?
 
+![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-mobileid.gif)
+
+
 ## Discovery process
 
-### Research questions
+### Key research questions
+
+<EnhancedOutcomeGrid 
+    outcomes={[
+      {
+        stat: "",
+        description: "What context is required for users to understand Mobile ID?",
+        colorClass: "accent"
+      },
+
+      {
+        stat: "",
+        description: "Do users understand the phrasing Mobile ID?",
+        colorClass: "accent"
+      }
+     
+    ]}
+    showAccentShape={false}
+    showStripes={false}
+    animateOnScroll={false}
+  />
+
 
 I focused on three areas:
 1. How do other apps use QR codes?
@@ -54,11 +126,11 @@ I focused on three areas:
 I analyzed 13 apps across different categories:
 
 <Table
-  headers={['Category', 'Apps', 'QR Code Placement', 'Context Provided', 'Taps to QR Code']}
+  headers={['Category', 'Apps', 'Code Location', 'Context Provided']}
   data={[
-    ['Events', 'Ticketmaster, Seatgeek, Vividseats', 'Tied to tickets', 'Context at each step', '2'],
-    ['Rewards', 'Starbucks, Chipotle', 'Front and center', 'Minimal', '0-1'],
-    ['Payments', 'Venmo, PayPal', 'Multiple locations', 'Clear labels ("Get Paid")', '2']
+    ['Events', 'Ticketmaster, Seatgeek, Vividseats', 'Tied to tickets', 'Context at each step'],
+    ['Rewards', 'Starbucks, Chipotle', 'Front and center', 'Minimal'],
+    ['Payments', 'Venmo, PayPal', 'Multiple locations', 'Clear labels ("Get Paid")']
   ]}
 />
 
@@ -71,7 +143,7 @@ I analyzed 13 apps across different categories:
 <Table
   headers={['Variation', 'User Behavior', 'Success Rate', 'Key Quote']}
   data={[
-    ['Button labeled "Mobile ID"', 'Clicked event card instead', 'Low', '"Mobile ID means nothing"'],
+    ['Button labeled "Mobile ID"', 'Clicked unrelated elements, did not associate "Mobile ID" with event entry', 'Low', '"Mobile ID means nothing"'],
     ['Unlabeled QR code', 'Associated code with tickets but confused by multiple uses', 'Medium', '"I had no idea where to click"']
   ]}
   variant="compact"
@@ -87,10 +159,10 @@ I analyzed 13 apps across different categories:
 **New hypothesis:** Context before code reduces friction
 
 <Table
-  headers={['Test', 'Approach', 'Success Rate', 'User Feedback']}
+  headers={['Variation', 'User Behavior', 'Success Rate', 'Key Quote']}
   data={[
-    ['C', '"Entry Pass" with context', '90%', '"It looks like a barcode which I would assume would be scanned"'],
-    ['D', '"Mobile ID" with context', 'Low', '"Mobile ID rather than Ticket(s) made me think twice"']
+    ['"Entry Pass" with context', 'Womp', 'Very high', '"It looks like a barcode which I would assume would be scanned"'],
+    ['"Mobile ID" with context', 'Womp', 'Low', '"Mobile ID rather than Ticket(s) made me think twice"']
   ]}
   variant="compact"
 />
@@ -112,24 +184,6 @@ This scales for future features like mobile ordering while reducing cognitive lo
 
 ![Two taps to enter an event](/images/case-studies/axs-dayof-entry.png)
 
-## Impact
-
-**By the numbers:**
-
-<Table
-  headers={['Metric', 'Result']}
-  data={[
-    ['Event entry success rate', '+68%'],
-    ['App-based ticket revenue', '+13%'],
-    ['iOS App Store rating', '4.7 stars (361K reviews)']
-  ]}
-  variant="striped"
-/>
-
-**Beyond metrics:**
-- Fewer customer service tickets
-- Scalable patterns for new features
-- Better experience for 55M+ users
 
 ## Key learnings
 
