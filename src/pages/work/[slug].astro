@@ -1,19 +1,8 @@
 ---
-// src/pages/work/[slug].astro - the final template
-import { getCollection, getEntry } from 'astro:content';
+// src/pages/work/[slug].astro - cleaned up version
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
-
-// Import streamlined components
-import CaseStudyHeader from '../../components/CaseStudyHeader.astro';
-import ContentSection from '../../components/ContentSection.astro';
-
-// Import layouts
-import TwoColumnLayout from '../../components/layouts/TwoColumnLayout.astro';
-import ImageGrid from '../../components/layouts/ImageGrid.astro';
-import OutcomeGrid from '../../components/layouts/OutcomeGrid.astro';
-import QuoteGrid from '../../components/layouts/QuoteGrid.astro';
-import ProcessSteps from '../../components/layouts/ProcessSteps.astro';
 
 // Generate static paths for all case studies
 export async function getStaticPaths() {
@@ -36,12 +25,6 @@ const randomCaseStudies = otherCaseStudies
 
 // Check if this case study requires a password
 const isPasswordProtected = !!entry.data.password;
-
-// Check if the case study has the enhanced structure
-const hasEnhancedStructure = !!(
-  entry.data.sections ||
-  entry.data.enhancedOutcomes
-);
 ---
 
 <Layout title={`Josh Wright - ${entry.data.title}`} currentNav="case-studies">
@@ -95,78 +78,8 @@ const hasEnhancedStructure = !!(
               </div>
             </div>
           </article>
-        ) : hasEnhancedStructure ? (
-          // Enhanced structure using flexible components
-          <>
-            <CaseStudyHeader
-              title={entry.data.title}
-              subtitle={entry.data.subtitle}
-              bannerImage={entry.data.banner || ''}
-              overview={entry.data.overview}
-              quote={entry.data.quote}
-            />
-            
-            {/* Display enhanced outcomes if available */}
-            {entry.data.enhancedOutcomes && (
-              <ContentSection title="Outcomes" variant="alternate">
-                <OutcomeGrid outcomes={entry.data.enhancedOutcomes} />
-              </ContentSection>
-            )}
-            
-            {/* Render each custom section based on its content type */}
-            {entry.data.sections && entry.data.sections.map((section, index) => (
-              <ContentSection 
-                title={section.title} 
-                variant={section.variant} 
-                hasDivider={index < entry.data.sections.length - 1}
-              >
-                {/* If section has image and no special content, use two column layout */}
-                {section.image && !section.userQuotes && !section.processSteps && !section.images && !section.testimonial ? (
-                  <TwoColumnLayout imageUrl={section.image}>
-                    <div set:html={section.content} />
-                  </TwoColumnLayout>
-                ) : (
-                  <>
-                    {/* Render standard content */}
-                    {section.content && <div set:html={section.content} />}
-                    
-                    {/* Render user quotes if present */}
-                    {section.userQuotes && (
-                      <QuoteGrid quotes={section.userQuotes} />
-                    )}
-                    
-                    {/* Render process steps if present */}
-                    {section.processSteps && (
-                      <ProcessSteps steps={section.processSteps} />
-                    )}
-                    
-                    {/* Render image grid if present */}
-                    {section.images && (
-                      <ImageGrid images={section.images} columns={3} />
-                    )}
-                    
-                    {/* Render testimonial if present */}
-                    {section.testimonial && (
-                      <div class="testimonial-wrapper">
-                        <blockquote class="case-testimonial">
-                          <p>"{section.testimonial.quote}"</p>
-                          <footer>
-                            <img src={section.testimonial.avatar} alt={section.testimonial.name} />
-                            <cite>
-                              <strong>{section.testimonial.name}</strong>
-                              {section.testimonial.role && <span>{section.testimonial.role}</span>}
-                            </cite>
-                          </footer>
-                        </blockquote>
-                      </div>
-                    )}
-                  </>
-                )}
-              </ContentSection>
-            ))}
-          </>
         ) : (
-          // Default rendering for other case studies
+          <!-- Default rendering for all case studies -->
           <article class="post project post-full">
             <header class="post-header inner-small">
               <h1 class="post-title line-top">{entry.data.title}</h1>
@@ -188,8 +101,8 @@ const hasEnhancedStructure = !!(
           </article>
         )}
         
-        {/* Show legacy outcomes only if not using enhanced structure */}
-        {entry.data.outcomes && !hasEnhancedStructure && (
+        <!-- Outcomes section for case studies that have them -->
+        {entry.data.outcomes && (
           <section class="outcomes block outer">
             <div class="inner">
               <div class="block-inside">
@@ -206,6 +119,7 @@ const hasEnhancedStructure = !!(
           </section>
         )}
         
+        <!-- Other case studies section -->
         <section class="portfolio-block block outer">
           <div class="inner">
             <div class="block-header">
@@ -218,6 +132,7 @@ const hasEnhancedStructure = !!(
                     href={`/work/${caseStudy.slug}`}
                     title={caseStudy.data.title}
                     img={caseStudy.data.thumbnail}
+                    isPasswordProtected={!!caseStudy.data.password}
                   />
                 ))}
               </div>
