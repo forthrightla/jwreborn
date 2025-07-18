@@ -1228,10 +1228,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 750px;
-  margin: 0;
+  margin: 0 0 0.5em;
   padding: 2.5em;
-  border-radius: 20px;
   background-color: #f9eafa;
 }
 

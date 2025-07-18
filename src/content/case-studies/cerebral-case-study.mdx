@@ -12,17 +12,48 @@ outcomes: [
 ]
 ---
 
+import Video from '../../components/Video.astro';
+import Table from '../../components/Table.astro';
+import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
+import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
 
-## Background
+## Summary
+
+<ProjectDetails 
+goal="Audit product experience, develop customer journey map, guide 2 year product roadmap"
+responsibilities="ethnographic customer research, product strategy"
+duration="1 month"
+/>
 
 ### Overview
 
-Cerebral is a $4.8B mental health care startup focused on destigmatizing mental health and bringing accessible and affordable therapy and medication to all.
+Cerebral is a $4.8B mental health startup focused on accessible, affordable therapy and medication. I was brought on as a consultant to lead a comprehensive research initiative to inform the 2021–2022 product roadmap. 
 
-I was engaged as a consultant to conduct an in-depth research study, including auditing the existing product experience and developing a comprehensive Customer Journey Map. These efforts were commissioned to guide the creation of a two year product roadmap, ensuring it was informed by robust customer research and insights.
+Key contributions include:
+- Auditing the end-to-end product experience  
+- Creating a detailed Customer Journey Map  
+- Delivering actionable insights and roadmap recommendations  
 
-I partnered with a former colleague and fellow [AC4D](http://austincenterfordesign.com) instructor for the duration of the project.
+The success of this project resulted in a**26% increase in customer satisfaction** and the hiring of a Director of Research and a four-person research team.
+
+
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "+26%",
+      description: "increase in customer satisfaction",
+      colorClass: "primary"
+    },
+    {
+      description: "Based on project success, Cerebral hired a Director of Research and a team of four researchers",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>
 
 <FeaturedQuote
               quote="It was with supreme confidence that I tapped Josh to run my initial research program at Cerebral. It had to both serve as a template and convince critical leadership, and as usual he delivered top shelf work."
@@ -31,13 +62,13 @@ I partnered with a former colleague and fellow [AC4D](http://austincenterfordesi
               authorImage="/images/portrait-louis.jpeg"
             />
 
-### Goals
+## Goals
 
 - Understand the customer's experience with Cerebral within their broader mental health journey.
 - Identify emotions, friction points, and areas for improvement in the customer experience.
 - Prioritize opportunities to enhance the journey and product experience.
 
-## Customer research study (abridged)
+## Study details
 
 ### Participants
 
@@ -51,9 +82,9 @@ We screened for active Cerebral customers who had renewed their subscriptions at
 - Conducted seven 45 minute participatory interviews via Zoom with active customers to gather insights.
 - Synthesized findings into a detailed report and dynamic journey map, highlighting key insights, themes, and actionable opportunities.
 
-### Selected insights & recommendations
+## Selected insights & recommendations
 
-#### "I need to do something"
+### Theme: "I need to do something"
 
 <div class="participant-container">
   <div class="participant">
@@ -76,15 +107,15 @@ We screened for active Cerebral customers who had renewed their subscriptions at
   </div>
 </div>
 
-**Insight: Cerebral customers are looking for someone to trust.**
+#### Insight: Cerebral customers are looking for someone to trust.
 
 When addressing their mental health, individuals often have deeply personal goals. This vulnerable moment requires trust and support from the people and systems they rely on.
 
-**Recommendation: Extend a helping hand**
+#### Recommendation: Extend a helping hand
 
 Improve the first time user experience by emphasizing empathetic communication and establishing trust early, such as through personalized introductions to clinicians and clear explanations of how Cerebral's services align with their individual goals.
 
-#### Theme: "Am I making progress?"
+### Theme: "Am I making progress?"
 
 <div class="participant-container">
   <div class="participant">
@@ -107,15 +138,15 @@ Improve the first time user experience by emphasizing empathetic communication a
   </div>
 </div>
 
-**Insight: There is no 'one size fits all'**
+#### Insight: There is no 'one size fits all'
 
 Customers seek personalized treatment plans and trust in expert recommendations. They are open to trying services if the benefits are clear but may look elsewhere if they feel they're paying for unnecessary offerings.
 
-**Recommendation: Bespoke treatment plans**
+#### Recommendation: Bespoke treatment plans
 
 Implement a collaborative treatment planning process that allows customers to tailor plans to their needs. Provide clear explanations of service benefits and offer flexible subscription options to ensure customers feel their choices align with their goals.
 
-#### Theme: "I feel understood"
+### Theme: "I feel understood"
 
 <div class="participant-container">
   <div class="participant">
@@ -138,17 +169,17 @@ Implement a collaborative treatment planning process that allows customers to ta
   </div>
 </div>
 
-**Insight: Connection gives customers hope for the future.**
+#### Insight: Connection gives customers hope for the future.
 
 Customers come to Cerebral because something feels wrong.
 
 When they're able to connect with a person or with a diagnosis, they learn to understand & eventually accept themselves more easily. Empathic exchanges offer a different point of view on what feels wrong. A diagnosis gives a name & context to what feels wrong. Both allow clients to hope for a future that feels right.
 
-**Recommendation: Facilitate a 'sigh of relief'**
+#### Recommendation: Facilitate a 'sigh of relief'
 
 Train clinicians to deliver empathetic, personalized feedback on diagnoses to foster trust and understanding. Create accessible resources, such as guides, videos or articles, to explain diagnoses in relatable terms, normalize experiences, and highlight pathways to improvement.
 
-## Final deliverables
+## Artifacts
 
 ### Living customer journey map
 
