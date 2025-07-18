@@ -17,6 +17,10 @@ import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
+import ParticipantInsights from '../../components/ParticipantInsights.astro';
+import ModernOutcomes from '../../components/ModernOutcomes.astro';
+
+
 
 ## Summary
 
@@ -26,14 +30,9 @@ responsibilities="ethnographic customer research, product strategy"
 duration="1 month"
 />
 
-### Overview
+Cerebral is a $4.8B mental health startup focused on accessible, affordable therapy and medication. I led their first comprehensive research initiative to understand how customers experienced the product and what they needed most.
 
-Cerebral is a $4.8B mental health startup focused on accessible, affordable therapy and medication. I was brought on as a consultant to lead a comprehensive research initiative to inform the 2021–2022 product roadmap. 
-
-Key contributions include auditing the end-to-end product experience, creating a detailed customer journey map, and delivering actionable insights and roadmap recommendations.
-
-The success of this project resulted in a **26% increase in customer satisfaction** and the hiring of a Director of Research and a four person research team.
-
+Working as a consultant, I interviewed active customers, mapped their journeys, and delivered insights that shaped the next two years of product development. The recommendations led to a **26% increase in customer satisfaction** and convinced leadership to build an internal research team.
 
 <EnhancedOutcomeGrid 
   outcomes={[
@@ -59,137 +58,93 @@ The success of this project resulted in a **26% increase in customer satisfactio
               authorImage="/images/portrait-louis.jpeg"
             />
 
-## Goals
-
-- Understand the customer's experience with Cerebral within their broader mental health journey.
-- Identify emotions, friction points, and areas for improvement in the customer experience.
-- Prioritize opportunities to enhance the journey and product experience.
-
-## Study details
+## Research approach
 
 ### Participants
 
 ![Participant demographics](/images/case-studies/cerebral-participants.png)
 
-We screened for active Cerebral customers who had renewed their subscriptions at least once, engaged with a clinician in the last 30 days, and responded to a prior survey expressing interest in participation. Information has been anonymized for this case study.
+I interviewed seven active Cerebral customers who had renewed their subscriptions and recently engaged with clinicians. Each brought unique perspectives on mental health care needs.
 
-### Methodology
+### Method
 
-- Developed research protocol synthesized from executive stakeholder input and customer service team interviews to determine common issues.
-- Conducted seven 45 minute participatory interviews via Zoom with active customers to gather insights.
-- Synthesized findings into a detailed report and dynamic journey map, highlighting key insights, themes, and actionable opportunities.
+Starting with stakeholder interviews and customer service data, I identified the most critical questions to explore. The 45-minute sessions used participatory techniques to understand not just what customers did, but why they made those choices.
 
-## Selected insights & recommendations
+## Key insights
 
-### Theme: "I need to do something"
+<ParticipantInsights
+  theme='"I need to do something"'
+  participants={[
+    {
+      name: "Bethany",
+      avatar: "/images/case-studies/cerebral-bethany.png",
+      description: "Wanted to speak to someone, preferably a woman she identified with, because she felt she could no longer handle her situation alone."
+    },
+    {
+      name: "Lindsey", 
+      avatar: "/images/case-studies/cerebral-lindsey.png",
+      description: "Wanted to get access to medication as quickly as possible to treat her already diagnosed condition."
+    }
+  ]}
+  insight="Cerebral customers are looking for someone to trust."
+  context="This vulnerable moment requires empathy and support. Customers arrive with deeply personal goals that go beyond simple healthcare transactions."
+  recommendationTitle="Extend a helping hand"
+  recommendation="Build trust from the first interaction. Show empathetic communication, introduce clinicians personally, and clearly explain how Cerebral can help with individual goals."
+/>
 
-<div class="participant-container">
-  <div class="participant">
-    <div class="avatar">
-      <img src="/images/case-studies/cerebral-bethany.png" alt="Bethany's avatar" />
-    </div>
-    <div class="participant-info">
-      <h5>Bethany</h5>
-      <p>Wanted to speak to someone, preferably a woman she identified with, because she felt she could no longer handle her situation alone.</p>
-    </div>
-  </div>
-  <div class="participant">
-    <div class="avatar">
-      <img src="/images/case-studies/cerebral-lindsey.png" alt="Lindsey's avatar" />
-    </div>
-    <div class="participant-info">
-      <h5>Lindsey</h5>
-      <p>Wanted to get access to medication as quickly as possible to treat her already diagnosed condition.</p>
-    </div>
-  </div>
-</div>
 
-#### Insight: Cerebral customers are looking for someone to trust.
+<ParticipantInsights
+  theme='"Am I making progress?"'
+  participants={[
+    {
+      name: "Jasmyn",
+      avatar: "/images/case-studies/cerebral-jasmyn.png",
+      description: "Wanted therapy, but is now getting medication she doesn't REALLY want to be on (though it's working)."
+    },
+    {
+      name: "Callie", 
+      avatar: "/images/case-studies/cerebral-callie.png",
+      description: "Wanted medication, but is also getting (and paying for) counseling she doesn't REALLY want."
+    }
+  ]}
+  insight="There is no 'one size fits all'"
+  context="Customers want control over their treatment. They're open to recommendations but may look elsewhere if forced into services they don't value."
+  recommendationTitle="Bespoke treatment plans"
+  recommendation="Create collaborative planning that lets customers shape their care. Explain service benefits clearly and offer flexible options so customers only pay for what they need."
+/>
 
-When addressing their mental health, individuals often have deeply personal goals. This vulnerable moment requires trust and support from the people and systems they rely on.
+<ParticipantInsights
+  theme='"I feel understood"'
+  participants={[
+    {
+      name: "Dawn",
+      avatar: "/images/case-studies/cerebral-dawn.png",
+      description: "Wanted to talk to someone who understands her situation -- a fellow mother and person of color."
+    },
+    {
+      name: "Tony", 
+      avatar: "/images/case-studies/cerebral-tony.png",
+      description: "Wanted \"answers\" and to understand experiences he's had his entire life."
+    }
+  ]}
+  insight="Connection gives customers hope for the future."
+  context="When customers connect with the right clinician or receive a diagnosis that explains their experiences, they gain hope. Both empathy and understanding help people accept themselves and envision improvement."
+  recommendationTitle="Facilitate a 'sigh of relief'"
+  recommendation="Train clinicians to deliver personalized, empathetic responses. Create accessible resources that explain diagnoses in relatable terms and highlight paths to improvement."
+/>
 
-#### Recommendation: Extend a helping hand
+## Deliverables
 
-Improve the first time user experience by emphasizing empathetic communication and establishing trust early, such as through personalized introductions to clinicians and clear explanations of how Cerebral's services align with their individual goals.
+### Customer journey map
 
-### Theme: "Am I making progress?"
-
-<div class="participant-container">
-  <div class="participant">
-    <div class="avatar">
-      <img src="/images/case-studies/cerebral-jasmyn.png" alt="Jasmyn's avatar" />
-    </div>
-    <div class="participant-info">
-      <h5>Jasmyn</h5>
-      <p>Wanted therapy, but is now getting medication she doesn't REALLY want to be on (though it's working).</p>
-    </div>
-  </div>
-  <div class="participant">
-    <div class="avatar">
-      <img src="/images/case-studies/cerebral-callie.png" alt="Callie's avatar" />
-    </div>
-    <div class="participant-info">
-      <h5>Callie</h5>
-      <p>Wanted medication, but is also getting (and paying for) counseling she doesn't REALLY want.</p>
-    </div>
-  </div>
-</div>
-
-#### Insight: There is no 'one size fits all'
-
-Customers seek personalized treatment plans and trust in expert recommendations. They are open to trying services if the benefits are clear but may look elsewhere if they feel they're paying for unnecessary offerings.
-
-#### Recommendation: Bespoke treatment plans
-
-Implement a collaborative treatment planning process that allows customers to tailor plans to their needs. Provide clear explanations of service benefits and offer flexible subscription options to ensure customers feel their choices align with their goals.
-
-### Theme: "I feel understood"
-
-<div class="participant-container">
-  <div class="participant">
-    <div class="avatar">
-      <img src="/images/case-studies/cerebral-dawn.png" alt="Dawn's avatar" />
-    </div>
-    <div class="participant-info">
-      <h4>Dawn</h4>
-      <p>Wanted to talk to someone who understands her situation -- a fellow mother and person of color.</p>
-    </div>
-  </div>
-  <div class="participant">
-    <div class="avatar">
-      <img src="/images/case-studies/cerebral-tony.png" alt="Tony's avatar" />
-    </div>
-    <div class="participant-info">
-      <h4>Tony</h4>
-      <p>Wanted "answers" and to understand experiences he's had his entire life.</p>
-    </div>
-  </div>
-</div>
-
-#### Insight: Connection gives customers hope for the future.
-
-Customers come to Cerebral because something feels wrong.
-
-When they're able to connect with a person or with a diagnosis, they learn to understand & eventually accept themselves more easily. Empathic exchanges offer a different point of view on what feels wrong. A diagnosis gives a name & context to what feels wrong. Both allow clients to hope for a future that feels right.
-
-#### Recommendation: Facilitate a 'sigh of relief'
-
-Train clinicians to deliver empathetic, personalized feedback on diagnoses to foster trust and understanding. Create accessible resources, such as guides, videos or articles, to explain diagnoses in relatable terms, normalize experiences, and highlight pathways to improvement.
-
-## Artifacts
-
-### Living customer journey map
-
-This living document provides a detailed account of customer emotions, actions, touchpoints, insights, and opportunities. **If you'd like to explore a high fidelity version, please feel free to [get in touch](mailto:josh@joshuajwright.com).**
+I created a comprehensive journey map documenting customer emotions, actions, touchpoints, and opportunities throughout their Cerebral experience. This became a reference tool for product and design decisions.
 
 ![Customer journey map](/images/case-studies/cerebral-journeymap.png)
 
-### Socializing our learnings
+*For a detailed view of the journey map, please [get in touch](mailto:josh@joshuajwright.com).*
 
-At the conclusion of the project, we hosted two shareout presentations: one for the core team and another for executive leadership and a large portion of the company. These sessions provided a comprehensive walkthrough of the research findings and included a robust Q&A to address any questions.
+### Organizational impact
 
-Additionally, we created a detailed shareout document, distributed company-wide, which outlined all key insights and actionable recommendations from the research.
+We presented findings to both the core team and company leadership. The research resonated strongly, leading to immediate action on several recommendations and the decision to invest in a dedicated research function.
 
-These were both very well received.
-
-
+The detailed shareout document distributed company-wide ensured insights reached every team that could benefit from deeper customer understanding.

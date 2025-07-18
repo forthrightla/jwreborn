@@ -3,6 +3,8 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
+import SimpleOutcomes from '../../components/SimpleOutcomes.astro';
+
 
 // Generate static paths for all case studies
 export async function getStaticPaths() {
@@ -103,21 +105,8 @@ const isPasswordProtected = !!entry.data.password;
         
         <!-- Outcomes section for case studies that have them -->
         {entry.data.outcomes && (
-          <section class="outcomes block outer">
-            <div class="inner">
-              <div class="block-inside">
-                <div class="block-header">
-                  <h2 class="block-title line-top">Outcomes</h2>
-                </div>
-              </div>
-              <div class="outcomes-container">
-                {entry.data.outcomes.map((outcome, index) => (
-                  <div class={`circle circle${index + 1}`}>{outcome}</div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+  <SimpleOutcomes outcomes={entry.data.outcomes} />
+)}
         
         <!-- Other case studies section -->
         <section class="portfolio-block block outer">

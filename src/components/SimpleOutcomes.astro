@@ -1,0 +1,134 @@
+---
+// src/components/SimpleOutcomes.astro
+interface Props {
+  outcomes: string[];
+}
+
+const { outcomes } = Astro.props;
+const colorClasses = ['primary', 'secondary', 'accent'];
+---
+
+<section class="outcomes-section outer">
+  <div class="inner">
+    <div class="outcomes-header">
+      <h2 class="outcomes-title line-top">Outcomes</h2>
+    </div>
+    
+    <div class="outcomes-grid">
+      {outcomes.map((outcome, index) => (
+        <div class={`outcome-card ${colorClasses[index % colorClasses.length]}`}>
+          <p class="outcome-text">{outcome}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .outcomes-section {
+    padding: 4rem 0;
+  }
+
+  .outcomes-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .outcomes-title {
+    font-family: "IBM Plex Serif", serif;
+    font-size: 2rem;
+    color: #00296b;
+    margin: 0;
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Base card styles */
+  .outcome-card {
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .outcome-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Color variations */
+  .outcome-card.primary {
+    background: linear-gradient(135deg, #d3dde5 0%, #e8eff4 100%);
+    color: #272c30;
+  }
+
+  .outcome-card.secondary {
+    background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+    color: white;
+    border-color: rgba(0, 41, 107, 0.2);
+  }
+
+  .outcome-card.accent {
+    background: linear-gradient(135deg, #f93b6b 0%, #ff5a82 100%);
+    color: white;
+    border-color: rgba(249, 59, 107, 0.2);
+  }
+
+  /* Text styles */
+  .outcome-text {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin: 0;
+    font-family: "Funnel Sans", sans-serif;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+
+  .outcome-card.secondary .outcome-text,
+  .outcome-card.accent .outcome-text {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Add subtle gradient overlay for depth */
+  .outcome-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  @media (max-width: 768px) {
+    .outcomes-section {
+      padding: 3rem 0;
+    }
+
+    .outcomes-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .outcome-card {
+      min-height: auto;
+      padding: 1.5rem;
+    }
+
+    .outcome-text {
+      font-size: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,263 @@
+---
+// src/components/ConversationExchange.astro
+interface Exchange {
+  speaker: 'stakeholder' | 'me';
+  avatar: string;
+  label: string;
+  message: string;
+}
+
+interface Props {
+  title: string;
+  intro: string;
+  exchanges: Exchange[];
+  outcome: string;
+}
+
+const { title, intro, exchanges, outcome } = Astro.props;
+---
+
+<div class="conversation-container">
+  <div class="conversation-header">
+    <h3>{title}</h3>
+    <p class="conversation-intro">{intro}</p>
+  </div>
+
+  <div class="conversation-exchanges">
+    {exchanges.map((exchange) => (
+      <div class="exchange">
+        <div class={`speaker-avatar ${exchange.speaker}`}>
+          {exchange.avatar}
+        </div>
+        <div class="message-content">
+          <div class="speaker-label">{exchange.label}</div>
+          <div class="message-bubble">
+            <p>{exchange.message}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="conversation-outcome">
+    <p>{outcome}</p>
+  </div>
+</div>
+
+<style>
+  /* Conversation container */
+  .conversation-container {
+    max-width: 960px;
+    margin: 3rem auto;
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .conversation-header {
+    margin-bottom: 2rem;
+  }
+
+  .conversation-header h3 {
+    font-family: "IBM Plex Serif", serif;
+    font-size: 2rem;
+    color: #00296b;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+  }
+
+  .conversation-intro {
+    color: #49535a;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Exchange styles */
+  .conversation-exchanges {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .exchange {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  /* Speaker avatars */
+  .speaker-avatar {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    font-family: "Funnel Sans", sans-serif;
+  }
+
+  .speaker-avatar.stakeholder {
+    background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+    color: white;
+  }
+
+  .speaker-avatar.me {
+    background: #f93b6b;
+    color: white;
+  }
+
+  /* Message bubbles */
+  .message-content {
+    flex: 1;
+    position: relative;
+  }
+
+  .speaker-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #49535a;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: "Funnel Sans", sans-serif;
+  }
+
+  .message-bubble {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .exchange:nth-child(even) .message-bubble {
+    background: white;
+    border: 2px solid #f93b6b;
+  }
+
+  .message-bubble p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #272c30;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  /* Quote marks matching FeaturedQuote component */
+  .message-bubble p::before {
+    color: rgba(249, 59, 107, 0.3);
+    content: "\201C";
+    display: block;
+    font-size: 3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    position: absolute;
+    left: -0.5rem;
+    top: -0.75rem;
+    line-height: 1;
+  }
+
+  /* Outcome section */
+  .conversation-outcome {
+    background: linear-gradient(135deg, #d3dde5 0%, #e8eff4 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .conversation-outcome p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #00296b;
+    font-weight: 500;
+    font-family: "Funnel Sans", sans-serif;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .conversation-container {
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem auto;
+    }
+
+    .conversation-header h3 {
+      font-size: 1.6rem;
+    }
+
+    .exchange {
+      gap: 1rem;
+    }
+
+    .speaker-avatar {
+      width: 40px;
+      height: 40px;
+      font-size: 0.75rem;
+    }
+
+    .message-bubble {
+      padding: 1rem 1.25rem;
+    }
+
+    .message-bubble p {
+      font-size: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .message-bubble p::before {
+      font-size: 2.5rem;
+      left: -0.25rem;
+      top: -0.5rem;
+    }
+
+    .speaker-label {
+      font-size: 0.75rem;
+    }
+
+    .conversation-outcome {
+      padding: 1.25rem;
+    }
+
+    .conversation-outcome p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .conversation-container {
+      padding: 1.25rem;
+      margin: 1.5rem auto;
+    }
+
+    .exchange {
+      gap: 0.75rem;
+    }
+
+    .speaker-avatar {
+      width: 36px;
+      height: 36px;
+    }
+
+    .message-bubble {
+      padding: 0.875rem 1rem;
+    }
+
+    .message-bubble p {
+      padding-left: 1.25rem;
+    }
+
+    .message-bubble p::before {
+      font-size: 2rem;
+      left: -0.25rem;
+      top: -0.25rem;
+    }
+  }
+</style>

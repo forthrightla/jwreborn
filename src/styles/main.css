@@ -611,14 +611,15 @@
 
 /* Header styles */
 .modern-table thead tr {
-  background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+  background: #f9f9fb;
+  border-bottom: 2px solid #e8e8e8;
 }
 
 .modern-table thead th {
   padding: 1.25rem 1.5rem;
   text-align: left;
   font-weight: 600;
-  color: white;
+  color: #49535a;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -652,7 +653,6 @@
 }
 
 .modern-table tbody tr:hover {
-  background-color: #f9f9fb;
   transform: scale(1.01);
   box-shadow: var(--shadow-xs);
 }
@@ -684,17 +684,6 @@
   z-index: 2;
 }
 
-/* Add accent bar to first column on hover */
-.modern-table tbody tr:hover td.first-col::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #f93b6b;
-}
-
 /* Compact variant */
 .table-wrapper.compact .modern-table thead th,
 .table-wrapper.compact .modern-table tbody td {
@@ -713,7 +702,6 @@
 /* Last column styling for numeric data */
 .modern-table tbody td:last-child {
   font-weight: 500;
-  text-align: right;
 }
 
 /* Responsive behavior */

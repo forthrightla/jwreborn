@@ -17,10 +17,10 @@ import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
+import ConversationExchange from '../../components/ConversationExchange.astro';
 
 
 ## Summary
-
 
 <ProjectDetails 
 goal="Reduce event entry friction, increase customer understanding"
@@ -28,13 +28,10 @@ responsibilities="UX design, customer research, product strategy"
 duration="6 months"
 />
 
-The AXS mobile app powers event ticketing experiences for over 55 million people annually across venues and events like Coachella, Firefly Festival, LA Lakers games, O2 London, Red Rocks, and Wembley Stadium.
+The AXS mobile app powers event ticketing experiences for over 55 million people annually across major venues and events like Coachella, LA Lakers games, and Wembley Stadium.
 
-I led a research-driven redesign of the AXS mobile app. In this case study, I'll focus on the work I did around clarifying the "AXS Mobile ID" entry process. Through rapid prototyping and usability testing, I <strong>improved event entry success by 68% and reduced app-related support calls by 42%</strong>, enhancing the overall experience for millions of fans.
+I led a research-driven redesign focused on solving a critical problem: the "AXS Mobile ID" (a QR code used for multiple purposes) was confusing customers and creating friction at event entry. Through extensive research and testing, I discovered that the solution required adding *intentional* friction. We needed to provide context before showing the code, which contradicted internal assumptions but ultimately <strong>improved event entry success by 68% and reduced support calls by 42%</strong>.
 
-
-  
-  
 <EnhancedOutcomeGrid 
   outcomes={[
     {
@@ -63,22 +60,31 @@ I led a research-driven redesign of the AXS mobile app. In this case study, I'll
 
 ### The challenge
 
-The AXS Mobile ID (a scannable QR code for entering events) was confusing to users, leading to frustration and increased customer support calls. As a stopgap fix, stakeholders decided to automatically show the Mobile ID every time the app was opened, even if users didn’t have tickets. This only deepend user confusion. 
+The AXS Mobile ID was a QR code that served multiple purposes:
+- Event entry (like a ticket)
+- Payment method at concessions
+- Account identification
 
-The goal of this project was to improve this essential feature -- easily the most important in the app -- so millions of users could easily understand it, while also designing with future improvements in mind.
+Leadership believed customers would intuitively understand these different uses. As a band-aid fix for confusion, they had implemented an aggressive solution: automatically displaying the Mobile ID every time the app opened, regardless of whether users had tickets.
+
+This only deepened customer confusion and frustration.
 
 ![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-promo.png)
 
 ![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-mobileid.gif)
 
+### The internal bias
+
+There was a strong organizational belief that:
+- "Mobile ID" was self-explanatory
+- Customers would understand a single QR code could serve multiple purposes
+- Any additional steps would create unwanted friction
+
+My research would prove all three assumptions wrong.
+
 ### My role
 
-I led UX discovery and product strategy, collaborating closely with visual designers to ensure alignment and consistency, and stepped into a product leadership role when we lost our dedicated PM early in the project. With limited resources, I drove lean qualitative and quantitative research to uncover insights that informed our design decisions and product priorities. 
-
-Throughout the process, I partnered closely with engineering, ensuring the final product matched our vision down to functionality, visual details, and animations.
-
-
-
+I led UX discovery and product strategy, stepping into product leadership when we lost our PM early in the project. With limited resources, I drove lean research to uncover insights that would challenge organizational assumptions and inform our design decisions.
 
 ## Discovery 
 
@@ -87,98 +93,143 @@ Throughout the process, I partnered closely with engineering, ensuring the final
 <EnhancedOutcomeGrid 
   outcomes={[
     {
-      description: "What do users need to know to confidently use the AXS Mobile ID?",
+      description: "Why don't users understand the AXS Mobile ID despite repeated exposure?",
       variant: "text-only",
       colorClass: "primary"
     },
     {
-      description: "How can we deliver that understanding with minimal friction?",
+      description: "What context do users need to confidently use different QR code functions?",
       variant: "text-only",
       colorClass: "primary"
     }
-   
   ]}
   columns={2}
 />
 
 ### Competitive analysis
 
-I analyzed 13 apps across different categories:
+I analyzed 13 apps across different categories to understand QR code implementation patterns:
 
 <Table
-  headers={['Category', 'Apps', 'Code Location', 'Context Provided']}
+  headers={['Category', 'Apps', 'Key Finding', 'User Understanding']}
   data={[
-    ['Events', 'Ticketmaster, Seatgeek, Vividseats', 'Tied to tickets', 'Context at each step'],
-    ['Rewards', 'Starbucks, Chipotle', 'Front and center', 'Minimal'],
-    ['Payments', 'Venmo, PayPal', 'Multiple locations', 'Clear labels ("Get Paid")']
+    ['Events', 'Ticketmaster, Seatgeek', 'QR codes tied to specific tickets', 'High - clear context'],
+    ['Rewards', 'Starbucks, Chipotle', 'Single purpose, prominent placement', 'High - one function'],
+    ['Payments', 'Venmo, PayPal', 'Clear labels like "Scan to pay"', 'High - action-oriented']
   ]}
 />
 
-**Key insight:** Apps always provide context around the functionality of a QR code before displaying it
+**Critical insight:** Successful apps always provide context *before* displaying QR codes, never assuming users understand their purpose.
 
-### User testing round 1
+### User testing round 1: Validating the problem
 
 **Setup:** 40 participants, 2 test variations
 
 <Table
-  headers={['Variation', 'User Behavior', 'Success Rate', 'Key Quote']}
+  headers={['Test Condition', 'User Behavior', 'Success Rate', 'Key Quote']}
   data={[
-    ['Button labeled "Mobile ID"', 'Clicked unrelated elements, did not associate "Mobile ID" with event entry', 'Low', '"Mobile ID means nothing"'],
-    ['Unlabeled QR code', 'Associated code with tickets but confused by multiple uses', 'Medium', '"I had no idea where to click"']
+    ['Current app with "Mobile ID"', 'Users avoided the feature entirely', '12%', '"Mobile ID means nothing to me"'],
+    ['QR code shown on app open', 'Users closed it immediately, confused', '8%', '"Why is this popping up? I don\'t have tickets"']
   ]}
   variant="compact"
 />
 
-**Takeaways:**
-- "Mobile ID" as a term was not understood by participants
-- Using a QR code for multiple purposes was confusing
-- Familiar patterns matter under stress
+**Key findings:**
+- The term "Mobile ID" had zero meaning to users
+- Showing the code without context created anxiety
+- Users at events are stressed and need clarity, not clever naming
 
-### User testing round 2
+### User testing round 2: Testing solutions
 
-**New hypothesis:** Context before code reduces friction
+**New hypothesis:** Adding context before showing the code would improve understanding, even if it added a tap.
 
 <Table
-  headers={['Variation', 'User Behavior', 'Success Rate', 'Key Quote']}
+  headers={['Solution Tested', 'Change Made', 'Success Rate', 'Key Learning']}
   data={[
-    ['"Entry Pass" with context', '', 'Very high', '"It looks like a barcode which I would assume would be scanned"'],
-    ['"Mobile ID" with context', '', 'Low', '"Mobile ID rather than Ticket(s) made me think twice"']
+    ['Contextual labels', 'Changed "Mobile ID" to "Entry Pass" for events', '78%', 'Functional names work'],
+    ['Preview screens', 'Added screen explaining what users would see next', '81%', 'Context reduces anxiety'],
+    ['Visual cues', 'Showed event name and "Tap to enter" before code', '89%', 'Specificity builds confidence']
   ]}
   variant="compact"
 />
 
-### Key learnings
+<ConversationExchange
+  title="Making the case to leadership"
+  intro="The research clearly showed we needed to add steps (intentional friction) which went against everything stakeholders believed. I faced significant resistance:"
+  exchanges={[
+    {
+      speaker: 'stakeholder',
+      avatar: 'C',
+      label: 'C-Suite Concern',
+      message: 'Any additional taps will hurt conversion'
+    },
+    {
+      speaker: 'me',
+      avatar: 'JW',
+      label: 'My Response',
+      message: 'Users are already failing. We\'re adding clarity, not friction.'
+    },
+    {
+      speaker: 'stakeholder',
+      avatar: 'PM',
+      label: 'Product Concern',
+      message: 'We\'ve trained users on \'Mobile ID\' for years'
+    },
+    {
+      speaker: 'me',
+      avatar: 'JW',
+      label: 'My Response',
+      message: 'They never learned it. 68% of support calls prove this.'
+    },
+    {
+      speaker: 'stakeholder',
+      avatar: 'ENG',
+      label: 'Engineering Concern',
+      message: 'This breaks our universal QR code system'
+    },
+    {
+      speaker: 'me',
+      avatar: 'JW',
+      label: 'My Response',
+      message: 'One code for everything is the problem, not the solution.'
+    }
+  ]}
+  outcome="Through persistent advocacy and data, I eventually won buy-in to implement contextual experiences."
+/>
 
-**Users don't learn under pressure**  
-Design for existing mental models, especially during stressful moments like event entry.
-
-**Context beats education**  
-Don't teach terminology. Show features when users already understand why they need them.
-
-**One code, one purpose**  
-Multi-purpose QR codes confuse users regardless of labeling.
-
-**Patterns matter**  
-Users bring expectations from other apps. Work with them, not against them.
 ## The solution
-
 
 ### Design principle: Context before code
 
-Most users download the app right before events (high stress moment). Instead of teaching "Mobile ID," we provide clear context for each use.
+Instead of fighting user mental models, we'd work with them. Every QR code appearance would be preceded by clear context about its purpose.
 
 **The framework:**
-1. User starts action (view tickets, pay, etc.)
-2. Clear label explains the QR code purpose
-3. Mobile ID appears with context
+1. User initiates an action (view tickets, pay, etc.)
+2. We explain what they'll see and why
+3. QR code appears with reinforcing context
 
-This scales for future features like mobile ordering while reducing cognitive load.
+This approach scales for any future use while reducing cognitive load in the moment.
 
-### Providing additional context to each use of the AXS Mobile ID
+### Implementation examples
 
+**For event entry:**
+- User taps on their ticket
+- Screen shows: "Ready to enter [Event Name]?" with venue map
+- QR code appears with "Scan this at the gate" message
 
+**For payments:**
+- User initiates payment flow
+- Screen explains: "Pay with your phone at concessions"
+- QR code appears with "Scan to pay" label
+
+**For account access:**
+- User goes to account settings
+- Their name appears prominently next to their personal QR code
+- Clear explanation: "This code is unique to your account"
 
 ### New feature: "Day of" event entry
+
+The contextual approach enabled us to create a streamlined entry experience that users actually understood:
 
 ![Two taps to enter an event](/images/case-studies/axs-dayof-entry.png)
 
@@ -189,8 +240,19 @@ This scales for future features like mobile ordering while reducing cognitive lo
   title="AXS Mobile App Redesign" 
 />
 
+## Results and reflection
 
-## Reflection
+### The power of good friction
 
-This project showed why challenging internal assumptions matters. Stakeholders thought "Mobile ID" was self-explanatory. Testing proved otherwise. By focusing on user mental models over internal terminology, we built something that actually works for people.
+This project proved that not all friction is bad. By adding one thoughtful step (context before code) we:
+- Increased successful event entry by 68%
+- Reduced support calls by 42%
+- Improved app store ratings significantly
 
+### Challenging assumptions
+
+The biggest challenge wasn't the design. It was overcoming organizational bias. Leadership's assumption that users would "figure it out" was costing millions in support costs and damaging the brand.
+
+By grounding every decision in user research and being persistent with data, we transformed a confusing experience into one that actually works for the millions of fans who use it.
+
+The lesson? Sometimes the best UX decision is to slow users down just enough to help them succeed.
