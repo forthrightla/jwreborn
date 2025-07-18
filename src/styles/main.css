@@ -1227,7 +1227,7 @@
 .participant-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 49px;
   margin: 0 0 0.5em;
   padding: 2.5em;
   background: linear-gradient(135deg, #f9eafa 0%, #f3e1f4 100%);
@@ -1236,7 +1236,7 @@
 .participant {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
 }
 
 .avatar {
