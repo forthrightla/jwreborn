@@ -65,11 +65,15 @@ The AXS Mobile ID is a QR code that serves multiple purposes:
 - Payment method at concessions
 - Account identification
 
-Leadership believed fans would intuitively understand these different uses. As a band-aid fix for confusion, they had implemented an aggressive solution: automatically displaying the Mobile ID every time the app opened, regardless of whether fans had tickets.
+Conversations with customer care revealed that many users were confused by the Mobile ID. Leadership believed fans would intuitively understand these different uses. As a band-aid fix for confusion, they had implemented an aggressive solution: automatically displaying the Mobile ID every time the app opened, regardless of whether fans had tickets.
 
 This only deepened fan confusion and frustration.
 
 ![Legacy Mobile ID experience](/images/case-studies/axs-oldapp-mobileid.gif)
+
+### The high-stakes moment
+
+Our research revealed that most users download the app either the day before or at the event itself. This creates a high-stress touchpoint where confusion can ruin the experience. Fans just want to get in, and forcing them to learn new patterns in that moment creates unnecessary friction.
 
 ### The internal bias
 
@@ -119,9 +123,11 @@ I analyzed 13 apps across different categories to understand QR code implementat
 
 **Critical insight:** Successful apps always provide context *before* displaying QR codes, never assuming users understand their purpose.
 
+**Industry insight:** Our analysis also revealed that successful ticketing apps consistently use 2 taps to access tickets, providing just enough context without overwhelming stressed fans.
+
 ### User testing round 1: Validating the problem
 
-**Setup:** 40 participants, 2 test variations
+**Testing methodology:** 40 participants across 4 variations (10 per test, achieving statistical significance per Nielsen Norman Group research)
 
 <Table
   headers={['Test Condition', 'User Behavior', 'Success Rate', 'Key Quote']}
@@ -140,6 +146,8 @@ I analyzed 13 apps across different categories to understand QR code implementat
 ### User testing round 2: Testing solutions
 
 **New hypothesis:** Adding context before showing the code would improve understanding, even if it added a tap.
+
+![User testing round](/images/case-studies/axs-usertesting-entry.png)
 
 <Table
   headers={['Solution Tested', 'Change Made', 'Success Rate', 'Key Learning']}
@@ -208,30 +216,54 @@ Instead of fighting user mental models, we'd work with them. Every QR code appea
 
 This approach scales for any future use while reducing cognitive load in the moment.
 
-### Implementation examples
+## Implementation
 
-**For event entry:**
-- User taps on their ticket
-- Screen shows: "Ready to enter [Event Name]?" with venue map
-- QR code appears with "Scan this at the gate" message
+### Previous design: Mobile ID
+The Mobile ID was accessible from the home screen via an icon with the fan's initials. This would display the Mobile ID even if no events were coming up. In addition, there was a ticket icon that would show fans their upcoming events. These events would *also* display the Mobile ID, causing much confusion.
 
-**For payments:**
-- User initiates payment flow
-- Screen explains: "Pay with your phone at concessions"
-- QR code appears with "Scan to pay" label
+<img
+  src="/images/case-studies/axs-old-entry.png"
+  alt="Two taps to enter an event"
+  style={{ maxHeight: '600px' }}
+/>
 
-**For account access:**
+
+### Redesigning with context: Event entry
+For event entry, fans are now required to access the Mobile ID through the context of an upcoming event. This was universally understood to indicate that the Mobile ID would be used for entry to that event.
+
+- User taps on the ticket icon to view their upcoming events
+- User taps on an event
+- The Mobile ID displays "Scan for Entry" with the specific event name and location for confidence
+
+![Two taps to enter an event](/images/case-studies/axs-new-entry.png)
+
+### Account access
+Moving the Mobile ID from the home screen to the account screen provided additional important context for the user to understand that the QR code is tied to their account.
+
 - User goes to account settings
 - Their name appears prominently next to their personal QR code
-- Clear explanation: "This code is unique to your account"
+- Clear explanation: "Verify your identity at events"
+
+<img
+  src="/images/case-studies/axs-account-mobileid.png"
+  alt="Two taps to enter an event"
+  style={{ maxHeight: '600px' }}
+/>
+
 
 ### New feature: "Day of" event entry
 
-The contextual approach enabled us to create a streamlined entry experience that users actually understood:
+The contextual approach enabled us to create a streamlined entry experience that users understood.
+
+- Events happening today appear prominently on the home screen
+- Tapping the event shows venue details before presenting ticket options
+- The Mobile ID displays "Scan for Entry" with the specific event name and location
+
 
 ![Two taps to enter an event](/images/case-studies/axs-dayof-entry.png)
 
-### Video walkthrough of redesigned app
+### How Mobile ID fits into the larger experience
+While this case study focused on optimizing event entry, the solution needed to work seamlessly within the full app. This overview video shows the complete AXS experience with the redesigned Mobile ID in context:
 
 <Video 
   playbackId="kUshZ00b9AASVFharONWlqjRCMM9hiumclQ02a01BJXAqc" 
@@ -247,9 +279,11 @@ This project proved that not all friction is bad. By adding one thoughtful step 
 - Reduced support calls by 42%
 - Improved app store ratings significantly
 
+But the impact reached beyond AXS itself. Our ticketing technology powers experiences for major venues and events through partnerships, from **Wembley Stadium** to the **LA Lakers** to **Coachella**. I presented the research findings to partner teams, walking them through why context matters. Several implemented similar changes, extending the benefits of our contextual approach to millions more fans.
+
 ### Challenging assumptions
 
-The biggest challenge wasn't the design, it was aligning around a new way of thinking. The team had long believed that fans would intuitively understand the “Mobile ID,” but our research revealed a different story: they needed more context, not fewer steps.
+The biggest challenge wasn't the design, it was aligning around a new way of thinking. The team had long believed that fans would intuitively understand the "Mobile ID," but our research revealed a different story: fans needed more context, not fewer steps.
 
 By grounding every decision in user research and being persistent with data, we transformed a confusing experience into one that actually works for the millions of fans who use it.
 
