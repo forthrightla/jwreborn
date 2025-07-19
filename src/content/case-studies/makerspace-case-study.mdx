@@ -5,57 +5,136 @@ thumbnail: "/images/block-make.png"
 banner: "/images/case-studies/makerspace-banner.png"
 tags: ["UX Design", "Social Platform", "Product Launch"]
 featured: true
+outcomes: [
+  "Launched MVP in 45 days, from concept to live platform",
+  "Featured in TechCrunch, Engadget, and Fast Company",
+  "Established ongoing feedback loop with maker community for continuous iteration"
+]
 ---
 
 import Video from '../../components/Video.astro';
+import Table from '../../components/Table.astro';
+import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
+import ProjectDetails from '../../components/ProjectDetails.astro';
+import FeaturedQuote from "../../components/FeaturedQuote.astro";
 
-## Background
+## Summary
 
-### Overview
+<ProjectDetails 
+goal="Build a social platform that brings the collaborative spirit of Maker Faire online"
+responsibilities="UX &amp; visual design, art direction, cross-functional collaboration"
+duration="45 days to MVP"
+/>
 
-MakerSpace was a social network created by Maker Media, the company behind *Make: Magazine* and [Maker Faire](https://makerfaire.com/), to bring the Maker Movement online. Maker Media is a pioneering force in the Maker community, fostering creativity and innovation through its events and publications. At its peak, Maker Faire attracted over 1.5M attendees annually across events worldwide.
+MakerSpace was a social network created by Maker Media, the company behind *Make: Magazine* and **Maker Faire**, events that attracted over 1.5 million attendees annually across the globe. The platform aimed to connect makers worldwide and foster the same creativity and collaboration found at physical Maker Faire events.
 
-MakerSpace aimed to bring the collaborative spirit of Maker Faire online. I led UX design for a remote, cross-functional team with startup-like autonomy, rapidly prototyping and iterating to create a community-driven platform that fostered participation, knowledge sharing, and global connections, all within a tight timeline.
+I led UX design for a remote, cross-functional team with startup-like autonomy. Working under an extremely aggressive timeline, we **launched our MVP in just 45 days** and conducted on-site user interviews at World Maker Faire New York to gather immediate feedback. The launch garnered significant press coverage from TechCrunch, Engadget, and Fast Company.
 
-### My role
-
-- **UX & Visual Design:** I led all aspects of UX and visual design, from creating wireframes and high-fidelity comps to developing interactive prototypes. Pair design sessions with developers over video chat allowed us to iterate in real-time and ensure seamless implementation.
-- **Collaboration & Art Direction:** I worked with cross-functional stakeholders on a range of tasks, including crafting the art direction for promotional materials and aligning design efforts with overall business goals.
-
-### Press
-
-[Engadget](http://www.engadget.com/2015/05/12/make-makerspace-network/) / [TechCrunch](http://techcrunch.com/2015/05/12/maker-faire-goes-online-with-a-new-social-network-for-makers-called-makerspace/) / [MakeZine](http://makezine.com/2015/04/29/welcome-to-makerspace/) / [Fast Company](http://www.fastcompany.com/3045505/maker-faire-founder-dale-dougherty-on-the-past-present-and-online-future-of-the-maker-moveme)
-
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "45 days",
+      description: "from concept to launched MVP",
+      colorClass: "primary"
+    },
+    {
+      description: "Featured in TechCrunch, Engadget, and Fast Company",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>
 
 <Video 
   playbackId="8eU8CRYS63PnHZBS02XonuGFhIhqrx43KS3SunLncsU00" 
   title="Introducing Makerspace" 
 />
 
-## Building
+## Background
 
-### Sprinting to Minimum Viable Product
+### The challenge
 
-At the outset of the project, our team was tasked with an ambitious goal: to launch a minimum viable product (MVP) at World Maker Faire New York within just 45 days. Rising to the challenge, we rapidly iterated and built the social platform from the ground up. At the Faire, we successfully onboarded our first 700 users on-site. The following are key design artifacts from that intense and rewarding first month.
+Maker Media had built a global movement through physical events, but lacked a digital platform to connect makers between events. The maker community was fragmented across forums, social media, and local groups. Makers struggled to share projects, find collaborators, and maintain connections made at events.
 
+### The opportunity
+
+With Maker Faire's massive reach, we had a unique opportunity to create the definitive online home for makers. But we had to move fast. Leadership wanted to launch at World Maker Faire New York, giving us just 45 days to design and build an MVP.
+
+### My role
+
+As lead UX designer, I owned all design aspects from wireframes to final UI. I conducted pair design sessions with developers via video chat for real-time iteration and crafted the visual identity for promotional materials.
+
+## Discovery & design process
+
+### Understanding the maker community
+
+With limited time for formal research, I combined insights from Maker Media's community knowledge with direct outreach to makers for feature ideas. 
+
+**Key insight:** Makers valued sharing their process as much as their final projects. They wanted to inspire and teach others.
+
+### Design principles
+
+<Table
+  headers={['Principle', 'Why it matters', 'How we applied it']}
+  data={[
+    ['Show the journey', 'Makers learn from process, not just outcomes', 'Multi-step project documentation'],
+    ['Make collaboration visible', 'Community thrives on helping each other', 'Comments, remixes, and co-creator credits'],
+    ['Welcome all skill levels', 'Everyone starts somewhere', 'No gatekeeping in UI language or features']
+  ]}
+  variant="compact"
+/>
+
+### Rapid iteration
+
+Working closely with developers, I moved quickly from concepts to implementation. The tight timeline meant every design decision needed to count.
+
+#### Initial wireframes and user flows
 ![Low fidelity wireframes of the MakerSpace social network interface](/images/case-studies/makerspace-mobile.png)
 
+#### Landing page design
 ![Screenshot of the MakerSpace social network page, showcasing a login screen](/images/case-studies/makerspace-landing.png)
 
+#### Profile design
 ![Screenshot of the MakerSpace social network page, showcasing a user profile](/images/case-studies/makerspace-profile.png)
 
-### Project Sharing Design Iterations
+## Key design decisions
 
-At the outset of the project, our team was tasked with an ambitious goal: to launch a minimum viable product (MVP) at World Maker Faire New York within just 45 days. Rising to the challenge, we rapidly iterated and built the social platform from the ground up. At the Faire, we successfully onboarded our first 700 users on-site. The following are key design artifacts from that intense and rewarding first month.
+### Project sharing: The heart of the platform
+
+The most critical feature was how makers would share their projects. I explored two approaches:
+
+<Table
+  headers={['Approach', 'Concept', 'Pros', 'Cons']}
+  data={[
+    ['Steps as blocks', 'Modular units for each step', 'Easy to reorder, clear structure', 'Less narrative flow'],
+    ['Flowing narrative', 'Medium-style continuous story', 'Better for storytelling', 'Harder to scan steps']
+  ]}
+  variant="compact"
+/>
 
 ![High-fidelity mockup displaying the 'Steps as blocks' design approach for user project sharing.](/images/case-studies/makerspace-project-a.png)
 
 ![High-fidelity mockup showcasing the 'Steps in a flowing, Medium-esque format' design approach for user project sharing.](/images/case-studies/makerspace-project-b.png)
 
-### Community Feed Design
+**Decision:** We chose the modular blocks approach. It aligned with how makers think about projects in discrete steps and made it easier to remix or reference specific parts of a build.
 
-At the outset of the project, our team was tasked with an ambitious goal: to launch a minimum viable product (MVP) at World Maker Faire New York within just 45 days. Rising to the challenge, we rapidly iterated and built the social platform from the ground up. At the Faire, we successfully onboarded our first 700 users on-site. The following are key design artifacts from that intense and rewarding first month.
+### Community feed design
+
+For the main feed, I tested a visual masonry layout against a Reddit-inspired topic-based approach. The masonry grid won for its visual impact and ability to surface diverse projects at a glance.
 
 ![Screenshot of the MakerSpace social network page, showcasing the project feed](/images/case-studies/makerspace-masonry.png)
 
 ![Design mockup of the 'Spaces' feature, presenting a feed layout where users can connect and share content within predefined areas.](/images/case-studies/makerspace-reddit.png)
+
+## Implementation & launch
+
+With 45 days to launch, I paired with developers over video chat, designing and iterating in real-time. We shipped daily updates and reached out directly to the maker community for feature ideas.
+
+The platform went live at World Maker Faire New York, where we conducted in-person user interviews on onboarded our first 700 users from a booth with a DIY sign. 
+## Results & reflection
+
+The launch generated significant press coverage in [Engadget](http://www.engadget.com/2015/05/12/make-makerspace-network/), [TechCrunch](http://techcrunch.com/2015/05/12/maker-faire-goes-online-with-a-new-social-network-for-makers-called-makerspace/), and [Fast Company](http://www.fastcompany.com/3045505/maker-faire-founder-dale-dougherty-on-the-past-present-and-online-future-of-the-maker-moveme). More importantly, we built a platform that makers actively shaped through their feedback.
+
+This project proved that speed doesn't require sacrificing quality. By maintaining clear design principles and embracing community input, we delivered something meaningful in record time. The experience taught me to trust my instincts under pressure and view post-launch iteration as part of the design process.
