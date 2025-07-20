@@ -743,7 +743,7 @@
   }
 
   .modern-table thead th:first-child {
-    background: #f9f9fb !important;
+    background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
     z-index: 4;
   }
 
@@ -2073,50 +2073,4 @@ mux-player {
 
 @view-transition {
   /* enabled! */ 
-}
-
-
-@media (max-width: 768px) {
-  /* Prevent horizontal scroll on mobile */
-  html, body {
-    overflow-x: hidden;
-    max-width: 100%;
-  }
-  
-  /* Ensure outer containers don't exceed viewport */
-  .outer {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
-  /* Fix outcomes section specifically */
-  .outcomes-section {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-  
-  /* Ensure featured quote doesn't cause overflow */
-  .featured-quote-block {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100% !important;
-  }
-  
-  /* Fix table wrapper to allow internal scrolling if needed */
-  .table-wrapper {
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  }
-}
-
-/* Additional safety for all potential overflow issues */
-* {
-  max-width: 100vw;
-}
-
-/* But allow tables to be wider and scroll internally */
-.table-wrapper table {
-  max-width: none;
 }
