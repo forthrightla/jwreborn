@@ -39,12 +39,11 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   background: #fafafa;
   padding: 4rem 0 2rem;
   position: relative;
-  /* Remove horizontal margin to extend full width */
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  margin-top:1.5rem;
-  margin-bottom:1.5rem;
-  width: 100vw;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
 }
 
 .quote-container {
@@ -187,6 +186,14 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 
   .author-title {
     font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .featured-quote-block {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
   }
 }
 
