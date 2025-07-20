@@ -1,0 +1,127 @@
+---
+// src/components/ResponsiveImage.astro
+/**
+ * ResponsiveImage Component
+ * 
+ * A flexible image component that handles responsive images and size constraints.
+ * 
+ * Usage Examples:
+ * 
+ * 1. Basic usage - just controlling height (same image all devices):
+ *    <ResponsiveImage 
+ *      src="/images/single-phone.png"
+ *      alt="Phone mockup"
+ *      maxHeight="600px"
+ *      contain={true}
+ *    />
+ * 
+ * 2. Different images for desktop/mobile (no height control):
+ *    <ResponsiveImage 
+ *      src="/images/three-phones-desktop.png"
+ *      mobileSrc="/images/single-phone-mobile.png"
+ *      alt="App screens"
+ *    />
+ * 
+ * 3. Full control - different images AND height limits:
+ *    <ResponsiveImage 
+ *      src="/images/hero-desktop.png"
+ *      mobileSrc="/images/hero-mobile.png"
+ *      alt="Hero image"
+ *      maxHeight="800px"
+ *      maxHeightMobile="500px"
+ *      contain={true}
+ *    />
+ * 
+ * 4. Simple drop-in replacement for markdown images:
+ *    <ResponsiveImage 
+ *      src="/images/any-image.png"
+ *      alt="Description"
+ *    />
+ */
+
+interface Props {
+  src: string;              // Primary image (required) - used on desktop or all sizes if mobileSrc not provided
+  mobileSrc?: string;       // Optional mobile image - only loads on screens ≤768px
+  alt: string;              // Alt text for accessibility (required)
+  class?: string;           // Additional CSS classes
+  maxHeight?: string;       // Max height like "600px" or "80vh" - prevents tall images from getting huge
+  maxHeightMobile?: string; // Different max height for mobile screens
+  contain?: boolean;        // If true, centers image and prevents it from stretching to full width
+}
+
+const { 
+  src, 
+  mobileSrc,
+  alt, 
+  class: className = '',
+  maxHeight,
+  maxHeightMobile,
+  contain = false
+} = Astro.props;
+
+const containerClass = contain ? 'contain-image' : '';
+const style = maxHeight ? `--max-height: ${maxHeight}; --max-height-mobile: ${maxHeightMobile || maxHeight};` : '';
+---
+
+<div class={`responsive-image-wrapper ${containerClass} ${className}`} style={style}>
+  <picture>
+    {/* Only add mobile source if a different mobile image is provided */}
+    {mobileSrc && (
+      <source 
+        media="(max-width: 768px)" 
+        srcset={mobileSrc}
+      />
+    )}
+    {/* Primary image - used as fallback and for desktop (or all sizes if no mobileSrc) */}
+    <img 
+      src={src} 
+      alt={alt}
+      loading="lazy"
+    />
+  </picture>
+</div>
+
+<style>
+  .responsive-image-wrapper {
+    width: 100%;
+  }
+  
+  .responsive-image-wrapper picture {
+    display: block;
+    width: 100%;
+  }
+  
+  .responsive-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* When contain is true, center the image and limit its size */
+  .responsive-image-wrapper.contain-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .responsive-image-wrapper.contain-image img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  /* Apply max height when specified */
+  .responsive-image-wrapper[style*="--max-height"] img {
+    max-height: var(--max-height);
+    width: auto;
+    max-width: 100%;
+  }
+  
+  /* Apply mobile-specific max height */
+  @media (max-width: 768px) {
+    .responsive-image-wrapper[style*="--max-height-mobile"] img {
+      max-height: var(--max-height-mobile);
+    }
+  }
+</style>
