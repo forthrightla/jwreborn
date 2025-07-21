@@ -743,7 +743,7 @@
   }
 
   .modern-table thead th:first-child {
-    background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+    background: #f9f9fb;
     z-index: 4;
   }
 
