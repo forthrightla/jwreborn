@@ -596,9 +596,11 @@
 .table-wrapper {
   margin: 2rem 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
   position: relative;
+  max-width: 100%; /* Ensure it doesn't exceed parent */
 }
 
 .modern-table {
@@ -710,9 +712,26 @@
     border-radius: 12px;
     margin: 1.5rem 0;
     box-shadow: var(--shadow-sm);
+    margin: 1.5rem -1rem;
+  }
+
+  .table-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.8));
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s;
   }
   
-
+  .table-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+  
   .modern-table {
     font-size: 0.875rem;
     width: 100%;

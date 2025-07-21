@@ -194,6 +194,19 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .featured-quote-block {
+    margin-left: -4vw; /* Match the page padding */
+    margin-right: -4vw;
+    width: calc(100% + 8vw);
   }
 }
 
