@@ -5,11 +5,6 @@ thumbnail: "/images/block-axs.png"
 banner: "/images/case-studies/axs-banner.png"
 tags: ["UX Design", "Product Strategy", "Mobile App"]
 featured: false
-outcomes: [
-  "68% improvement in event entry success rate",
-  "42% reduction in app customer support calls",
-  "Created reusable context-first design pattern adopted by partner teams"
-]
 ---
 
 import Video from '../../components/Video.astro';
@@ -290,3 +285,22 @@ The biggest challenge wasn't the design, it was aligning around a new way of thi
 By grounding every decision in user research and being persistent with data, we transformed a confusing experience into one that actually works for the millions of fans who use it.
 
 The lesson? Sometimes the best UX decision is to slow users down just enough to help them succeed.
+
+
+### Outcomes 
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "+68%",
+      description: "improvement in successful event entry",
+      colorClass: "primary"
+    },
+    {
+      stat: "-42%",
+      description: "reduction in app customer support calls",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>

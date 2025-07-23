@@ -5,11 +5,6 @@ thumbnail: "/images/block-ribbon.png"
 banner: "/images/case-studies/ribbon-banner.png"
 tags: ["UX Design", "Product Strategy", "Business Formation"]
 featured: true
-outcomes: [
-  "Validated progressive disclosure approach for complex form experiences",
-  "Developed reusable design patterns for trust-building in conversion funnels",
-  "Created foundation for company's exploration of freemium business models"
-]
 ---
 
 import Video from '../../components/Video.astro';
@@ -17,6 +12,7 @@ import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
 
 ## Summary
 
@@ -28,20 +24,20 @@ duration="4 weeks"
 
 LegalZoom is a $5B legal technology leader that has formed over 3.7M businesses since launch. With nearly half its revenue coming from business formation, leadership was understandably cautious about experimenting with the core product.
 
-I led UX for Ribbon, a cross-functional innovation team created to explore new approaches outside the constraints of legacy systems. We had complete freedom to reimagine pricing, visual design, funnel structure, and product offerings—essentially building a competitor to our own product to uncover insights.
+I led UX for Ribbon, a cross-functional innovation team created to explore new approaches outside the constraints of legacy systems. We had complete freedom to reimagine pricing, visual design, funnel structure, and product offerings. We were essentially building a competitor to our own product to uncover insights.
 
-Through rapid experimentation and user research, we <strong>validated key hypotheses about progressive disclosure, trust-building, and conversion optimization</strong> that influenced product thinking across the organization.
+Through rapid experimentation and user research, we **validated key hypotheses about progressive disclosure, trust-building, and conversion optimization** that influenced product thinking across the organization.
 
 <EnhancedOutcomeGrid 
   outcomes={[
     {
-      description: "Proved that progressive disclosure reduces cognitive load in complex forms",
-      variant: "text-only",
+      stat: "4.6%",
+      description: "conversion rate achieved in week two",
       colorClass: "primary"
     },
     {
-      description: "Demonstrated viability of freemium approach for business formation",
-      variant: "text-only",
+      stat: "4 weeks",
+      description: "from concept to launched product",
       colorClass: "primary"
     }
   ]}
@@ -50,117 +46,187 @@ Through rapid experimentation and user research, we <strong>validated key hypoth
 />
 
 <FeaturedQuote
-              quote="Josh wears many hats -- experience design, product ideation, software expert, UI designer, and even developer -- and is able to communicate and execute complex ideas clearly and consistently."
-              authorName="JC Casas"
-              authorTitle="UX Design Director at LegalZoom"
-              authorImage="/images/portrait-jc.jpeg"
-            />
+  quote="Josh wears many hats -- experience design, product ideation, software expert, UI designer, and even developer -- and is able to communicate and execute complex ideas clearly and consistently."
+  authorName="JC Casas"
+  authorTitle="UX Design Director at LegalZoom"
+  authorImage="/images/portrait-jc.jpeg"
+/>
 
 ## Background
 
 ### The challenge
 
-LegalZoom's traditional LLC formation funnel required users to complete lengthy forms upfront before understanding the full value proposition. This created significant drop-off at critical points in the experience.
+LegalZoom's business formation product generates almost half the company's revenue, but the existing experience required users to answer 23 pages of detailed questions before purchase. This created significant drop-off and user frustration.
 
-The Ribbon team was tasked with exploring: Could we fundamentally reimagine this experience without the constraints of existing technical debt or business rules?
+Leadership was hesitant to take risks with such a critical product. They needed a way to test new ideas without disrupting the core business.
 
-### How LegalZoom's LLC conversion funnel worked at the time
-![Dashboard](/images/case-studies/ribbon-boxes-before.png)
+![How LegalZoom worked at the time](/images/case-studies/ribbon-boxes-before.png)
 
-### The hypothesis: Progressive commitment
+### The opportunity
 
-Based on competitive research and behavioral psychology, I proposed testing whether we could increase completion rates by:
-- Starting with low-commitment questions
-- Building trust progressively through the experience
-- Deferring complex decisions until users were invested
-
-![Dashboard](/images/case-studies/ribbon-boxes-hypothesis.png)
+Enter Ribbon: an internal startup with autonomy to experiment with price points, visual design, funnel structure, and product offerings independently of legacy systems. Our mission was to discover what might work better, then bring those insights back to the main product.
 
 ### My role
 
-- **Product strategy:** Partnered with VPs of Marketing, Creative, and UX to define experiment parameters
-- **UX and Product design:** Co-led the complete design process, from information architecture to final UI
-- **Research synthesis:** Conducted user interviews and translated findings into actionable insights
+As Principal Designer, I partnered closely with the VPs of Marketing, Creative, and UX to determine product strategy. Working alongside another Product Designer, we pair-designed the entire experience from top to bottom, developing both a design system and visual language. I also worked closely with engineering to ensure velocity and 1:1 parity with shipped designs.
 
-## Process
+## Discovery & strategy
 
-### Rapid experimentation approach
+### Understanding the market landscape
 
-With only 4 weeks to build and test, we adopted a lean methodology:
+Our competitive analysis revealed where LegalZoom sat in the market. We positioned Ribbon to explore the "high value, low cost" quadrant to offer a premium experience at accessible prices.
 
-**Week 1:** Information architecture and core flow design
-![Initial sketches](/images/case-studies/ribbon-sketch.png)
+![Determining target market](/images/case-studies/ribbon-marketposition.png)
 
-**Week 2:** High-fidelity design and engineering handoff
-![Initial sketches](/images/case-studies/ribbon-annotations.png)
+### Research constraints and approach
 
-**Week 3:** Build and internal testing
-![Desktop and mobile homepage](/images/case-studies/ribbon-responsive.png)
+With only four weeks to deliver, we had to make informed assumptions based on existing research. This included competitive analyses of 13+ competitors, proto-personas based on customer data, customer journey maps from previous studies, and mothballed designs that had been previously tested.
 
-**Week 4:** Launch with paid traffic and begin user research
+### The hypothesis: Progressive disclosure
 
-### Key design decisions
+Based on our research synthesis, I proposed a fundamental shift in approach. Instead of requiring all information upfront, we would ask easy questions first, building trust progressively through the experience.
 
-**Simplified entry point**
-Rather than asking for business details immediately, we started with a simple question: "What type of business are you starting?" This reduced cognitive load and increased initial engagement.
+<Table
+  headers={['Traditional Approach', 'Our Hypothesis', 'Expected Benefit']}
+  data={[
+    ['23 pages of questions upfront', 'Easy questions first', 'Reduced cognitive load'],
+    ['All info before pricing', 'Show value progressively', 'Increased trust'],
+    ['Complex legal language', 'Simplified, friendly copy', 'Better comprehension']
+  ]}
+  variant="compact"
+/>
 
-![Conversion funnel](/images/case-studies/ribbon-funnel.png)
+![The hypothesis: a better way](/images/case-studies/ribbon-boxes-hypothesis.png)
 
-**Trust through transparency**
-We designed clear value propositions at each step, explaining why we needed information and what users would receive. The dashboard experience reinforced this value post-purchase.
+## Design process
 
-![Dashboard](/images/case-studies/ribbon-dashboard.png)
+### Week 1: Information architecture
 
-## Testing and insights
+I started by mapping out the existing flow and identifying opportunities for improvement. The key insight: we could move complex questions to after purchase, when users were already committed.
 
-### Research methodology
+![The IA takes shape](/images/case-studies/ribbon-ia.png)
 
-After launching with AdWords traffic, I conducted:
-- 12 user interviews with customers who completed the flow
-- 8 interviews with users who abandoned
-- Comparative analysis against the traditional experience
+### Week 2: Rapid prototyping
 
-### Key findings
+Working in tandem with my design partner, we moved from sketches to high-fidelity designs in days. Every design decision was annotated for engineering clarity.
 
-**What worked:**
-- Progressive disclosure significantly reduced perceived complexity
-- Users appreciated understanding costs upfront
-- Simplified language improved comprehension and trust
+![Establishing functionality](/images/case-studies/ribbon-sketch.png)
 
-**What needed improvement:**
-- Some users wanted more educational content mid-flow
-- Pricing transparency could come even earlier
-- Mobile experience needed optimization for form completion
+![Raising the fidelity](/images/case-studies/ribbon-annotations.png)
 
-### Validated design patterns
+### Creating Thread: Our design system
 
-Through iteration, we identified reusable patterns:
+We developed a comprehensive design system called Thread, enabling rapid iteration while maintaining consistency. This became the foundation for all Ribbon designs and allowed us to move quickly without sacrificing quality.
 
-1. **Question sequencing:** Easy → Personal → Financial → Complex
-2. **Trust signals:** Security badges after sensitive questions, not randomly placed
-3. **Progress indicators:** Showing time investment ("2 min left") over step counts
-4. **Value reinforcement:** Contextual benefits shown at friction points
+![Thread, our design system, is born](/images/case-studies/ribbon-thread.png)
 
-## Impact and influence
+### Week 3: Brand identity emerges
 
-### Organizational learning
+The visual design balanced playfulness with professionalism, using illustrations and animations to reduce anxiety around legal processes. We wanted to make business formation feel accessible, not intimidating.
 
-While Ribbon operated independently, our findings influenced thinking across LegalZoom:
+![The brand emerges](/images/case-studies/ribbon-responsive.png)
 
-- **Progressive disclosure** became a discussed principle in design reviews
-- **Simplified language** initiatives emerged in other product areas
-- **Freemium exploration** gained traction as a viable business model
+## Key design decisions
 
-### Design system contributions
+### Simplified entry experience
 
-Elements from Ribbon's visual design—particularly our approach to form design and error handling—were adopted by other teams looking to modernize their experiences.
+Instead of overwhelming users with forms, we started with a single, friendly question: "Where do you want to form your business?" This immediately reduced bounce rates and set a conversational tone.
 
-### Personal growth
+![A friendly voice, delightful animations](/images/case-studies/ribbon-funnel.png)
 
-This project taught me the value of protected innovation spaces. By removing the pressure of immediate ROI, we could explore bolder solutions and generate insights that wouldn't emerge from incremental optimization.
+### Building trust through transparency
+
+We designed each step to clearly communicate value. Users understood exactly what they were getting and why each piece of information was needed. No hidden fees, no surprises.
+
+![A welcoming home page](/images/case-studies/ribbon-landing.png)
+
+## Testing and iteration
+
+### Week 1 results
+
+We launched with limited AdWords traffic, capping orders at 40 to avoid overwhelming our third-party vendor. Despite low expectations for an unknown brand, our initial results were promising:
+
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "3.6%",
+      description: "Week 1 conversion rate",
+      colorClass: "primary"
+    },
+    {
+      description: "Exceeded baseline expectations for new brand",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+/>
+
+### Rapid iteration based on data
+
+Between weeks, we analyzed drop-off points and optimized the flow. Using post-it notes and rapid prototyping, we identified friction points and tested solutions. The entire team collaborated in real-time to implement improvements.
+
+![Iterating and A/B testing the funnel](/images/case-studies/ribbon-postits.png)
+
+### Week 2 improvements
+
+Our iterations paid off. After optimizing the question flow and clarifying value propositions, we saw significant improvement:
+
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "4.6%",
+      description: "Week 2 conversion rate",
+      colorClass: "secondary"
+    },
+    {
+      stat: "+28%",
+      description: "improvement from Week 1",
+      colorClass: "secondary"
+    }
+  ]}
+  columns={2}
+/>
+
+This gave us enough data to present to leadership and created a recruiting pool for ongoing research.
+
+## Implementation and engineering collaboration
+
+### Maintaining velocity through partnership
+
+Working in one-week sprints required exceptional collaboration between design and engineering. We held daily standups, shared prototypes in real-time, and made decisions quickly. When implementation questions arose, we resolved them immediately rather than waiting for formal reviews.
+
+![Assets begin shipping](/images/case-studies/ribbon-assets.png)
+
+### Shipping with precision
+
+Despite the aggressive timeline, we maintained high standards for implementation quality. The final product matched our designs pixel-for-pixel, including animations and micro-interactions that were crucial to the experience.
+
+![Sprinting to the finish line](/images/case-studies/ribbon-slack.png)
+
+## Results and organizational impact
+
+### Influencing the broader organization
+
+While Ribbon operated independently, our findings influenced thinking across LegalZoom. The success of progressive disclosure led to discussions about simplifying the main product experience. Our approach to trust-building through transparency became a reference point for other teams.
+
+<Table
+  headers={['Validated Principle', 'How It Influenced LegalZoom']}
+  data={[
+    ['Progressive disclosure reduces drop-off', 'Initiated projects to simplify main funnel'],
+    ['Friendly language improves trust', 'Content strategy shifts across products'],
+    ['Visual delight reduces anxiety', 'Animation guidelines added to design system']
+  ]}
+/>
+
+### Demonstrating the value of experimentation
+
+The project proved that protected innovation spaces could generate valuable insights without risking core business metrics. By creating a separate brand and testing ground, we could validate hypotheses that would have been too risky to test on the main product.
 
 ## Reflection
 
-Ribbon proved that even established products with millions of users can benefit from fundamental rethinking. The key wasn't just the specific solutions we tested, but demonstrating a methodology for rapid experimentation that balanced speed with rigor.
+This project reinforced several important principles about innovation and design. Speed doesn't mean sacrificing quality. By having clear principles and close collaboration, we delivered a polished product in just four weeks. The tight timeline forced us to focus on what truly mattered: reducing friction and building trust.
 
-Most importantly, it showed that sometimes the best way to improve a product is to pretend you're competing with it. That outside perspective, combined with inside knowledge, creates the conditions for breakthrough insights.
+Ribbon proved that even established products with millions of users can benefit from fundamental rethinking. Sometimes the best way to improve a product is to pretend you're competing with it. That outside perspective, combined with inside knowledge, creates the conditions for breakthrough insights.
+
+Most importantly, it demonstrated that innovation doesn't always require massive resources. Just the freedom to experiment and learn quickly.

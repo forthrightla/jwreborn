@@ -5,11 +5,6 @@ thumbnail: "/images/block-orly.png"
 banner: "/images/case-studies/orly-banner.png"
 tags: ["Enterprise UX", "Redesign", "Benefits Application"]
 featured: false
-outcomes: [
-  "Open Enrollment support calls dropped by 95%",
-  "Eliminated need for temporary staff, saving tens of thousands in overhead",
-  "Demonstrated ROI of UX, leading to future design initiatives"
-]
 ---
 
 import Table from '../../components/Table.astro';
@@ -129,3 +124,21 @@ This project became a powerful case study within O'Reilly for the ROI of user ex
 **UX pays for itself.** The cost savings from reduced support needs far exceeded the investment in design work, making a clear business case for future UX initiatives.
 
 This project reinforced that enterprise UX doesn't need to be complex. Sometimes the biggest wins come from simply making it obvious where to click next.
+
+### Outcomes
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "-95%",
+      description: "reduction in enrollment support calls",
+      colorClass: "primary"
+    },
+    {
+      description: "Eliminated need for temporary support staff",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>

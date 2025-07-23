@@ -890,74 +890,6 @@
 }
 
 /**
- * OutcomeCard Component
- * ----------------------------------------------------------------------------
- */
-.outcome-card {
-  flex: 1;
-  min-width: 250px;
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: var(--shadow-sm);
-}
-
-.outcome-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-md);
-}
-
-.card-primary {
-  background-color: #d3dde5;
-  color: #272c30;
-}
-
-.card-secondary {
-  background-color: #00296b;
-  color: white;
-}
-
-.card-accent {
-  background-color: #f93b6b;
-  color: white;
-}
-
-.outcome-icon {
-  margin-bottom: 1.5rem;
-}
-
-.default-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.outcome-stat {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 1.5rem;
-  font-family: "IBM Plex Serif", serif;
-}
-
-.outcome-description {
-  font-size: 1.1rem;
-  line-height: 1.4;
-  max-width: 200px;
-}
-
-/**
  * Layout Components
  * ----------------------------------------------------------------------------
  */
@@ -983,14 +915,6 @@
   width: 100%;
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
-}
-
-/* OutcomeGrid Layout */
-.outcome-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
 }
 
 /* ImageGrid Layout */
@@ -1188,44 +1112,6 @@
   font-size: 1em;
   color: #666;
   line-height: 1.5em;
-}
-
-.outcomes {
-  padding-top: 0;
-}
-
-.outcomes-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.circle {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 18px;
-  padding: 20px;
-  color: white;
-}
-
-.circle1 {
-  background-color: #d3dde5;
-  color: black;
-}
-
-.circle2 {
-  background-color: #00296b;
-}
-
-.circle3 {
-  background-color: #ff6384;
 }
 
 /**
@@ -1775,15 +1661,6 @@ mux-player {
     visibility: visible;
   }
   
-  .outcomes-container {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .circle {
-    margin-bottom: 20px;
-  }
-  
   .expertise {
     flex-direction: column;
     align-items: center;
@@ -1993,13 +1870,6 @@ mux-player {
   
   .skill p {
     font-size: 0.95rem;
-  }
-  
-  /* Outcome component mobile styles */
-  .outcome-card {
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
   }
   
   /* Portfolio feed mobile styles */

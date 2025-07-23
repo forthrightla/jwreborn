@@ -5,14 +5,8 @@ thumbnail: "/images/block-cerebral.png"
 banner: "/images/case-studies/cerebral-banner.png"
 tags: ["Research", "Consulting"]
 featured: true
-outcomes: [
-  "Implementation of recommendations improved customer satisfaction by 26%",
-  "Drove hiring of Cerebral’s first research team",
-  "This work directly shaped and informed the company's 2021/2022 product roadmap"
-]
 ---
 
-import Video from '../../components/Video.astro';
 import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
@@ -153,3 +147,21 @@ The insights directly shaped how Cerebral prioritized their 2-year product roadm
 Perhaps most significantly, this research convinced leadership to hire Cerebral's first dedicated research team. They recognized that understanding their customers wasn't a one-time project but an ongoing necessity for a company serving such vulnerable moments in people's lives.
 
 Looking back, I'm proud that this work helped Cerebral move from assumptions to evidence. In mental health care, that shift matters.
+
+### Outcomes
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "+26%",
+      description: "increase in customer satisfaction",
+      colorClass: "primary"
+    },
+    {
+      description: "Drove hiring of Cerebral’s first research team",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>
