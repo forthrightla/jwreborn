@@ -13,6 +13,8 @@ import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.as
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
+import BoxesAndArrows from '../../components/BoxesAndArrows.astro';
+
 
 ## Summary
 
@@ -60,8 +62,6 @@ LegalZoom's business formation product generates almost half the company's reven
 
 Leadership was hesitant to take risks with such a critical product. They needed a way to test new ideas without disrupting the core business.
 
-![How LegalZoom worked at the time](/images/case-studies/ribbon-boxes-before.png)
-
 ### The opportunity
 
 Enter Ribbon: an internal startup with autonomy to experiment with price points, visual design, funnel structure, and product offerings independently of legacy systems. Our mission was to discover what might work better, then bring those insights back to the main product.
@@ -86,17 +86,32 @@ With only four weeks to deliver, we had to make informed assumptions based on ex
 
 Based on our research synthesis, I proposed a fundamental shift in approach. Instead of requiring all information upfront, we would ask easy questions first, building trust progressively through the experience.
 
+#### Existing LegalZoom purchase funnel
+<BoxesAndArrows steps={[
+      { text: "Click CTA to start purchase funnel" },
+      { text: "Answer 23 pages of detailed questions" },
+      { text: "Checkout and purchase" },
+      { text: "Answer even more questions" }
+    ]} />
+
+
+
 <Table
   headers={['Traditional Approach', 'Our Hypothesis', 'Expected Benefit']}
   data={[
-    ['23 pages of questions upfront', 'Easy questions first', 'Reduced cognitive load'],
+    ['23 pages of questions up front', 'Easy questions first', 'Reduced cognitive load'],
     ['All info before pricing', 'Show value progressively', 'Increased trust'],
     ['Complex legal language', 'Simplified, friendly copy', 'Better comprehension']
   ]}
   variant="compact"
 />
 
-![The hypothesis: a better way](/images/case-studies/ribbon-boxes-hypothesis.png)
+#### Our hypothesis: ask the easy questions first
+<BoxesAndArrows steps={[
+      { text: "Click CTA to start purchase funnel" },
+      { text: "Answer a short set of easy questions" },
+      { text: "Checkout and purchase" }
+    ]} />
 
 ## Design process
 

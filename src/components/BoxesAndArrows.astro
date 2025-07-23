@@ -1,0 +1,210 @@
+---
+export interface Step {
+  text: string;
+}
+
+export interface Props {
+  steps: Step[];
+  className?: string;
+}
+
+const { steps, className = '' } = Astro.props;
+---
+
+<div class={`funnel-container ${className}`}>
+  <div class="funnel">
+    {steps.map((step, index) => (
+      <>
+        <div class="funnel-step">
+          <p>{step.text}</p>
+        </div>
+        {index < steps.length - 1 && <div class="arrow"></div>}
+      </>
+    ))}
+  </div>
+</div>
+
+<style>
+  .funnel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .funnel {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+    position: relative;
+  }
+
+  .funnel-step {
+    background: #d5dde5;
+    padding: 40px 20px;
+    border-radius: 0;
+    text-align: center;
+    flex: 1;
+    max-width: 280px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Adjust spacing for different step counts */
+  .funnel:has(.funnel-step:nth-child(9)) .funnel-step,  /* 5 steps */
+  .funnel:has(.funnel-step:nth-child(11)) .funnel-step { /* 6 steps */
+    max-width: 220px;
+    padding: 30px 15px;
+  }
+
+  .funnel:has(.funnel-step:nth-child(9)) .funnel-step p,
+  .funnel:has(.funnel-step:nth-child(11)) .funnel-step p {
+    font-size: 1rem;
+  }
+
+  .funnel-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background: #c8d4e0;
+  }
+
+  .funnel-step p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2c3e50;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .arrow {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    align-self: center;
+  }
+
+  .arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: #0066cc;
+    transform: translateY(-50%);
+  }
+
+  .arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 20px solid #0066cc;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    transform: translateY(-50%) translateX(-10px);
+  }
+
+  /* Tablet styles */
+  @media (max-width: 968px) {
+    .funnel {
+      gap: 20px;
+    }
+
+    .funnel-step {
+      padding: 30px 20px;
+      max-width: 220px;
+    }
+
+    .funnel-step p {
+      font-size: 1.1rem;
+    }
+
+    .arrow {
+      width: 40px;
+    }
+
+    .arrow::before {
+      width: 25px;
+    }
+
+    .arrow::after {
+      border-left-width: 15px;
+      border-top-width: 12px;
+      border-bottom-width: 12px;
+      transform: translateY(-50%) translateX(-8px);
+    }
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .funnel {
+      flex-direction: column;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    .funnel-step {
+      max-width: 100%;
+      width: 100%;
+      min-height: 120px;
+      padding: 25px 20px;
+    }
+
+    .arrow {
+      transform: rotate(90deg);
+      width: 50px;
+      height: 50px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Small mobile styles */
+  @media (max-width: 480px) {
+    .funnel-step p {
+      font-size: 1rem;
+    }
+
+    .funnel-step {
+      padding: 20px 15px;
+      min-height: 80px;
+    }
+  }
+
+  /* Animation for page load */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .funnel-step {
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+
+  .funnel-step:nth-child(1) { animation-delay: 0.1s; }
+  .funnel-step:nth-child(3) { animation-delay: 0.3s; }
+  .funnel-step:nth-child(5) { animation-delay: 0.5s; }
+  .funnel-step:nth-child(7) { animation-delay: 0.7s; }
+
+  .arrow {
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+
+  .arrow:nth-child(2) { animation-delay: 0.2s; }
+  .arrow:nth-child(4) { animation-delay: 0.4s; }
+  .arrow:nth-child(6) { animation-delay: 0.6s; }
+</style>
