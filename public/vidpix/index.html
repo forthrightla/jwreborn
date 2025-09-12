@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vid Pix Simulator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            --ctl-h: 30px; /* unified control height to match lock toggle overall */
+        }
+        
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: stretch; /* make columns equal height */
+            justify-content: center; /* center page content */
+            margin: 0 auto;
+        }
+        
+        .canvas-container {
+            border: 2px solid #00ff00;
+            background-color: #000;
+            padding: 10px;
+        }
+        
+        canvas {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            background-color: #000;
+            /* Scale 128x96 logical pixels up to 6x = 768x576 */
+            width: 768px;
+            height: 576px;
+        }
+        
+        .controls {
+            background-color: #2a2a2a;
+            padding: 18px; /* a bit more breathing room */
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            min-width: 420px; /* readability width */
+            line-height: 1.4;
+            max-width: 520px; /* natural panel width cap */
+            box-sizing: border-box;
+            display: flex;          /* allow tab content to fill */
+            flex-direction: column;
+            overflow: hidden;       /* keep borders clean */
+            width: 520px;           /* fix width so tab content doesn't jump */
+        }
+        /* Tab bar - pill style */
+        .tabs { display:flex; gap:10px; margin:0 0 10px 0; padding-left:0; }
+        .tab-btn {
+            background:#1a1a1a;
+            color:#7cffc4;
+            border:2px solid #00ff66;
+            padding:10px 20px;
+            cursor:pointer;
+            font-size:13px;
+            font-weight:bold;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            border-radius:9999px; /* pills */
+            transition: all 0.15s ease;
+        }
+        .tab-btn:hover {
+            background: #2a2a2a;
+            color:#00ff88;
+        }
+        .tab-btn.active {
+            background: #2a2a2a;
+            color:#00ff00;
+            box-shadow:0 0 12px rgba(0,255,0,0.3), 0 0 16px rgba(0,255,102,0.2) inset;
+        }
+        /* Tab panel */
+        .tab-content { 
+            display:none; 
+            flex:1;
+            overflow:auto;
+            padding:0;
+        }
+        .tab-content.active {
+            display:flex;
+            flex-direction:column;
+        }
+        /* Controls row - align like palette buttons */
+        .control-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        
+        button {
+            background-color: #000;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 8px 12px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        button:hover {
+            background-color: #003300;
+        }
+        
+        input[type="range"] {
+            width: 200px;
+            margin: 10px 0;
+        }
+        
+        input[type="number"] {
+            background-color: #000;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 4px;
+            width: 60px;
+            font-family: inherit;
+        }
+        
+        label {
+            display: block;
+            margin: 6px 0;
+            font-size: 13px; /* easier to read */
+        }
+        
+        .info {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        h1 {
+            color: #00ff00;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 0px;
+            margin-top: 36px;
+        }
+        
+        h4 {
+            margin-bottom: 8px;
+            margin-top: 36px;
+        }
+        
+        .status {
+            margin-top: 10px;
+            font-size: 12px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border-left: 3px solid #00ff00;
+            height: 5.5em;          /* ~4 lines */
+            overflow: auto;          /* scroll when needed */
+            min-width: 320px;        /* keep width consistent */
+        }
+        /* Differentiate buttons vs inputs while keeping the vibe - exclude tab buttons */
+        .controls button:not(.tab-btn) {
+            background:#001a00;
+            color:#00ff88;
+            border:1px solid #00ff66;
+            padding:0 12px;
+            margin:2px 4px;
+            height: var(--ctl-h);
+            text-transform:uppercase;
+            letter-spacing:0.5px;
+            box-shadow:0 0 6px rgba(0,255,136,0.25) inset, 0 0 6px rgba(0,255,136,0.15);
+            cursor:pointer;
+        }
+        .controls button:not(.tab-btn):hover { background:#003300; }
+        .controls button:not(.tab-btn).active { background:#004400; box-shadow:0 0 10px rgba(0,255,136,0.35) inset; }
+        .controls input[type="number"],
+        .controls select {
+            background:#101010;
+            color:#7cffc4;
+            border:1px solid #0a884a;
+            padding:0 6px;
+            margin:2px 4px;
+            height: var(--ctl-h);
+        }
+        .controls input[type="range"] { width: 380px; }
+        /* Make sensitivity slider match neon green theme (minimal change) */
+        #audioSensitivity { accent-color: #00ff00; }
+        #audioSensitivity::-webkit-slider-runnable-track { height: 6px; background: #003300; border: 1px solid #00ff00; }
+        #audioSensitivity::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; background: #00ff00; border: 1px solid #00ff88; border-radius: 50%; margin-top: -5px; }
+        #audioSensitivity::-moz-range-track { height: 6px; background: #003300; border: 1px solid #00ff00; }
+        #audioSensitivity::-moz-range-thumb { width: 14px; height: 14px; background: #00ff00; border: 1px solid #00ff88; border-radius: 50%; }
+        /* Beat/frame buttons already use .beat-btn; let them inherit base but keep highlight */
+        .beat-btn { background:#000; color:#00ff00; border:1px solid #00ff00; padding:0 10px; margin:2px; cursor:pointer; font-family:inherit; height: var(--ctl-h); }
+        .beat-btn.active { background:#003300; box-shadow:0 0 6px #00ff88 inset; }
+        /* Toggle switch styling for palette lock */
+        .toggle-switch { display:inline-flex; align-items:center; gap:6px; background:transparent; border:none; color:#00ff88; cursor:pointer; padding:0 6px; height: var(--ctl-h); }
+        .toggle-switch .track { position:relative; width:52px; height:22px; background:#001a00; border:1px solid #00ff66; border-radius:12px; box-shadow:0 0 6px rgba(0,255,136,0.25) inset; }
+        .toggle-switch .thumb { position:absolute; top:2px; left:2px; width:18px; height:18px; background:#00ff66; border-radius:50%; box-shadow:0 0 6px rgba(0,255,136,0.35); transition:left 120ms ease; }
+        .toggle-switch.active .track { background:#004400; }
+        .toggle-switch.active .thumb { left:32px; }
+        .toggle-switch .label { font-size:12px; letter-spacing:0.5px; color:#7cffc4; }
+        .toggle-switch .state { font-size:11px; color:#00ff88; opacity:0.9; }
+    </style>
+</head>
+<body>
+    <h1>Vid Pix Simulator</h1>
+    
+    <div class="container">
+        <div class="canvas-container">
+            <canvas id="vidpix-canvas" width="128" height="96"></canvas>
+            <div class="status" id="status">Ready. Click buttons to test graphics primitives.</div>
+        </div>
+        
+        <div class="controls" id="controlsPanel">
+            <div class="tabs">
+                <button id="tab-visualizer" class="tab-btn active" onclick="showTab('visualizer')">Visual</button>
+                <button id="tab-audio" class="tab-btn" onclick="showTab('audio')">Audio</button>
+            </div>
+              <div id="tab-content-visualizer" class="tab-content active" style="flex:1 1 auto; padding:16px;">
+             <h4 style="margin-top:10px;">Controls</h4>
+            <div class="control-row">
+                <button id="startBtn" onclick="vidPixLoop.start()">▶ Start</button>
+                <button id="stopBtn" onclick="vidPixLoop.stop()">■ Stop</button>
+                <button id="autoBtn" onclick="toggleAutoPatternUI()">AUTO: <span id="autoPatternState">OFF</span></button>
+            </div>
+            
+            <h4>Patterns</h4>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <button onclick="vidPixLoop.previousPattern()">◀◀ Prev</button>
+                <button onclick="vidPixLoop.nextPattern()">Next ▶▶</button>
+                <input type="number" id="patternSelect" min="0" max="62" value="0" onchange="vidPixLoop.setDisplayRoutine(parseInt(this.value))" style="width:40px;">
+            </div>
+            <label for="patternSelect">Pattern (0-62)</label>
+            
+            
+            <h4>Palettes</h4>
+            <div>
+                <button onclick="prevPalette()">◀◀ Prev</button>
+                <button onclick="nextPalette()">Next ▶▶</button>
+                <input type="number" id="paletteSelect" min="0" max="29" value="0" onchange="setPaletteFromInput()" style="width:40px;">
+                <button id="paletteLockBtn" onclick="togglePaletteLockUI()">LOCK: <span id="paletteLockState">OFF</span></button>
+            </div>
+            <details style="margin-top:8px;">
+                <summary style="font-size:12px;cursor:pointer;color:#00ff00;">View All</summary>
+                <div id="paletteGrid" style="margin-top:8px;"></div>
+            </details>
+            <h4>Frame Rate</h4>
+            <div class="fr-row" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <div id="frameRateToggleGroup"></div>
+                <input type="number" id="frameRateInput" min="10" max="120" step="1" value="60" title="FPS" style="width:40px;">
+            </div>
+            </div>
+              <div id="tab-content-audio" class="tab-content" style="flex:1 1 auto; padding:16px;">
+                  <div id="sensitivityBlock">
+                      <h4 style="margin-top:10px;">Sensitivity</h4>
+                      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+                          <input type="range" id="audioSensitivity" min="0.05" max="1.5" step="0.05" value="0.6" oninput="vidPixLoop.setAudioSensitivity(parseFloat(this.value))">
+                          <label for="audioSensitivity"> <span id="sensitivityValue">0.6</span>x</label>
+                      </div>
+                  </div>
+             <h4>Source</h4>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+                <div id="sourceToggleGroup"></div>
+                <select id="audioDeviceSelect" style="min-width:200px; display:none"></select>
+            </div>
+            <div id="simulatorBlock" style="display:block; margin-top:8px;">
+                <h4>Simulator</h4>
+                <div id="beatToggleGroup" style="margin-bottom:6px;"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="sprites-simple.js"></script>
+    <script src="vidpix-main-loop.js"></script>
+    <script>
+        // Wait for DOM and all scripts to load
+        document.addEventListener('DOMContentLoaded', function() {
+        // Vid Pix Graphics Emulator
+        // Replicates the Graphics.spin functionality in JavaScript
+        
+        class VidPixGraphics {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                
+                // Display constants from Graphics.spin
+                this.WIDTH = 128;   // 8 tiles × 16 pixels
+                this.HEIGHT = 96;   // 6 tiles × 16 pixels
+                this.X_ORIGIN = 64; // Center X
+                this.Y_ORIGIN = 48; // Center Y
+                
+                // Scale factor for visibility (6x)
+                this.SCALE = 6;
+                this.canvas.style.width = (this.WIDTH * this.SCALE) + 'px';
+                this.canvas.style.height = (this.HEIGHT * this.SCALE) + 'px';
+                
+                // Graphics state
+                this.currentColor = 1;      // Color index (0-3)
+                this.currentWidth = 0;      // Pixel width (0-15)
+                this.isRoundPixels = true;  // Round vs square pixels
+                this.currentX = 0;          // Current drawing position
+                this.currentY = 0;
+                
+                // Palette system (Vid Pix style)
+                // 64 palettes max; each palette has 4 TV-encoded bytes -> RGB colors
+                this.paletteColors = new Array(64).fill(null).map(() => ['#000000','#FFFFFF','#FF0000','#00FF00']);
+                // 8x6 tiles; each tile stores a palette index 0..63
+                this.tilePaletteIndex = Array.from({ length: 6 }, () => new Array(8).fill(0));
+                
+                // Initialize canvas
+                this.ctx.imageSmoothingEnabled = false;
+                this.clear();
+
+                // Initialize color palettes from Spin and set default area color
+                this.initializeColorPalettesFromSpin();
+                this.setAreaColor(0, 0, 7, 5, 0);
+                this.globalPalette = 0;
+                this.paletteLocked = false;
+                
+                // Initialize vector font system
+                this.initializeFontConstants();
+                
+                this.log("VidPix Graphics initialized: 128×96 canvas with center at (0,0)");
+                // Build palette grid UI (0-29) as swatches
+                const grid = document.getElementById('paletteGrid');
+                if (grid) {
+                    grid.innerHTML = '';
+                    for (let p = 0; p <= 29; p++) {
+                        const sw = document.createElement('div');
+                        sw.style.display = 'inline-block';
+                        sw.style.margin = '4px';
+                        sw.style.cursor = 'pointer';
+                        sw.title = `Palette ${p}`;
+                        // render 4-color strip
+                        const strip = document.createElement('div');
+                        strip.style.display = 'grid';
+                        strip.style.gridTemplateColumns = 'repeat(4, 12px)';
+                        strip.style.width = '48px';
+                        strip.style.height = '12px';
+                        strip.style.border = '1px solid #00ff00';
+                        for (let c = 0; c < 4; c++) {
+                            const cell = document.createElement('div');
+                            cell.style.width = '12px';
+                            cell.style.height = '12px';
+                            cell.style.background = (this.paletteColors[p]||['#000','#fff','#f00','#0f0'])[c];
+                            strip.appendChild(cell);
+                        }
+                        const lbl = document.createElement('div');
+                        lbl.textContent = `${p}`;
+                        lbl.style.fontSize = '10px';
+                        lbl.style.textAlign = 'center';
+                        lbl.style.color = '#00ff00';
+                        sw.appendChild(strip);
+                        sw.appendChild(lbl);
+                        sw.onclick = () => { setPaletteDirect(p); };
+                        grid.appendChild(sw);
+                    }
+                }
+            }
+            
+            // Transform user coordinates to screen coordinates
+            // Based on Graphics.spin setd function: dx = xorigin + x, dy = yorigin - y
+            transformX(x) {
+                return this.X_ORIGIN + x;
+            }
+            
+            transformY(y) {
+                return this.Y_ORIGIN - y; // Note: Y is flipped
+            }
+            
+            // Check if coordinates are within bounds
+            inBounds(screenX, screenY) {
+                return screenX >= 0 && screenX < this.WIDTH && 
+                       screenY >= 0 && screenY < this.HEIGHT;
+            }
+            
+            // Clear bitmap (tile-aware; fills each tile with its palette's color0)
+            clear() {
+                const tileW = 16, tileH = 16;
+                for (let ty = 0; ty < 6; ty++) {
+                    for (let tx = 0; tx < 8; tx++) {
+                        const palIdx = this.tilePaletteIndex[ty][tx] & 0x3F;
+                        const color0 = (this.paletteColors[palIdx] || ['#000000'])[0] || '#000000';
+                        this.ctx.fillStyle = color0;
+                        this.ctx.fillRect(tx * tileW, ty * tileH, tileW, tileH);
+                    }
+                }
+            }
+            
+            // Set pixel color (Graphics.spin color method)
+            color(c) {
+                this.currentColor = c & 3; // Limit to 0-3
+            }
+            
+            // Set pixel width (Graphics.spin width method)
+            // w: 0-15 for round pixels, 16-31 for square pixels
+            width(w) {
+                this.isRoundPixels = (w & 0x10) === 0;
+                this.currentWidth = w & 0x0F;
+            }
+            
+            // Set color and width (Graphics.spin colorwidth method)
+            colorwidth(c, w) {
+                this.color(c);
+                this.width(w);
+            }
+
+            // ====================
+            // Palette API
+            // ====================
+
+            // Convert Propeller TV color byte ($hhll) approx to RGB hex via YIQ model
+            // High nibble = hue (0..15 => 0..360), low nibble = luma (0..15)
+            propColorByteToHex(byte) {
+                const hueNib = (byte >>> 4) & 0x0F;
+                const lumNib = byte & 0x0F;
+                const Y = lumNib / 15; // 0..1
+                const angle = (hueNib * 22.5) * Math.PI / 180; // radians
+                const chroma = 0.6; // saturation amplitude (approx for vivid NTSC)
+                // YIQ to RGB conversion
+                const I = chroma * Math.cos(angle);
+                const Q = chroma * Math.sin(angle);
+                let r = Y + 0.946882 * I + 0.623557 * Q;
+                let g = Y - 0.274788 * I - 0.635691 * Q;
+                let b = Y - 1.108545 * I + 1.709007 * Q;
+                // Clamp and gamma-ish correction
+                r = Math.max(0, Math.min(1, r));
+                g = Math.max(0, Math.min(1, g));
+                b = Math.max(0, Math.min(1, b));
+                const to8 = (v) => {
+                    const v2 = Math.pow(v, 1.0/1.2); // mild gamma
+                    return Math.max(0, Math.min(255, Math.round(v2 * 255)));
+                };
+                const rr = to8(r).toString(16).padStart(2, '0');
+                const gg = to8(g).toString(16).padStart(2, '0');
+                const bb = to8(b).toString(16).padStart(2, '0');
+                return `#${rr}${gg}${bb}`;
+            }
+
+            setColorPalette(index, c1, c2, c3, c4) {
+                const i = index & 0x3F;
+                // Force background (color 0) to black across all palettes
+                this.paletteColors[i] = [
+                    '#000000',
+                    this.propColorByteToHex(c2 & 0xFF),
+                    this.propColorByteToHex(c3 & 0xFF),
+                    this.propColorByteToHex(c4 & 0xFF)
+                ];
+            }
+
+            setTileColor(tx, ty, paletteIndex) {
+                if (tx < 0 || tx > 7 || ty < 0 || ty > 5) return;
+                this.tilePaletteIndex[ty][tx] = paletteIndex & 0x3F;
+            }
+
+            // Equivalent to Spin SetAreaColor(X1,Y1,X2,Y2,ColorIndex) in tile coords
+            setAreaColor(x1, y1, x2, y2, paletteIndex) {
+                const ix1 = Math.max(0, Math.min(7, x1|0));
+                const iy1 = Math.max(0, Math.min(5, y1|0));
+                const ix2 = Math.max(0, Math.min(7, x2|0));
+                const iy2 = Math.max(0, Math.min(5, y2|0));
+                const pal = paletteIndex & 0x3F;
+                for (let tx = Math.min(ix1, ix2); tx <= Math.max(ix1, ix2); tx++) {
+                    for (let ty = Math.min(iy1, iy2); ty <= Math.max(iy1, iy2); ty++) {
+                        this.tilePaletteIndex[ty][tx] = pal;
+                    }
+                }
+                this.globalPalette = pal; // track last global set
+                this.clear(); // refresh background tiles to new color0
+            }
+
+            // Port of all SetColorPalette calls from Spin
+            initializeColorPalettesFromSpin() {
+                // Only palettes 0..29 per request
+                // browns and yellows (0..5)
+                this.setColorPalette(0, 0x02,0xAC,0x18,0xAB);
+                this.setColorPalette(1, 0x02,0x18,0x9E,0xAB);
+                this.setColorPalette(2, 0x02,0xBB,0x18,0x9B);
+                this.setColorPalette(3, 0x02,0x18,0xAC,0xAB);
+                this.setColorPalette(4, 0x02,0xAB,0xAC,0x18);
+                this.setColorPalette(5, 0x02,0xAC,0x18,0x9B);
+                // blues and purples (6..11)
+                this.setColorPalette(6, 0x02,0x3C,0xB8,0xEB);
+                this.setColorPalette(7, 0x02,0x0C,0x5E,0xFB);
+                this.setColorPalette(8, 0x02,0xB8,0x3C,0xEB);
+                this.setColorPalette(9, 0x02,0xB8,0x5D,0x88);
+                this.setColorPalette(10,0x02,0xEB,0x3C,0x5D);
+                this.setColorPalette(11,0x02,0xB8,0xEB,0x88);
+                // purple pink white (12..17)
+                this.setColorPalette(12,0x02,0x58,0x88,0x3E);
+                this.setColorPalette(13,0x02,0xED,0xDD,0x3E);
+                this.setColorPalette(14,0x02,0xCC,0xED,0xB8);
+                this.setColorPalette(15,0x02,0x58,0x88,0x3E);
+                this.setColorPalette(16,0x02,0x68,0xCC,0x4D);
+                this.setColorPalette(17,0x02,0x3E,0xB8,0x58);
+                // light blues and greens (18..23)
+                this.setColorPalette(18,0x02,0x5E,0x3D,0xF8);
+                this.setColorPalette(19,0x02,0x3D,0x5E,0xF8);
+                this.setColorPalette(20,0x02,0x6D,0x3E,0x6E);
+                this.setColorPalette(21,0x02,0x5E,0x4E,0xF8);
+                this.setColorPalette(22,0x02,0x6E,0x3D,0x4E);
+                this.setColorPalette(23,0x02,0xF8,0x6E,0x3E);
+                // orange and greens (24..29)
+                this.setColorPalette(24,0x02,0x8D,0x8E,0x38);
+                this.setColorPalette(25,0x02,0x8E,0x8D,0x28);
+                this.setColorPalette(26,0x02,0x5C,0x8E,0xAD);
+                this.setColorPalette(27,0x02,0x7C,0x7E,0x5C);
+                this.setColorPalette(28,0x02,0x5C,0x8D,0x38);
+                this.setColorPalette(29,0x02,0x28,0x8E,0x5C);
+            }
+            
+            // Plot point (Graphics.spin plot method)
+            plot(x, y) {
+                const screenX = this.transformX(x);
+                const screenY = this.transformY(y);
+                
+                if (!this.inBounds(screenX, screenY)) {
+                    return; // Out of bounds
+                }
+                
+                // Update current position
+                this.currentX = x;
+                this.currentY = y;
+                
+                // Draw pixel with current width
+                this.drawPixel(screenX, screenY);
+            }
+            
+            // Draw line to point (Graphics.spin line method)
+            line(x, y) {
+                const startX = this.transformX(this.currentX);
+                const startY = this.transformY(this.currentY);
+                const endX = this.transformX(x);
+                const endY = this.transformY(y);
+                
+                // Bresenham line algorithm (simplified version of Graphics.spin linepd)
+                this.drawLine(startX, startY, endX, endY);
+                
+                // Update current position
+                this.currentX = x;
+                this.currentY = y;
+            }
+            
+            // Draw pixel sprite (Graphics.spin pix method)
+            pix(x, y, rotation, spriteName) {
+                // Check if sprites object is available
+                if (typeof sprites === 'undefined') {
+                    this.log('ERROR: sprites object not loaded! Check sprites.js');
+                    return;
+                }
+                
+                if (!sprites[spriteName]) {
+                    this.log(`Unknown sprite: ${spriteName} - drawing placeholder`);
+                    // Draw a placeholder pattern based on sprite name
+                    this.drawSpritePlaceholder(x, y, spriteName);
+                    return;
+                }
+                
+                const sprite = sprites[spriteName];
+                const [xwords, ywords, xorigin, yorigin] = sprite.format;
+                
+                // Save current color
+                const savedColor = this.currentColor;
+                
+                // Pixel scale: low nibble + 1 (Spin: sy := pwidth + 1)
+                const scale = (this.currentWidth & 0x0F) + 1;
+                
+                // Rotation/mirror flags (Spin uses arg2 bits %001=%rot90, %010=%rot180, %100=%mirror)
+                const mirrorFlag = (rotation & 4) !== 0;   // +4 means mirror
+                const rot = rotation & 3;                  // 0,1,2,3 = 0/90/180/270
+                
+                const transformPixel = (pixelX, pixelY) => {
+                    if (rot === 0 && !mirrorFlag) {
+                        return [pixelX, pixelY];
+                    }
+                    let relX = pixelX - x;
+                    let relY = pixelY - y;
+                    if (mirrorFlag) relX = -relX;
+                    let newRelX, newRelY;
+                    switch (rot) {
+                        case 1: newRelX = -relY; newRelY = relX; break;      // 90°
+                        case 2: newRelX = -relX; newRelY = -relY; break;     // 180°
+                        case 3: newRelX = relY; newRelY = -relX; break;      // 270°
+                        default: newRelX = relX; newRelY = relY; break;
+                    }
+                    return [x + newRelX, y + newRelY];
+                };
+                
+                // Helper: parse base-4 8-digit string into 16-bit word (2 bits per pixel)
+                const parseBase4Word = (s) => {
+                    let v = 0;
+                    for (let i = 0; i < s.length; i++) {
+                        const d = s.charCodeAt(i) - 48; // '0'..'3'
+                        const pair = d === 0 ? 0 : d === 1 ? 0b01 : d === 2 ? 0b10 : 0b11;
+                        v = (v << 2) | pair;
+                    }
+                    return v >>> 0;
+                };
+
+                // Render each row of sprite data (scaled stepping like Spin pix_)
+                for (let row = 0; row < ywords; row++) {
+                    const rowData = sprite.data[row];
+                    if (!rowData) continue;
+                    for (let word = 0; word < xwords; word++) {
+                        const token = rowData[word];
+                        const baseWord = (typeof token === 'string') ? parseBase4Word(token) : (token | 0);
+                        let wordData = (baseWord || 0) << 16; // shl t4,#16
+                        for (let pixel = 0; pixel < 8; pixel++) {
+                            wordData = ((wordData << 2) | (wordData >>> 30)) >>> 0; // rol t4,#2
+                            const bit0 = wordData & 1;
+                            const bit1 = (wordData >> 1) & 1;
+                            const pixelColor = bit0 | (bit1 << 1);
+                            if (pixelColor !== 0) {
+                                // Compute scaled local top-left of pixel block in world coords before rotation
+                                const col = (word * 8) + pixel;
+                                const baseWorldX = x + ((col - xorigin) * scale);
+                                const baseWorldY = y + ((yorigin - row) * scale);
+                                // Fill scale x scale block with rotation applied to each subpixel
+                                for (let dx = 0; dx < scale; dx++) {
+                                    for (let dy = 0; dy < scale; dy++) {
+                                        const wx = baseWorldX + dx;
+                                        const wy = baseWorldY + dy;
+                                        const [rx, ry] = transformPixel(wx, wy);
+                                        const screenX = this.transformX(rx);
+                                        const screenY = this.transformY(ry);
+                                        if (this.inBounds(screenX, screenY)) {
+                                            this.currentColor = pixelColor;
+                                            this.drawPixel(screenX, screenY);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // Restore original color
+                this.currentColor = savedColor;
+            }
+            
+            // Vector font rendering system (Graphics.spin text methods)
+            
+            // Font coordinate constants (from Graphics.spin lines 393-473)
+            initializeFontConstants() {
+                // Exact bit placements from Graphics.spin:
+                // xa: bits 2..0 (<< 0)
+                // ya: bits 6..3 (<< 3)
+                // xb: bits 9..7 (<< 7)
+                // yb: bits 13..10 (<< 10)
+                this.xa = [0,1,2,3,4,5,6,7].map(v => v << 0);
+                this.ya = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(v => v << 3);
+                this.xb = [0,1,2,3,4,5,6,7].map(v => v << 7);
+                this.yb = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(v => v << 10);
+                
+                // Command flags
+                this.FLINE = 0x0000;  // Line command (fline = %0 << 14)
+                this.FARC  = 0x4000;  // Arc command  (farc  = %1 << 14)
+                this.MORE  = 0x8000;  // Continuation (more  = %1 << 15)
+                
+                // Text rendering state
+                this.textXScale = 1;     // x character scale
+                this.textYScale = 1;     // y character scale
+                this.textSpacing = 6;    // character spacing
+                this.textJustification = 0; // justification bits
+                
+                // Initialize font data
+                this.initializeFontData();
+            }
+            
+            // Font data - expanded character set based on Graphics.spin font definitions
+            initializeFontData() {
+                // Convert Graphics.spin font constants to JavaScript values
+                // xa0-xa7 = 0-7, ya0-yaF = 0-15, xb0-xb7 = 0-7, yb0-ybF = 0-15
+                this.fontData = {
+                    0x40: [ // '@'
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[4] | this.yb[6]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[6]  | this.xb[2] | this.yb[6]  | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[6]  | this.xb[2] | this.yb[8]
+                    ],
+                    0x23: [ // '#'
+                        this.FLINE | this.xa[1] | this.ya[4]  | this.xb[1] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[4]  | this.xb[3] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[6]  | this.xb[4] | this.yb[6]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[10] | this.xb[4] | this.yb[10]
+                    ],
+                    0x24: [ // '$'
+                        this.FLINE | this.xa[2] | this.ya[12] | this.xb[2] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x25: [ // '%'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[1] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[12] | this.xb[4] | this.yb[12]
+                    ],
+                    0x5E: [ // '^'
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[2] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[2] | this.yb[12]
+                    ],
+                    0x5F: [ // '_'
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x2A: [ // '*'
+                        this.FLINE | this.xa[2] | this.ya[4]  | this.xb[2] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[1] | this.ya[6]  | this.xb[3] | this.yb[10] | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[6]  | this.xb[1] | this.yb[10]
+                    ],
+                    0x20: [ // ' ' - space (empty)
+                        // No drawing commands for space
+                    ],
+                    0x21: [ // '!' - exclamation mark 
+                        // From Graphics.spin: fline + xa2 + yaC + xb2 + yb7 + more
+                        this.FLINE | this.xa[2] | this.ya[12] | this.xb[2] | this.yb[7] | this.MORE,
+                        // From Graphics.spin: fline + xa2 + ya5 + xb2 + yb4  
+                        this.FLINE | this.xa[2] | this.ya[5] | this.xb[2] | this.yb[4]
+                    ],
+                    0x22: [ // '"' - double quote (fline + xa1 + yaD + xb1 + ybC + more, fline + xa3 + yaD + xb3 + ybC)
+                        this.FLINE | this.xa[1] | this.ya[13] | this.xb[1] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[13] | this.xb[3] | this.yb[12]
+                    ],
+                    0x2B: [ // '+' - plus (fline + xa0 + ya8 + xb4 + yb8 + more, fline + xa2 + yaA + xb2 + yb6)
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[10] | this.xb[2] | this.yb[6]
+                    ],
+                    0x2D: [ // '-' - minus (fline + xa0 + ya8 + xb4 + yb8)
+                        this.FLINE | this.xa[0] | this.ya[8] | this.xb[4] | this.yb[8]
+                    ],
+                    0x2E: [ // '.' - period (fline + xa2 + ya5 + xb2 + yb4)
+                        this.FLINE | this.xa[2] | this.ya[5] | this.xb[2] | this.yb[4]
+                    ],
+                    0x30: [ // '0' - zero (simplified as oval - farc + xa2 + ya8 + a0 + ax2 + ay4)
+                        // Approximate with 4 quarter arcs
+                        this.FARC | this.xa[2] | this.ya[8] | (0 << 10) | (1 << 7) | (3 << 8) | this.MORE, // 0°..90°
+                        this.FARC | this.xa[2] | this.ya[8] | (1 << 10) | (1 << 7) | (3 << 8) | this.MORE, // 90°..180°
+                        this.FARC | this.xa[2] | this.ya[8] | (2 << 10) | (1 << 7) | (3 << 8) | this.MORE, // 180°..270°
+                        this.FARC | this.xa[2] | this.ya[8] | (3 << 10) | (1 << 7) | (3 << 8)              // 270°..360°
+                    ],
+                    0x31: [ // '1' - one (fline + xa0 + ya4 + xb4 + yb4 + more, fline + xa2 + ya4 + xb2 + ybC + more, fline + xa0 + yaA + xb2 + ybC)
+                        this.FLINE | (0 << 0) | (4 << 3) | (4 << 7) | (4 << 10) | this.MORE,
+                        this.FLINE | (2 << 0) | (4 << 3) | (2 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (10 << 3) | (2 << 7) | (12 << 10)
+                    ],
+                    0x32: [ // '2' - two (simplified)
+                        this.FLINE | this.xa[0] | this.ya[10] | this.xb[4] | this.yb[10] | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[10] | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x33: [ // '3' - three (simplified)
+                        this.FLINE | this.xa[0] | this.ya[10] | this.xb[4] | this.yb[10] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[6]  | this.xb[4] | this.yb[6]
+                    ],
+                    0x41: [ // 'A' - letter A (farc + xa2 + yaA + a8 + ax2 + ay2 + more, fline + xa0 + ya4 + xb0 + ybA + more, fline + xa4 + ya4 + xb4 + ybA + more, fline + xa0 + ya8 + xb4 + yb8)
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[2] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[12] | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]
+                    ],
+                    0x42: [ // 'B' - letter B (simplified)
+                        this.FLINE | (0 << 0) | (4 << 3) | (0 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (12 << 3) | (3 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (8 << 3) | (3 << 7) | (8 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (4 << 3) | (3 << 7) | (4 << 10)
+                    ],
+                    0x43: [ // 'C' - letter C (simplified)
+                        this.FLINE | (4 << 0) | (10 << 3) | (0 << 7) | (10 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (10 << 3) | (0 << 7) | (6 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (6 << 3) | (4 << 7) | (6 << 10)
+                    ],
+                    0x44: [ // 'D' - letter D (simplified)
+                        this.FLINE | (0 << 0) | (4 << 3) | (0 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (12 << 3) | (3 << 7) | (10 << 10) | this.MORE,
+                        this.FLINE | (3 << 0) | (10 << 3) | (3 << 7) | (6 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (4 << 3) | (3 << 7) | (6 << 10)
+                    ],
+                    0x45: [ // 'E' - letter E (fline + xa0 + ya4 + xb0 + ybC + more, fline + xa0 + ya4 + xb4 + yb4 + more, fline + xa0 + ya8 + xb3 + yb8 + more, fline + xa0 + yaC + xb4 + ybC)
+                        this.FLINE | (0 << 0) | (4 << 3) | (0 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (4 << 3) | (4 << 7) | (4 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (8 << 3) | (3 << 7) | (8 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (12 << 3) | (4 << 7) | (12 << 10)
+                    ],
+                    0x48: [ // 'H' - letter H (fline + xa0 + ya4 + xb0 + ybC + more, fline + xa4 + ya4 + xb4 + ybC + more, fline + xa0 + ya8 + xb4 + yb8)
+                        this.FLINE | (0 << 0) | (4 << 3) | (0 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (4 << 0) | (4 << 3) | (4 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (8 << 3) | (4 << 7) | (8 << 10)
+                    ],
+                    0x49: [ // 'I' - letter I (fline + xa2 + ya4 + xb2 + ybC + more, fline + xa0 + ya4 + xb4 + yb4 + more, fline + xa0 + yaC + xb4 + ybC)
+                        this.FLINE | (2 << 0) | (4 << 3) | (2 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (4 << 3) | (4 << 7) | (4 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (12 << 3) | (4 << 7) | (12 << 10)
+                    ],
+                    0x4C: [ // 'L' - letter L (fline + xa0 + ya4 + xb0 + ybC + more, fline + xa0 + ya4 + xb4 + yb4)
+                        this.FLINE | (0 << 0) | (4 << 3) | (0 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (4 << 3) | (4 << 7) | (4 << 10)
+                    ],
+                    0x4F: [ // 'O' - letter O (simplified oval)
+                        this.FLINE | (0 << 0) | (6 << 3) | (0 << 7) | (10 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (10 << 3) | (4 << 7) | (10 << 10) | this.MORE,
+                        this.FLINE | (4 << 0) | (10 << 3) | (4 << 7) | (6 << 10) | this.MORE,
+                        this.FLINE | (4 << 0) | (6 << 3) | (0 << 7) | (6 << 10)
+                    ],
+                    0x52: [ // 'R' - letter R (simplified)
+                        this.FLINE | (0 << 0) | (4 << 3) | (0 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (12 << 3) | (3 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (3 << 0) | (12 << 3) | (3 << 7) | (8 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (8 << 3) | (3 << 7) | (8 << 10) | this.MORE,
+                        this.FLINE | (3 << 0) | (8 << 3) | (4 << 7) | (4 << 10)
+                    ],
+                    0x54: [ // 'T' - letter T (fline + xa2 + ya4 + xb2 + ybC + more, fline + xa0 + yaC + xb4 + ybC)
+                        this.FLINE | (2 << 0) | (4 << 3) | (2 << 7) | (12 << 10) | this.MORE,
+                        this.FLINE | (0 << 0) | (12 << 3) | (4 << 7) | (12 << 10)
+                    ],
+                    // Additional digits 4-9 (approximate vectors)
+                    0x34: [ // '4'
+                        this.FLINE | this.xa[3] | this.ya[4]  | this.xb[3] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]
+                    ],
+                    0x35: [ // '5'
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x36: [ // '6'
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[4]  | this.xb[4] | this.yb[8]
+                    ],
+                    0x37: [ // '7'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[2] | this.yb[4]
+                    ],
+                    0x38: [ // '8'
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x39: [ // '9'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[0] | this.yb[8]
+                    ],
+                    // Common letters for text patterns (approximate line versions)
+                    0x53: [ // 'S'
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[8]  | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[4]  | this.xb[0] | this.yb[4]
+                    ],
+                    0x4E: [ // 'N'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[4]  | this.xb[4] | this.yb[12]
+                    ],
+                    0x57: [ // 'W'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[1] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[1] | this.ya[4]  | this.xb[2] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[8]  | this.xb[3] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[4]  | this.xb[4] | this.yb[12]
+                    ],
+                    0x4B: [ // 'K'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x50: [ // 'P'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[3] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[12] | this.xb[3] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[8]  | this.xb[0] | this.yb[8]
+                    ],
+                    0x59: [ // 'Y'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[2] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[2] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[8]  | this.xb[2] | this.yb[4]
+                    ],
+                    0x46: [ // 'F'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[8]  | this.xb[3] | this.yb[8]
+                    ],
+                    0x58: [ // 'X'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[4]
+                    ],
+                    0x5A: [ // 'Z'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[4] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x47: [ // 'G'
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[0] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[4] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[4]  | this.xb[4] | this.yb[8]
+                    ],
+                    0x4D: [ // 'M'
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[0] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[2] | this.yb[8]  | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[8]  | this.xb[4] | this.yb[12] | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[4] | this.yb[4]
+                    ],
+                    0x51: [ // 'Q'
+                        this.FARC  | this.xa[2] | this.ya[8]  | (0 << 10) | (1 << 7) | (3 << 8) | this.MORE,
+                        this.FARC  | this.xa[2] | this.ya[8]  | (1 << 10) | (1 << 7) | (3 << 8) | this.MORE,
+                        this.FARC  | this.xa[2] | this.ya[8]  | (2 << 10) | (1 << 7) | (3 << 8) | this.MORE,
+                        this.FARC  | this.xa[2] | this.ya[8]  | (3 << 10) | (1 << 7) | (3 << 8) | this.MORE,
+                        this.FLINE | this.xa[3] | this.ya[6]  | this.xb[4] | this.yb[4]
+                    ],
+                    0x4A: [ // 'J'
+                        this.FLINE | this.xa[2] | this.ya[12] | this.xb[2] | this.yb[6]  | this.MORE,
+                        this.FLINE | this.xa[2] | this.ya[6]  | this.xb[0] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[4]  | this.xb[2] | this.yb[4]
+                    ],
+                    0x55: [ // 'U'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[0] | this.yb[6]  | this.MORE,
+                        this.FLINE | this.xa[0] | this.ya[6]  | this.xb[4] | this.yb[6]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[6]  | this.xb[4] | this.yb[12]
+                    ],
+                    0x56: [ // 'V'
+                        this.FLINE | this.xa[0] | this.ya[12] | this.xb[2] | this.yb[4]  | this.MORE,
+                        this.FLINE | this.xa[4] | this.ya[12] | this.xb[2] | this.yb[4]
+                    ]
+                };
+            }
+            
+            // Set text rendering parameters (Graphics.spin textmode method)
+            textmode(xScale, yScale, spacing, justification) {
+                this.textXScale = xScale || 1;
+                this.textYScale = yScale || 1; 
+                this.textSpacing = spacing || 6;
+                this.textJustification = justification || 0;
+            }
+            
+            // Draw text at position (Graphics.spin text method) - FIXED VERSION
+            text(x, y, str) {
+                if (!str) return;
+                // Normalize: map lowercase to uppercase for now to ensure coverage
+                if (typeof str === 'string') {
+                    str = str.replace(/[a-z]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 32));
+                }
+                
+                // Calculate justification offset (from Graphics.spin justify method)
+                const strWidth = (str.length - 1) * this.textXScale * this.textSpacing + this.textXScale * 5 - 1;
+                let justX, justY;
+                
+                // Horizontal justification (bits 1-0: 0=left, 1=center, 2=right, 3=left)
+                const hJust = this.textJustification & 3;
+                switch(hJust) {
+                    case 0: case 3: justX = 0; break;      // left
+                    case 1: justX = -strWidth / 2; break;  // center  
+                    case 2: justX = -strWidth; break;      // right
+                }
+                
+                // Vertical justification (bits 3-2: 0=bottom, 1=center, 2=top, 3=bottom)
+                const vJust = (this.textJustification >> 2) & 3;
+                switch(vJust) {
+                    case 0: case 3: justY = 0; break;                    // bottom
+                    case 1: justY = -(this.textYScale << 3); break;     // center
+                    case 2: justY = -(this.textYScale << 4); break;     // top
+                }
+                
+                // Render each character
+                let currentX = x + justX;
+                const currentY = y + justY;
+                
+                // Hard safety bound on max chars per call to avoid runaway rendering
+                const maxChars = Math.min(str.length, 32);
+                for (let i = 0; i < maxChars; i++) {
+                    const charCode = str.charCodeAt(i);
+                    this.renderCharacterFixed(currentX, currentY, charCode);
+                    
+                    // Advance to next character position
+                    currentX += this.textXScale * this.textSpacing;
+                }
+            }
+            
+            // FIXED: Render a single character using correct vector font decoding
+            renderCharacterFixed(x, y, charCode) {
+                const fontDef = this.fontData[charCode];
+                if (!fontDef || fontDef.length === 0) {
+                    return; // Skip undefined characters silently
+                }
+                
+                // Process each vector command for this character
+                for (let i = 0; i < fontDef.length; i++) {
+                    const cmd = fontDef[i];
+                    
+                    // Extract coordinates using CORRECT bit positions from Graphics.spin
+                    const xa = (cmd >> 0) & 0x07;   // bits 2-0: x start (xa0-xa7)
+                    const ya = (cmd >> 3) & 0x0F;   // bits 6-3: y start (ya0-yaF)  
+                    const xb = (cmd >> 7) & 0x07;   // bits 9-7: x end (xb0-xb7)
+                    const yb = (cmd >> 10) & 0x0F;  // bits 13-10: y end (yb0-ybF)
+                    
+                    // Check command type
+                    const isArc = (cmd & (1 << 14)) !== 0;  // bit 14: farc
+                    const hasMore = (cmd & (1 << 15)) !== 0; // bit 15: more
+                    
+                    // Scale coordinates to actual positions (5x16 character cell)
+                    const x1 = x + xa * this.textXScale;
+                    const y1 = y + ya * this.textYScale;
+                    const x2 = x + xb * this.textXScale;  
+                    const y2 = y + yb * this.textYScale;
+                    
+                    if (isArc) {
+                        // Proper FARC decoding per Graphics.spin constants
+                        // Center = (xa, ya)
+                        const axBit = (cmd >> 7) & 0x01;       // ax1/ax2 -> 0 or 1
+                        const ayBits = (cmd >> 8) & 0x03;      // ay1..ay4 -> 0..3
+                        const aBits  = (cmd >> 10) & 0x0F;     // a0..aF -> start/length
+                        
+                        // Radii in character cell units
+                        const xrUnits = axBit ? 2 : 1;         // ax2=>2, ax1=>1
+                        const yrUnits = (ayBits & 0x03) + 1;   // ay1..ay4 => 1..4
+                        const xr = xrUnits * this.textXScale;
+                        const yr = yrUnits * this.textYScale;
+                        
+                        // Start and length
+                        const startIdx = aBits & 0x03;         // 0..3 -> 0°, 90°, 180°, 270°
+                        const lenIdx = (aBits >> 2) & 0x03;    // 0..3 -> 360°, 270°, 180°, 90°
+                        const startDeg = startIdx * 90;
+                        const lengthMap = [360, 270, 180, 90];
+                        const sweepDeg = lengthMap[lenIdx];
+                        
+                        this.drawArcBasic(x1, y1, xr, yr, startDeg, sweepDeg);
+                    } else {
+                        // Line rendering
+                        this.plot(x1, y1);
+                        this.line(x2, y2);
+                    }
+                    
+                    // If no 'more' flag, this is the last command for this character
+                    if (!hasMore) break;
+                }
+            }
+            
+            // Render a single character using vector font data
+            renderCharacter(x, y, charCode) {
+                // Safety checks to prevent crashes
+                if (this.textXScale > 10 || this.textYScale > 10) {
+                    console.warn("Text scale too high, limiting to prevent crash");
+                    return;
+                }
+                
+                const fontDef = this.fontData[charCode];
+                if (!fontDef) {
+                    // Character not defined - draw a simple placeholder
+                    this.plot(x, y);
+                    this.line(x + this.textXScale * 4, y + this.textYScale * 8);
+                    return;
+                }
+                
+                // Limit the number of commands to prevent infinite loops
+                const maxCommands = Math.min(fontDef.length, 20);
+                
+                // Process each vector command for this character
+                for (let i = 0; i < maxCommands; i++) {
+                    const cmd = fontDef[i];
+                    
+                    // Extract coordinates from packed word
+                    const xa = (cmd >> 0) & 0x07;   // x start (3 bits)
+                    const ya = (cmd >> 3) & 0x0F;   // y start (4 bits)
+                    const xb = (cmd >> 7) & 0x07;   // x end (3 bits)
+                    const yb = (cmd >> 10) & 0x0F;  // y end (4 bits)
+                    
+                    // Scale coordinates to actual positions (8x16 character cell)
+                    // Limit scaling to prevent excessive coordinate values
+                    const safeXScale = Math.min(this.textXScale, 5);
+                    const safeYScale = Math.min(this.textYScale, 5);
+                    
+                    const x1 = x + xa * safeXScale;
+                    const y1 = y + ya * safeYScale;
+                    const x2 = x + xb * safeXScale;
+                    const y2 = y + yb * safeYScale;
+                    
+                    // Check if it's a line or arc command
+                    const isArc = (cmd & this.FARC) !== 0;
+                    
+                    if (isArc) {
+                        // Arc rendering - simplified for now
+                        this.plot(x1, y1);
+                        this.line(x2, y2);
+                    } else {
+                        // Line rendering
+                        this.plot(x1, y1);
+                        this.line(x2, y2);
+                    }
+                }
+            }
+            
+            // Draw text along an arc (Graphics.spin textarc method)
+            textarc(x, y, xRadius, yRadius, angle, str) {
+                // For now, implement as simple text at arc position
+                // Full implementation would distribute characters along the arc
+                const arcX = x + Math.cos(angle * Math.PI / 180) * xRadius;
+                const arcY = y + Math.sin(angle * Math.PI / 180) * yRadius;
+                
+                this.text(arcX, arcY, str);
+            }
+            
+            // Draw placeholder sprite patterns when sprites aren't available
+            drawSpritePlaceholder(x, y, spriteName) {
+                // Draw different patterns based on sprite name
+                if (spriteName.includes('triclear')) {
+                    // Triangle pattern
+                    this.plot(x, y-2);
+                    this.plot(x-1, y-1); this.plot(x+1, y-1);
+                    this.plot(x-2, y); this.plot(x, y); this.plot(x+2, y);
+                    this.plot(x-1, y+1); this.plot(x+1, y+1);
+                } else if (spriteName.includes('small')) {
+                    // Small cross pattern
+                    this.plot(x, y);
+                    this.plot(x-1, y); this.plot(x+1, y);
+                    this.plot(x, y-1); this.plot(x, y+1);
+                } else {
+                    // Default square pattern
+                    this.plot(x-1, y-1); this.plot(x, y-1); this.plot(x+1, y-1);
+                    this.plot(x-1, y);   this.plot(x, y);   this.plot(x+1, y);
+                    this.plot(x-1, y+1); this.plot(x, y+1); this.plot(x+1, y+1);
+                }
+            }
+            
+            // Internal: Draw a single pixel with current width and shape
+            drawPixel(screenX, screenY) {
+                const tileX = Math.max(0, Math.min(7, Math.floor(screenX / 16)));
+                const tileY = Math.max(0, Math.min(5, Math.floor(screenY / 16)));
+                const palIdx = this.tilePaletteIndex[tileY][tileX] & 0x3F;
+                const pal = this.paletteColors[palIdx] || ['#000000','#FFFFFF','#FF0000','#00FF00'];
+                const color = pal[this.currentColor & 3] || '#000000';
+                this.ctx.fillStyle = color;
+                
+                const actualWidth = this.currentWidth + 1;
+                const halfWidth = Math.floor(actualWidth / 2);
+                
+                if (this.isRoundPixels && actualWidth > 1) {
+                    // Draw round pixel
+                    this.ctx.beginPath();
+                    this.ctx.arc(screenX + 0.5, screenY + 0.5, halfWidth, 0, 2 * Math.PI);
+                    this.ctx.fill();
+                } else {
+                    // Draw square pixel
+                    this.ctx.fillRect(
+                        screenX - halfWidth,
+                        screenY - halfWidth,
+                        actualWidth,
+                        actualWidth
+                    );
+                }
+            }
+            
+            // Internal: Bresenham line drawing algorithm
+            drawLine(x0, y0, x1, y1) {
+                // Defensive: bail if any coordinate is invalid
+                if (!Number.isFinite(x0) || !Number.isFinite(y0) || !Number.isFinite(x1) || !Number.isFinite(y1)) {
+                    return;
+                }
+                const dx = Math.abs(x1 - x0);
+                const dy = Math.abs(y1 - y0);
+                const sx = x0 < x1 ? 1 : -1;
+                const sy = y0 < y1 ? 1 : -1;
+                let err = dx - dy;
+                
+                let x = x0;
+                let y = y0;
+                // Safety bound prevents infinite loops on degenerate inputs
+                let stepsLeft = (dx + dy + 2) * 4;
+                
+                while (true) {
+                    if (stepsLeft-- <= 0) break;
+                    if (this.inBounds(x, y)) {
+                        this.drawPixel(x, y);
+                    }
+                    
+                    if (x === x1 && y === y1) break;
+                    
+                    const e2 = 2 * err;
+                    if (e2 > -dy) {
+                        err -= dy;
+                        x += sx;
+                    }
+                    if (e2 < dx) {
+                        err += dx;
+                        y += sy;
+                    }
+                }
+            }
+            
+            // Internal: Basic ellipse arc drawing using polyline approximation
+            // cx, cy in VidPix coordinates; xr, yr radii in scaled units; angles in degrees
+            drawArcBasic(cx, cy, xr, yr, startDeg, sweepDeg) {
+                const steps = Math.max(4, Math.min(48, Math.ceil(Math.abs(sweepDeg) / 15)));
+                const dir = sweepDeg >= 0 ? 1 : -1;
+                const stepDeg = sweepDeg / steps;
+                
+                const toRad = (d) => d * Math.PI / 180;
+                let angle = startDeg;
+                
+                // First point
+                let x = cx + Math.cos(toRad(angle)) * xr;
+                let y = cy + Math.sin(toRad(angle)) * yr;
+                this.plot(Math.round(x), Math.round(y));
+                
+                for (let i = 1; i <= steps; i++) {
+                    angle += stepDeg;
+                    x = cx + Math.cos(toRad(angle)) * xr;
+                    y = cy + Math.sin(toRad(angle)) * yr;
+                    this.line(Math.round(x), Math.round(y));
+                }
+            }
+
+            // === Spin-compatible arc API ===
+            // arc(x, y, xr, yr, angle, anglestep, steps, arcmode)
+            // angle units: 0..0x1FFF maps to 0..360 degrees
+            arc(x, y, xr, yr, angle, anglestep, steps, arcmode) {
+                const toRad = (a) => (a & 0x1FFF) * (2 * Math.PI / 8192);
+                const cx = x, cy = y;
+                let a = angle | 0;
+                const step = anglestep | 0;
+                const n = Math.max(0, steps | 0);
+                let prevX = 0, prevY = 0;
+                for (let s = 0; s <= n; s++) {
+                    const rad = toRad(a);
+                    const px = Math.round(cx + xr * Math.cos(rad));
+                    const py = Math.round(cy + yr * Math.sin(rad));
+                    if (arcmode === 0) {
+                        this.plot(px, py);
+                    } else if (arcmode === 1 || arcmode === 2) {
+                        if (s === 0) {
+                            this.plot(px, py);
+                        } else {
+                            this.line(px, py);
+                        }
+                    } else if (arcmode === 3) {
+                        this.plot(px, py);
+                        this.line(cx, cy);
+                    }
+                    prevX = px; prevY = py;
+                    a = (a + step) & 0x1FFF;
+                }
+            }
+
+            // vecarc(x, y, xr, yr, angle, vecscale, vecangle, vecdef_ptr)
+            // Approximate: place a short line at the arc position oriented by vecangle
+            vecarc(x, y, xr, yr, angle, vecscale, vecangle, _vecdef) {
+                const toRad = (a) => (a & 0x1FFF) * (2 * Math.PI / 8192);
+                const radPos = toRad(angle | 0);
+                const cx = Math.round(x + xr * Math.cos(radPos));
+                const cy = Math.round(y + yr * Math.sin(radPos));
+                const radDir = toRad(vecangle | 0);
+                const len = Math.max(2, Math.floor((vecscale | 0) / 16));
+                const ex = Math.round(cx + len * Math.cos(radDir));
+                const ey = Math.round(cy + len * Math.sin(radDir));
+                this.plot(cx, cy);
+                this.line(ex, ey);
+            }
+            
+            // Utility: Log messages
+            log(message) {
+                const status = document.getElementById('status');
+                if (status) {
+                    status.innerHTML = message + '<br>' + status.innerHTML.split('<br>').slice(0, 10).join('<br>');
+                }
+                console.log('VidPix:', message);
+            }
+        }
+        
+        // Initialize graphics system
+        const gr = new VidPixGraphics('vidpix-canvas');
+        // Make control panel match viewport height
+        (function syncControlsHeight(){
+            const panel = document.getElementById('controlsPanel');
+            const canvas = document.getElementById('vidpix-canvas');
+            const container = document.querySelector('.canvas-container');
+            const resize = () => {
+                const h = canvas ? (parseInt(canvas.style.height || (canvas.height + '')) || 0) : 0;
+                // include canvas-container padding (top+bottom = 20px)
+                const target = h + 20 + 2; // approximate border
+                if (panel && target > 0) panel.style.minHeight = target + 'px';
+            };
+            window.addEventListener('resize', resize);
+            resize();
+        })();
+        // Match console width to canvas width
+        (function syncConsoleWidth(){
+            const status = document.getElementById('status');
+            const canvas = document.getElementById('vidpix-canvas');
+            if (status && canvas) {
+                // account for container padding/border already; keep exact canvas CSS width
+                status.style.width = canvas.style.width || (canvas.width + 'px');
+            }
+            window.addEventListener('resize', () => {
+                if (status && canvas) status.style.width = canvas.style.width || (canvas.width + 'px');
+            });
+        })();
+        
+        // Check if sprites are loaded
+        if (typeof sprites !== 'undefined') {
+            const spriteCount = Object.keys(sprites).length;
+            gr.log(`Sprites loaded successfully: ${spriteCount} sprites available`);
+        } else {
+            gr.log('WARNING: sprites.js not loaded properly!');
+        }
+        
+        // Initialize main loop system
+        const vidPixLoop = new VidPixMainLoop(gr);
+        
+        // Make objects available globally for onclick handlers
+        window.gr = gr;
+        window.vidPixLoop = vidPixLoop;
+
+        // Palette UI helpers
+        function applyPalette(p) {
+            const pal = Math.max(0, Math.min(63, p|0));
+            gr.setAreaColor(0, 0, 7, 5, pal);
+            gr.log(`Palette set to ${pal}`);
+            const input = document.getElementById('paletteSelect');
+            if (input) input.value = pal;
+        }
+        window.prevPalette = function() {
+            applyPalette((gr.globalPalette|0) - 1);
+        };
+        window.nextPalette = function() {
+            applyPalette((gr.globalPalette|0) + 1);
+        };
+        window.setPaletteFromInput = function() {
+            const val = parseInt(document.getElementById('paletteSelect').value, 10);
+            if (!Number.isNaN(val)) applyPalette(val);
+        };
+        window.togglePaletteLock = function(locked) {
+            gr.paletteLocked = !!locked;
+            gr.log(`Palette lock ${locked ? 'enabled' : 'disabled'}`);
+        };
+        window.togglePaletteLockUI = function() {
+            const btn = document.getElementById('paletteLockBtn');
+            const stateEl = document.getElementById('paletteLockState');
+            const newLocked = !gr.paletteLocked;
+            gr.paletteLocked = newLocked;
+            if (stateEl) stateEl.textContent = newLocked ? 'ON' : 'OFF';
+            if (btn) btn.classList.toggle('active', newLocked);
+            gr.log(`Palette lock ${newLocked ? 'enabled' : 'disabled'}`);
+        };
+        window.setPaletteDirect = function(idx) {
+            applyPalette(Math.max(0, Math.min(29, idx|0)));
+        };
+         
+        // Overlay pattern name updates
+        const overlayEl = document.getElementById('patternOverlay');
+        const updateOverlay = () => { if (overlayEl) overlayEl.textContent = `Pattern ${vidPixLoop.displayroutine}`; };
+        const _setRoutine = vidPixLoop.setDisplayRoutine.bind(vidPixLoop);
+        vidPixLoop.setDisplayRoutine = function(r) { _setRoutine(r); updateOverlay(); };
+        const _next = vidPixLoop.nextPattern.bind(vidPixLoop);
+        vidPixLoop.nextPattern = function() { _next(); updateOverlay(); };
+        const _prev = vidPixLoop.previousPattern.bind(vidPixLoop);
+        vidPixLoop.previousPattern = function() { _prev(); updateOverlay(); };
+        updateOverlay();
+         
+        // Build beat toggle group dynamically (allows future additions)
+        const beats = [
+            { id:'edm',     label:'EDM' },
+            { id:'hiphop',  label:'Hip-Hop' },
+            { id:'rock',    label:'Rock' },
+            { id:'dnb',     label:'DnB' },
+            { id:'kick',    label:'Kick' }
+        ];
+        const group = document.getElementById('beatToggleGroup');
+        if (group) {
+            group.innerHTML = '';
+            beats.forEach((b) => {
+                const btn = document.createElement('button');
+                btn.textContent = b.label;
+                // Make EDM default active
+                if (!vidPixLoop.beatMode) vidPixLoop.beatMode = 'edm';
+                btn.className = 'beat-btn' + (vidPixLoop.beatMode === b.id ? ' active' : '');
+                btn.onclick = () => {
+                    vidPixLoop.setBeatMode(b.id);
+                    Array.from(group.children).forEach(ch => ch.classList.remove('active'));
+                    btn.classList.add('active');
+                };
+                group.appendChild(btn);
+            });
+        }
+
+        // Build source toggle group (Simulated / Microphone / System)
+        const sources = [
+            { id:'sim', label:'Simulated' },
+            { id:'mic', label:'Microphone' },
+            { id:'system', label:'System' }
+        ];
+        const sourceGroup = document.getElementById('sourceToggleGroup');
+        if (sourceGroup) {
+            sourceGroup.innerHTML = '';
+            sources.forEach((s) => {
+                const btn = document.createElement('button');
+                btn.textContent = s.label;
+                if (!window.currentAudioSource) window.currentAudioSource = 'sim';
+                btn.className = 'beat-btn' + (window.currentAudioSource === s.id ? ' active' : '');
+                btn.onclick = async () => {
+                    window.currentAudioSource = s.id;
+                    Array.from(sourceGroup.children).forEach(ch => ch.classList.remove('active'));
+                    btn.classList.add('active');
+                    // Show/hide simulator block
+                    const simBlock = document.getElementById('simulatorBlock');
+                    if (simBlock) simBlock.style.display = (s.id === 'sim') ? 'block' : 'none';
+                    // Show devices only for mic
+                    const devSel = document.getElementById('audioDeviceSelect');
+                    if (devSel) devSel.style.display = (s.id === 'mic') ? '' : 'none';
+                    // Start appropriate source
+                    try {
+                        if (s.id === 'sim') {
+                            if (window.stopRealAudio) window.stopRealAudio();
+                            if (vidPixLoop) vidPixLoop.setUseExternalADC(false);
+                        } else if (s.id === 'mic') {
+                            if (window.enumerateDevices) await window.enumerateDevices();
+                            if (window.startMicrophone) await window.startMicrophone(devSel ? devSel.value : undefined);
+                        } else if (s.id === 'system') {
+                            if (window.startSystemAudio) await window.startSystemAudio();
+                        }
+                    } catch(e) { console.warn('Audio source switch failed', e); }
+                };
+                sourceGroup.appendChild(btn);
+            });
+            // initialize dependent visibility
+            const simBlock = document.getElementById('simulatorBlock');
+            if (simBlock) simBlock.style.display = (window.currentAudioSource === 'sim') ? 'block' : 'none';
+            const devSel = document.getElementById('audioDeviceSelect');
+            if (devSel) devSel.style.display = (window.currentAudioSource === 'mic') ? '' : 'none';
+        }
+
+        // Build frame rate toggle group
+        const frGroup = document.getElementById('frameRateToggleGroup');
+        const frInput = document.getElementById('frameRateInput');
+        const syncFrameInput = () => { if (frInput) { const fps = Math.round(1000 / vidPixLoop.targetFrameMs); frInput.value = fps; } };
+        const frameRates = [
+            { id:'fast', label:'High' },
+            { id:'medium', label:'Medium' },
+            { id:'slow', label:'Low' }
+        ];
+        if (frGroup) {
+            frGroup.innerHTML = '';
+            frameRates.forEach(fr => {
+                const btn = document.createElement('button');
+                btn.textContent = fr.label;
+                btn.className = 'beat-btn' + (vidPixLoop.frameRateMode === fr.id ? ' active' : '');
+                btn.onclick = () => {
+                    vidPixLoop.setFrameRateMode(fr.id);
+                    Array.from(frGroup.children).forEach(ch => ch.classList.remove('active'));
+                    btn.classList.add('active');
+                    syncFrameInput();
+                };
+                frGroup.appendChild(btn);
+            });
+        }
+
+        // Manual FPS input -> custom frame rate
+        if (frInput) {
+            frInput.addEventListener('change', () => {
+                const fps = parseInt(frInput.value, 10);
+                if (!Number.isNaN(fps) && fps >= 10 && fps <= 120) {
+                    vidPixLoop.targetFrameMs = 1000 / fps;
+                    vidPixLoop.frameRateMode = 'custom';
+                    if (frGroup) Array.from(frGroup.children).forEach(ch => ch.classList.remove('active'));
+                    gr.log(`Frame rate: custom (~${fps} fps)`);
+                }
+            });
+            // initialize box from current target
+            syncFrameInput();
+        }
+
+        // Sync pattern textbox with prev/next (already handled above for overlay)
+        const patternInput = document.getElementById('patternSelect');
+        const updatePatternInput = () => { if (patternInput) patternInput.value = vidPixLoop.displayroutine; };
+        const __setDR = vidPixLoop.setDisplayRoutine.bind(vidPixLoop);
+        vidPixLoop.setDisplayRoutine = function(r){ __setDR(r); updatePatternInput(); };
+        const __nextDR = vidPixLoop.nextPattern.bind(vidPixLoop);
+        vidPixLoop.nextPattern = function(){ __nextDR(); updatePatternInput(); };
+        const __prevDR = vidPixLoop.previousPattern.bind(vidPixLoop);
+        vidPixLoop.previousPattern = function(){ __prevDR(); updatePatternInput(); };
+        updatePatternInput();
+
+        // AUTO pattern toggle
+        window.toggleAutoPatternUI = function() {
+            const btn = document.getElementById('autoBtn');
+            const stateEl = document.getElementById('autoPatternState');
+            const newState = !(vidPixLoop.autoPattern === true);
+            vidPixLoop.setAutoPattern(newState);
+            
+            // If turning AUTO ON and not currently playing, start playing
+            if (newState && !vidPixLoop.isRunning) {
+                vidPixLoop.start();
+            }
+            
+            if (btn) {
+                btn.classList.toggle('active', newState);
+                btn.setAttribute('aria-pressed', newState ? 'true' : 'false');
+            }
+            if (stateEl) stateEl.textContent = newState ? 'ON' : 'OFF';
+        };
+        // Tabs logic
+        window.showTab = function(name) {
+            const vizBtn = document.getElementById('tab-visualizer');
+            const audBtn = document.getElementById('tab-audio');
+            const viz = document.getElementById('tab-content-visualizer');
+            const aud = document.getElementById('tab-content-audio');
+            const isViz = name === 'visualizer';
+            if (vizBtn) vizBtn.classList.toggle('active', isViz);
+            if (audBtn) audBtn.classList.toggle('active', !isViz);
+            if (viz) viz.classList.toggle('active', isViz);
+            if (aud) aud.classList.toggle('active', !isViz);
+        };
+
+        // ===== Real Audio Integration =====
+        const deviceSelect = document.getElementById('audioDeviceSelect');
+        let audioCtx = null;
+        let mediaStream = null;
+        let mediaSourceNode = null;
+        let splitter = null;
+        let analyserL = null;
+        let analyserR = null;
+        let usingRealAudio = false;
+
+        function ensureAudioContext() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    // Resume context if suspended (required for user activation in some browsers)
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume().catch(e => console.warn('AudioContext resume failed:', e));
+                    }
+                }
+                return audioCtx;
+            } catch (e) {
+                console.error('AudioContext creation failed:', e);
+                gr.log(`Audio context creation failed: ${e.message}`);
+                throw e;
+            }
+        }
+
+        window.enumerateDevices = async function() {
+            try {
+                const list = await navigator.mediaDevices.enumerateDevices();
+                const inputs = list.filter(d => d.kind === 'audioinput');
+                deviceSelect.innerHTML = '';
+                inputs.forEach((d, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = d.deviceId;
+                    opt.textContent = d.label || `Input ${idx+1}`;
+                    deviceSelect.appendChild(opt);
+                });
+                deviceSelect.style.display = inputs.length ? '' : 'none';
+            } catch(e) { console.warn('enumerateDevices failed', e); }
+        }
+
+        window.stopRealAudio = function() {
+            if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+            if (mediaSourceNode) { mediaSourceNode.disconnect(); mediaSourceNode = null; }
+            if (splitter) { splitter.disconnect(); splitter = null; }
+            if (analyserL) { analyserL.disconnect(); analyserL = null; }
+            if (analyserR) { analyserR.disconnect(); analyserR = null; }
+            usingRealAudio = false;
+            if (vidPixLoop && vidPixLoop.setUseExternalADC) vidPixLoop.setUseExternalADC(false);
+        }
+
+        function computeRMS(analyser) {
+            const n = analyser.fftSize;
+            const buf = new Float32Array(n);
+            analyser.getFloatTimeDomainData(buf);
+            let sum = 0;
+            for (let i = 0; i < n; i++) sum += buf[i] * buf[i];
+            return Math.sqrt(sum / n);
+        }
+
+        function mapTo4095(v) {
+            const scaled = Math.min(1, Math.max(0, v)) * 4095;
+            return Math.floor(scaled);
+        }
+
+        function tickADC() {
+            if (!usingRealAudio || !analyserL || !analyserR) return;
+            const l = computeRMS(analyserL);
+            const r = computeRMS(analyserR);
+            const leftADCavg = mapTo4095(l);
+            const rightADCavg = mapTo4095(r);
+            if (vidPixLoop && vidPixLoop.feedExternalADC) vidPixLoop.feedExternalADC({ leftADCavg, rightADCavg });
+            requestAnimationFrame(tickADC);
+        }
+
+        window.startMicrophone = async function(deviceId) {
+            try {
+                window.stopRealAudio();
+                ensureAudioContext();
+                const constraints = { audio: { deviceId: deviceId ? { exact: deviceId } : undefined, channelCount: 2 } };
+                mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+                mediaSourceNode = audioCtx.createMediaStreamSource(mediaStream);
+                splitter = audioCtx.createChannelSplitter(2);
+                mediaSourceNode.connect(splitter);
+                analyserL = audioCtx.createAnalyser(); analyserR = audioCtx.createAnalyser();
+                analyserL.fftSize = 1024; analyserR.fftSize = 1024;
+                splitter.connect(analyserL, 0); splitter.connect(analyserR, 1);
+                usingRealAudio = true;
+                if (vidPixLoop && vidPixLoop.setUseExternalADC) vidPixLoop.setUseExternalADC(true);
+                tickADC();
+                gr.log('Microphone audio capture started');
+            } catch (e) {
+                console.error('Microphone capture failed:', e);
+                gr.log(`Microphone capture failed: ${e.message}`);
+                window.stopRealAudio();
+            }
+        }
+
+        window.startSystemAudio = async function() {
+            try {
+                window.stopRealAudio();
+                ensureAudioContext();
+                const stream = await navigator.mediaDevices.getDisplayMedia({ audio: true, video: true });
+                const audioTracks = stream.getAudioTracks();
+                if (!audioTracks || !audioTracks.length) {
+                    gr.log('System audio capture not available in this browser.');
+                    return;
+                }
+                mediaStream = stream;
+                mediaSourceNode = audioCtx.createMediaStreamSource(mediaStream);
+                splitter = audioCtx.createChannelSplitter(2);
+                mediaSourceNode.connect(splitter);
+                analyserL = audioCtx.createAnalyser(); analyserR = audioCtx.createAnalyser();
+                analyserL.fftSize = 1024; analyserR.fftSize = 1024;
+                splitter.connect(analyserL, 0); splitter.connect(analyserR, 1);
+                usingRealAudio = true;
+                if (vidPixLoop && vidPixLoop.setUseExternalADC) vidPixLoop.setUseExternalADC(true);
+                tickADC();
+                gr.log('System audio capture started');
+            } catch (e) {
+                console.error('System audio capture failed:', e);
+                gr.log(`System audio capture failed: ${e.message}`);
+                window.stopRealAudio();
+            }
+        }
+
+        // Old radio button listeners removed - now handled by source toggle buttons
+        deviceSelect.addEventListener('change', async () => {
+            try {
+                await window.startMicrophone(deviceSelect.value);
+            } catch (e) {
+                console.error('Device change failed:', e);
+                gr.log(`Device change failed: ${e.message}`);
+            }
+        });
+
+        // Keep Start button styled active while running
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const setRunningUI = (running) => {
+            if (startBtn) startBtn.classList.toggle('active', !!running);
+        };
+        // Wrap start/stop to sync UI state
+        const _origStart = vidPixLoop.start.bind(vidPixLoop);
+        vidPixLoop.start = function(){ _origStart(); setRunningUI(true); };
+        const _origStop = vidPixLoop.stop.bind(vidPixLoop);
+        vidPixLoop.stop = function(){ _origStop(); setRunningUI(false); };
+        // Initialize button state
+        setRunningUI(vidPixLoop.isRunning);
+
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>
