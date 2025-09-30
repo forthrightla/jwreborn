@@ -54,7 +54,7 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     editor:
-      preview: false
+      preview: true
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
       - { label: "Subtitle", name: "subtitle", widget: "string", required: true }
