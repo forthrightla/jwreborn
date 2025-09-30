@@ -14,7 +14,7 @@ collections:
     files:
       - name: "homepage"
         label: "Homepage"
-        file: "src/content/pages/homepage.json"
+        file: "src/data/homepage.json"
         fields:
           - { label: "Hero Title", name: "heroTitle", widget: "string", required: true }
           - label: "Methodology"

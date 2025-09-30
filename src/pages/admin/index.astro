@@ -9,5 +9,65 @@
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script is:inline>
+      // Load site styles into the Decap preview iframe
+      if (window.CMS) {
+        // CSS files copied to public folder for CMS preview access
+        window.CMS.registerPreviewStyle('/reset.css');
+        window.CMS.registerPreviewStyle('/main.css');
+
+        // Simple Homepage preview to mirror site layout
+        const h = (window).h || window.CMS.h;
+        const createClass = (window).createClass || window.CMS.createClass;
+        const HomepagePreview = createClass({
+          render() {
+            const data = this.props.entry.get('data').toJS();
+            const skills = (data.methodology && data.methodology.skills) || [];
+
+            return h('div', { className: 'site-content' },
+              h('section', { className: 'block hero-block outer' },
+                h('div', { className: 'inner' },
+                  h('div', { className: 'block-header' },
+                    h('h1', { className: 'block-title' }, data.heroTitle || '')
+                  )
+                )
+              ),
+              h('section', { className: 'portfolio-block block outer' },
+                h('div', { className: 'inner' },
+                  h('div', { className: 'block-header' },
+                    h('h2', { className: 'block-title line-top' }, (data.methodology && data.methodology.title) || 'My methodology')
+                  ),
+                  h('div', { className: 'block-content' },
+                    h('div', { className: 'expertise' },
+                      skills.map((s) => h('div', { className: 'skill' },
+                        h('img', { className: 'icon', src: s.icon || '', alt: s.title || '' }),
+                        h('h4', null, s.title || ''),
+                        h('p', null, s.description || '')
+                      ))
+                    )
+                  )
+                )
+              ),
+              h('section', { className: 'about block outer' },
+                h('div', { className: 'inner' },
+                  h('div', { className: 'block-inside' },
+                    h('div', { className: 'block-header' },
+                      h('h2', { className: 'block-title line-top' }, (data.about && data.about.title) || 'Who I am')
+                    )
+                  ),
+                  h('div', { className: 'post-thumbnail' },
+                    h('img', { src: (data.about && data.about.bannerImage) || '', alt: 'About banner' })
+                  ),
+                  h('div', { className: 'post-content inner-small', style: { marginBottom: '64px', marginTop: '64px' } },
+                    h('h3', null, (data.about && data.about.heading) || '')
+                  )
+                )
+              )
+            );
+          }
+        });
+        window.CMS.registerPreviewTemplate('homepage', HomepagePreview);
+      }
+    </script>
   </body>
 </html>
