@@ -12,7 +12,6 @@ const caseStudiesCollection = defineCollection({
     tags: z.array(z.string()),
     date: z.date().optional(),
     featured: z.boolean().default(false),
-    outcomes: z.array(z.string()).optional(),
     password: z.string().optional(),
   }),
 });

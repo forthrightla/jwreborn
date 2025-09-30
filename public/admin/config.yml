@@ -1,9 +1,8 @@
 backend:
-  name: github
-  repo: forthrightla/jwreborn
-  branch: main
+  name: git-gateway
+  branch: master
 
-# Uncomment below for local development
+# Uncomment below for local development (requires running `npm run cms`)
 # local_backend: true
 
 media_folder: "public/images" # Where media files will be stored
@@ -17,6 +16,8 @@ collections:
     slug: "{{slug}}"
     extension: "mdx"
     format: "frontmatter"
+    editor:
+      preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
       - { label: "Subtitle", name: "subtitle", widget: "string", required: true }
@@ -25,11 +26,6 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", required: true }
       - { label: "Featured", name: "featured", widget: "boolean", default: false }
       - { label: "Password", name: "password", widget: "string", required: false, hint: "Leave empty for public case studies" }
-      - label: "Outcomes"
-        name: "outcomes"
-        widget: "list"
-        required: false
-        field: { label: "Outcome", name: "outcome", widget: "string" }
       - label: "Body"
         name: "body"
         widget: "markdown"

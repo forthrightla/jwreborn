@@ -12,6 +12,7 @@ This is Josh Wright's professional UX portfolio website, showcasing case studies
 - **Analytics**: Microsoft Clarity
 - **Video**: Mux Player for embedded videos
 - **Site URL**: https://joshux.com
+- **Deployment platform**: Netlify
 
 ## Architecture Principles
 
