@@ -9,6 +9,43 @@ media_folder: "public/images" # Where media files will be stored
 public_folder: "/images" # Where the media files can be accessed from the server
 
 collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "homepage"
+        label: "Homepage"
+        file: "src/content/pages/homepage.json"
+        fields:
+          - { label: "Hero Title", name: "heroTitle", widget: "string", required: true }
+          - label: "Methodology"
+            name: "methodology"
+            widget: "object"
+            fields:
+              - { label: "Section Title", name: "title", widget: "string", default: "My methodology" }
+              - label: "Skills"
+                name: "skills"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Icon", name: "icon", widget: "image" }
+          - label: "Featured Quote"
+            name: "featuredQuote"
+            widget: "object"
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Author Name", name: "authorName", widget: "string" }
+              - { label: "Author Title", name: "authorTitle", widget: "string" }
+              - { label: "Author Image", name: "authorImage", widget: "image" }
+          - label: "About Section"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Section Title", name: "title", widget: "string", default: "Who I am" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Content", name: "content", widget: "markdown" }
+              - { label: "Banner Image", name: "bannerImage", widget: "image" }
+
   - name: "case-studies"
     label: "Case Studies"
     folder: "src/content/case-studies"

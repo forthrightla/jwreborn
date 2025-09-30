@@ -6,6 +6,7 @@ import Testimonial from "../components/Testimonial.astro";
 import Skill from "../components/Skill.astro";
 import { getCollection } from "astro:content";
 import FeaturedQuote from "../components/FeaturedQuote.astro";
+import homepageData from "../content/pages/homepage.json";
 
 // Define the specific order by slug for homepage showcase
 const homepageCaseStudies = [
@@ -35,12 +36,7 @@ const featuredCaseStudies = homepageCaseStudies
   <section id="hero" class="block hero-block outer">
     <div class="inner">
       <div class="block-header">
-        <h1 class="block-title">
-          I'm a <strong>UX Designer</strong>, <strong
-            >Product Strategist</strong
-          >, and <strong>Educator</strong> working in <strong
-            >Austin.</strong
-          >
+        <h1 class="block-title" set:html={homepageData.heroTitle.replace(/\b(UX Designer|Product Strategist|Educator|Austin)\b/g, '<strong>$1</strong>')}>
         </h1>
       </div>
     </div>
@@ -49,31 +45,23 @@ const featuredCaseStudies = homepageCaseStudies
   <section id="latest-projects" class="portfolio-block block outer">
     <div class="inner">
       <div class="block-header">
-        <h2 class="block-title line-top">My methodology</h2>
+        <h2 class="block-title line-top">{homepageData.methodology.title}</h2>
       </div>
       <div class="block-content">
         <div class="expertise">
-          <Skill
-          title="Make it meaningful"
-          description="I lead generative and evaluative research to uncover user needs, then prototype and test to make sure we’re solving the right problems."
-          img="/images/icon-education.png"
-          />
-          <Skill
-            title="Make it clear"
-            description="I design simple, elegant experiences that help users move through complex tasks with confidence and understanding."
-            img="/images/icon-design.png"
-          />
-          <Skill
-            title="Make it happen"
-            description="I collaborate closely with engineers and product teams to bring solutions to life, supporting fellow designers through hands-on mentorship."
-            img="/images/icon-strategy.png"
-          />
+          {homepageData.methodology.skills.map(skill => (
+            <Skill
+              title={skill.title}
+              description={skill.description}
+              img={skill.icon}
+            />
+          ))}
         </div>
         <FeaturedQuote
-              quote="Josh is a thoughtful and creative problem solver. He asks the right questions and gets people engaged and invested to help answer them. I'd jump at the chance to collaborate with him again."
-              authorName="Bill Franz"
-              authorTitle="UX Design Director at AXS"
-              authorImage="/images/portrait-bill.jpeg"
+              quote={homepageData.featuredQuote.quote}
+              authorName={homepageData.featuredQuote.authorName}
+              authorTitle={homepageData.featuredQuote.authorTitle}
+              authorImage={homepageData.featuredQuote.authorImage}
             />
 
         <!-- <FeaturedQuote
@@ -115,37 +103,20 @@ const featuredCaseStudies = homepageCaseStudies
     <div class="inner">
       <div class="block-inside">
         <div class="block-header">
-          <h2 class="block-title line-top">Who I am</h2>
+          <h2 class="block-title line-top">{homepageData.about.title}</h2>
         </div>
       </div>
       <div class="post-thumbnail">
-        <img src="images/ribbon-portraits.png" />
+        <img src={homepageData.about.bannerImage} />
       </div>
 
       <div
         class="post-content inner-small"
         style="margin-bottom:64px;margin-top:64px;"
       >
-        <h3>I design meaningful products that have real impact.</h3>
-        <p>
-          For over 15 years I've had the privilege to serve tens
-          of millions of users, collaborating with diverse
-          cross-functional teams and executive leadership to
-          identify and solve complex problems. I've led design
-          initiatives for top brands like Indeed, AXS, and
-          LegalZoom, and thrive at the intersection of business and
-          design.
-        </p>
-        <p>
-          As an instructor and the Assistant Managing Director at the
-          <a href="http://ac4d.com" target="_blank">Austin Center for Design (AC4D)</a>, I strive to empower the next
-          generation of designers to tackle complex societal
-          challenges with creativity and autonomy. Additionally, I serve on
-          the <a href="https://sopa.tulane.edu/about-sopa/advisory-boards/media-design-advisory-board" target="_blank">Media &amp; Design Advisory Board</a> for Tulane University's School of Professional Advancement, 
-          helping to refine and shape a design curriculum that meets
-          the constantly evolving needs of the field.
-        </p>
-        <p><strong>Let's build something!</strong></p>
+        <h3>{homepageData.about.heading}</h3>
+        <div set:html={homepageData.about.content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>').replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')}>
+        </div>
       </div>
       <div class="logos-outer">
         <div class="logos-container">
