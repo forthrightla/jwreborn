@@ -36,7 +36,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 <style>
 /* Featured Quote Block Styles */
 .featured-quote-block {
-  background: #fafafa;
+  background: transparent;
   padding: 4rem 0 2rem;
   position: relative;
   margin-top: 1.5rem;
@@ -44,6 +44,11 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   margin-left: 0;
   margin-right: 0;
   width: 100%;
+}
+
+/* Light mode: full-width soft band behind the card */
+:global(html:not([data-theme="dark"])) .featured-quote-block {
+  background: #f7f8fa;
 }
 
 .quote-container {
@@ -57,19 +62,32 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 }
 
 .featured-quote {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: transparent;
   padding: 2.5rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   position: relative;
   z-index: 1;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  
+  border: 1px solid var(--color-border);
+}
+
+/* Light mode: keep the card itself white */
+:global(html:not([data-theme="dark"])) .featured-quote {
+  background: #ffffff;
+}
+
+/* Dark mode: full-width neutral band and surface card */
+:global([data-theme="dark"]) .featured-quote-block {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+}
+
+:global([data-theme="dark"]) .featured-quote {
+  background: var(--color-surface);
 }
 
 .quote-text {
   font-size: 1.2rem;
   line-height: 1.7;
-  color: #49535a;
+  color: var(--color-text-muted);
   margin: 0 0 1.5rem 0;
   font-family: "IBM Plex Serif", Georgia, serif;
   position: relative;
@@ -100,7 +118,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   top: 2.7rem;
   height: calc(100% - 2.7rem);
   width: 3px;
-  background: #f93b6b;
+  background: var(--color-accent);
   border-radius: 1.5px;
 }
 
@@ -129,7 +147,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 .author-name {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #00296b;
+  color: var(--color-text);
   font-style: normal;
   font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.3;
@@ -137,7 +155,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 
 .author-title {
   font-size: 0.875rem;
-  color: #49535a;
+  color: var(--color-text-muted);
   font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.3;
 }

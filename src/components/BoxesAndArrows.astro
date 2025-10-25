@@ -40,7 +40,7 @@ const { steps, className = '' } = Astro.props;
   }
 
   .funnel-step {
-    background: #d5dde5;
+    background: color-mix(in srgb, var(--color-primary-600) 6%, #ffffff);
     padding: 40px 20px;
     border-radius: 0;
     text-align: center;
@@ -53,6 +53,11 @@ const { steps, className = '' } = Astro.props;
     position: relative;
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+  }
+
+  :global([data-theme="dark"]) .funnel-step {
+    background: color-mix(in srgb, var(--color-surface) 85%, var(--color-primary-600) 15%);
   }
 
   /* Adjust spacing for different step counts */
@@ -70,13 +75,12 @@ const { steps, className = '' } = Astro.props;
   .funnel-step:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    background: #c8d4e0;
   }
 
   .funnel-step p {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--color-text);
     line-height: 1.4;
     margin: 0;
   }
@@ -87,6 +91,8 @@ const { steps, className = '' } = Astro.props;
     height: 50px;
     position: relative;
     align-self: center;
+    /* Use a tokenized, theme-aware arrow color */
+    --arrow-color: var(--color-primary-600);
   }
 
   .arrow::before {
@@ -96,7 +102,7 @@ const { steps, className = '' } = Astro.props;
     left: 0;
     width: 30px;
     height: 3px;
-    background: #0066cc;
+    background: var(--arrow-color);
     transform: translateY(-50%);
   }
 
@@ -107,10 +113,15 @@ const { steps, className = '' } = Astro.props;
     right: 0;
     width: 0;
     height: 0;
-    border-left: 20px solid #0066cc;
+    border-left: 20px solid var(--arrow-color);
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     transform: translateY(-50%) translateX(-10px);
+  }
+
+  /* In dark mode, lighten the brand blue for contrast */
+  :global([data-theme="dark"]) .arrow {
+    --arrow-color: color-mix(in srgb, var(--color-primary-600) 40%, #ffffff);
   }
 
   /* Tablet styles */

@@ -50,6 +50,42 @@ Text Secondary: #49535a
 Background: #fff, #fafafa, #f9f9f9
 ```
 
+### Color Palettes (Tokens)
+```css
+/* Light */
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f7f8fa;        /* inputs / occasional chips */
+  --color-surface-alt: #f0f2f5;
+  --color-text: #272c30;
+  --color-text-muted: #49535a;
+  --color-border: #e4e7eb;
+  --color-divider: #e0e0e0;
+  --color-accent: #f93b6b;
+  --color-primary-600: #00509d;    /* brand blue */
+  --color-primary-800: #00296b;
+}
+
+/* Dark (neutral charcoal) */
+[data-theme="dark"] {
+  --color-bg: #0b0f14;
+  --color-surface: #161b22;
+  --color-surface-alt: #1b2330;
+  --color-text: #e6edf3;
+  --color-text-muted: #a9b5c0;
+  --color-border: #2d3440;
+  --color-divider: #30363d;
+  --color-accent: #f93b6b;
+  --color-primary-600: #0b2447;
+  --color-primary-800: #0e1a33;
+}
+```
+
+Guidance:
+- Prefer transparent panels with `border: 1px solid var(--color-border)` over filled surfaces.
+- Reserve `--color-surface` for inputs or rare chips; avoid large filled blocks in dark mode.
+- Keep brand gradients by mapping to `--color-primary-800 → --color-primary-600` in both modes.
+
 ### Typography
 - **Headings**: IBM Plex Serif (serif)
 - **Body**: Funnel Sans (sans-serif)  

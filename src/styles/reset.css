@@ -14,8 +14,8 @@
 
 body {
   margin: 0;
-  background: #fff;
-  color: #272c30;
+  background: var(--color-bg);
+  color: var(--color-text);
   line-height: 1.66667;
 }
 

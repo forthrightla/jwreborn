@@ -39,6 +39,24 @@ const { current } = Astro.props;
             <li class="menu-item">
               <a href="mailto:josh@joshux.com">Contact</a>
             </li>
+            <li class="menu-item theme-toggle-item">
+              <button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              </button>
+            </li>
           </ul>
         </div>
       </nav>
@@ -46,6 +64,83 @@ const { current } = Astro.props;
   </div>
 </header>
 
+<style>
+  .theme-toggle { 
+    background: transparent; 
+    border: 0; 
+    cursor: pointer; 
+    margin-left: 12px; 
+    display: inline-flex; 
+    align-items: center; 
+    padding: 4px; 
+    position: relative;
+  }
+  
+  .theme-toggle .icon { 
+    width: 1em; 
+    height: 1em; 
+    color: currentColor;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Light mode: show moon (click to go dark) */
+  .theme-toggle .icon-moon { 
+    opacity: 1;
+    visibility: visible;
+  }
+  .theme-toggle .icon-sun { 
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* Dark mode: show sun (click to go light) */
+  .theme-toggle.is-dark .icon-moon { 
+    opacity: 0;
+    visibility: hidden;
+  }
+  .theme-toggle.is-dark .icon-sun { 
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* As a menu item on desktop */
+  .site-navigation .theme-toggle-item { display: inline-block; margin-left: 30px; vertical-align: baseline; }
+  .site-navigation .theme-toggle { 
+    padding: 0; 
+    line-height: 1.5; 
+    font-size: 18px; 
+    vertical-align: baseline;
+    width: 1em;
+    height: 1.5em;
+  }
+  .site-navigation .theme-toggle .icon { 
+    vertical-align: middle; 
+    display: inline-block;
+  }
+
+  /* As a full-width row on mobile flyout */
+  @media only screen and (max-width: 800px) {
+    .site-navigation .theme-toggle-item { display: block; margin: 0; border-bottom: 1px solid var(--color-border); }
+    .site-navigation .theme-toggle { 
+      padding: 0.83333rem 0; 
+      width: 100%; 
+      text-align: left; 
+      top: 0; 
+      display: flex; 
+      align-items: center;
+      height: auto;
+    }
+    .site-navigation .theme-toggle .icon { 
+      width: 24px; 
+      height: 24px;
+      position: static;
+      transform: none;
+    }
+  }
+</style>
 
 <script>
   // Initialize mobile menu
@@ -85,4 +180,52 @@ const { current } = Astro.props;
   
   // Run after the DOM is loaded
   document.addEventListener('DOMContentLoaded', initMobileMenu);
+
+  // Theme toggle logic - run immediately to sync with theme set in <head>
+  function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    
+    function getTheme() { 
+      return document.documentElement.getAttribute('data-theme') || 'light'; 
+    }
+    
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      try { localStorage.setItem('theme', t); } catch (e) {}
+    }
+    
+    function updateA11yLabel() {
+      const t = getTheme();
+      const next = t === 'dark' ? 'light' : 'dark';
+      const label = next === 'dark' ? 'Switch to dark mode' : 'Switch to light mode';
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
+    
+    function syncIcon() {
+      const t = getTheme();
+      if (t === 'dark') btn.classList.add('is-dark');
+      else btn.classList.remove('is-dark');
+    }
+    
+    // Sync icon immediately to match theme already set by inline script in <head>
+    syncIcon();
+    updateA11yLabel();
+    
+    btn.addEventListener('click', function() {
+      const next = getTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      updateA11yLabel();
+      syncIcon();
+    });
+  }
+  
+  // Run as soon as the script executes (Navbar is already in DOM)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    // DOM already loaded, run immediately
+    initThemeToggle();
+  }
 </script>
