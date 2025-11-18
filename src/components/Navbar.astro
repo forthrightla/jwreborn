@@ -24,6 +24,9 @@ const { current } = Astro.props;
             <span class="icon-close" aria-hidden="true"></span>
           </button>
           <ul class="menu">
+            <li class="menu-item mobile-home-link">
+              <a href="/">Home</a>
+            </li>
             <li class={`menu-item ${current === 'case-studies' ? 'current-menu-item' : ''}`}>
               <a href="/case-studies">Case studies</a>
             </li>
@@ -41,20 +44,23 @@ const { current } = Astro.props;
             </li>
             <li class="menu-item theme-toggle-item">
               <button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
-                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="4"></circle>
-                  <line x1="12" y1="1" x2="12" y2="3"></line>
-                  <line x1="12" y1="21" x2="12" y2="23"></line>
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                  <line x1="1" y1="12" x2="3" y2="12"></line>
-                  <line x1="21" y1="12" x2="23" y2="12"></line>
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
+                <span class="theme-toggle-icon">
+                  <svg class="icon icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
+                  <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                </span>
+                <span class="theme-toggle-text">Light mode / Dark mode</span>
               </button>
             </li>
           </ul>
@@ -73,25 +79,32 @@ const { current } = Astro.props;
     display: inline-flex; 
     align-items: center; 
     padding: 4px; 
+  }
+
+  .theme-toggle-icon {
     position: relative;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    flex-shrink: 0;
   }
   
-  .theme-toggle .icon { 
-    width: 1em; 
-    height: 1em; 
+  .theme-toggle-icon .icon {
+    width: 100%;
+    height: 100%;
     color: currentColor;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    top: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
   
   /* Light mode: show moon (click to go dark) */
-  .theme-toggle .icon-moon { 
+  .theme-toggle-icon .icon-moon { 
     opacity: 1;
     visibility: visible;
   }
-  .theme-toggle .icon-sun { 
+  .theme-toggle-icon .icon-sun { 
     opacity: 0;
     visibility: hidden;
   }
@@ -113,31 +126,39 @@ const { current } = Astro.props;
     line-height: 1.5; 
     font-size: 18px; 
     vertical-align: baseline;
-    width: 1em;
-    height: 1.5em;
   }
-  .site-navigation .theme-toggle .icon { 
-    vertical-align: middle; 
-    display: inline-block;
-  }
+
+  /* Hide mobile home link and theme toggle text on desktop */
+  .mobile-home-link { display: none !important; }
+  .theme-toggle-text { display: none; }
 
   /* As a full-width row on mobile flyout */
   @media only screen and (max-width: 800px) {
-    .site-navigation .theme-toggle-item { display: block; margin: 0; border-bottom: 1px solid var(--color-border); }
-    .site-navigation .theme-toggle { 
-      padding: 0.83333rem 0; 
-      width: 100%; 
-      text-align: left; 
-      top: 0; 
-      display: flex; 
+    .mobile-home-link { display: block; }
+
+    .site-navigation .theme-toggle-item {
+      display: block;
+      margin: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .site-navigation .theme-toggle {
+      padding: 0.83333rem 0;
+      width: 100%;
+      text-align: left;
+      display: flex;
       align-items: center;
       height: auto;
     }
-    .site-navigation .theme-toggle .icon { 
-      width: 24px; 
+
+    .site-navigation .theme-toggle-icon {
+      width: 24px;
       height: 24px;
-      position: static;
-      transform: none;
+    }
+    .theme-toggle-text {
+      display: block;
+      margin-left: 12px;
+      font-size: 16px;
+      color: currentColor;
     }
   }
 </style>
@@ -150,10 +171,13 @@ const { current } = Astro.props;
     const nav = document.getElementById('main-navigation');
     const siteHeader = document.getElementById('masthead');
     
-    // Create overlay element
-    const overlay = document.createElement('div');
-    overlay.className = 'site-overlay';
-    document.body.appendChild(overlay);
+    // Re-use existing overlay if it exists, otherwise create it
+    let overlay = document.querySelector('.site-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'site-overlay';
+      document.body.appendChild(overlay);
+    }
     
     if (menuOpen) {
       menuOpen.addEventListener('click', function() {
@@ -177,9 +201,6 @@ const { current } = Astro.props;
       document.body.style.overflow = '';
     });
   }
-  
-  // Run after the DOM is loaded
-  document.addEventListener('DOMContentLoaded', initMobileMenu);
 
   // Theme toggle logic - run immediately to sync with theme set in <head>
   function initThemeToggle() {
@@ -202,30 +223,78 @@ const { current } = Astro.props;
       btn.setAttribute('aria-label', label);
       btn.setAttribute('title', label);
     }
-    
+
     function syncIcon() {
       const t = getTheme();
       if (t === 'dark') btn.classList.add('is-dark');
       else btn.classList.remove('is-dark');
     }
+
+    function updateToggleText() {
+      const textElement = document.querySelector('.theme-toggle-text');
+      if (textElement) {
+        const t = getTheme();
+        textElement.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+      }
+    }
     
-    // Sync icon immediately to match theme already set by inline script in <head>
+    // Sync icon and text immediately to match theme already set by inline script in <head>
     syncIcon();
     updateA11yLabel();
-    
+    updateToggleText();
+
     btn.addEventListener('click', function() {
       const next = getTheme() === 'dark' ? 'light' : 'dark';
       setTheme(next);
       updateA11yLabel();
       syncIcon();
+      updateToggleText();
     });
   }
   
+  // Handle mobile anchor link clicks to close menu
+  function initMobileAnchorLinks() {
+    // Find the Home, About and Testimonials anchor links in the mobile menu
+    const homeLink = document.querySelector('nav a[href="/"]');
+    const aboutLink = document.querySelector('nav a[href="/#about"]');
+    const testimonialsLink = document.querySelector('nav a[href="/#testimonials"]');
+
+    // Function to close mobile menu (only works when menu is actually open)
+    function closeMobileMenu() {
+      const nav = document.getElementById('main-navigation');
+      const overlay = document.querySelector('.site-overlay');
+
+      if (nav) nav.classList.remove('is-open');
+      if (overlay) overlay.classList.remove('is-visible');
+      document.body.style.overflow = '';
+    }
+
+    // Add click handlers to close menu when anchor links are clicked
+    // These will only have an effect when the menu is actually open (mobile only)
+    if (homeLink) {
+      homeLink.addEventListener('click', closeMobileMenu);
+    }
+
+    if (aboutLink) {
+      aboutLink.addEventListener('click', closeMobileMenu);
+    }
+
+    if (testimonialsLink) {
+      testimonialsLink.addEventListener('click', closeMobileMenu);
+    }
+  }
+
   // Run as soon as the script executes (Navbar is already in DOM)
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeToggle);
+    document.addEventListener('DOMContentLoaded', function() {
+      initMobileMenu();
+      initThemeToggle();
+      initMobileAnchorLinks();
+    });
   } else {
     // DOM already loaded, run immediately
+    initMobileMenu();
     initThemeToggle();
+    initMobileAnchorLinks();
   }
 </script>

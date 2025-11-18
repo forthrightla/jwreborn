@@ -1720,6 +1720,22 @@ mux-player {
     margin-left: auto;
   }
 
+  .site-footer-inside {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-info {
+    margin-bottom: 0;
+  }
+
+  .social-links {
+    flex: 0 0 auto;
+    margin-left: auto;
+    margin-bottom: 0;
+  }
+
   .site-header:before {
     background: rgba(39, 44, 48, 0.6);
     content: "";
