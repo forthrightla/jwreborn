@@ -45,6 +45,7 @@ h1, h2, h3, h4, h5, h6 {
   --color-primary-800: #00296b;
   --scroll-fade: linear-gradient(to right, transparent, rgba(0,0,0,0.08));
   --table-stripe: rgba(0,0,0,0.03);
+  --logo-color: #00296B;
 }
 
 /* Dark theme tokens */
@@ -62,6 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   --color-primary-800: #0e1a33;
   --scroll-fade: linear-gradient(to right, transparent, rgba(255,255,255,0.12));
   --table-stripe: rgba(255,255,255,0.04);
+  --logo-color: #a9b5c0;
 
   --shadow-sm: 0 2px 16px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -105,7 +107,7 @@ html[data-theme="dark"] body {
   color: var(--color-text);
 }
 
-html[data-theme="dark"] a { color: var(--color-text); }
+html[data-theme="dark"] a { color: var(--color-text-muted); }
 html[data-theme="dark"] a:hover { color: var(--color-accent); }
 
 /* The site content */
@@ -1361,7 +1363,7 @@ html[data-theme="dark"] .site-footer {
   align-items: center;
   flex: 1;
   padding: 0 25px;
-  color: #00296B;
+  color: var(--logo-color);
 }
 
 .logo img {
@@ -1369,10 +1371,6 @@ html[data-theme="dark"] .site-footer {
   height: auto;
   width: 100%;
   object-fit: contain;
-}
-
-[data-theme="dark"] .logos-outer .logo {
-  color: #FFFFFF;
 }
 
 /**
