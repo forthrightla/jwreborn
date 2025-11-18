@@ -1361,6 +1361,7 @@ html[data-theme="dark"] .site-footer {
   align-items: center;
   flex: 1;
   padding: 0 25px;
+  color: #00296B;
 }
 
 .logo img {
@@ -1368,6 +1369,10 @@ html[data-theme="dark"] .site-footer {
   height: auto;
   width: 100%;
   object-fit: contain;
+}
+
+[data-theme="dark"] .logos-outer .logo {
+  color: #FFFFFF;
 }
 
 /**
