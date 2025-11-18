@@ -1,21 +1,21 @@
 {
-  "heroTitle": "I'm a UX Designer, Product Strategist, and Educator working in Austin.",
+  "heroTitle": "I'm a UX Design Lead and Product Strategist working in Austin.",
   "methodology": {
     "title": "My methodology",
     "skills": [
       {
-        "title": "Make it meaningful",
-        "description": "I lead generative and evaluative research to uncover user needs, then prototype and test to make sure we're solving the right problems.",
+        "title": "Evidence led",
+        "description": "I lead generative and evaluative research, combine it with product and support data, and turn it into clear product bets and roadmaps.",
         "icon": "/images/icon-education.png"
       },
       {
-        "title": "Make it clear",
-        "description": "I design simple, elegant experiences that help users move through complex tasks with confidence and understanding.",
+        "title": "Systems fluent",
+        "description": "I design end to end journeys for high stakes flows, making complex experiences feel straightforward for people and workable for the business.",
         "icon": "/images/icon-design.png"
       },
       {
-        "title": "Make it happen",
-        "description": "I collaborate closely with engineers and product teams to bring solutions to life, supporting fellow designers through hands-on mentorship.",
+        "title": "Outcome focused",
+        "description": "I partner with product and engineering to prioritize, experiment, and ship, measuring impact so design decisions move real metrics.",
         "icon": "/images/icon-strategy.png"
       }
     ]

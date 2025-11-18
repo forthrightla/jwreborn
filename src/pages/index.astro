@@ -62,14 +62,14 @@ const featuredCaseStudies = homepageCaseStudies
 ---
 
 <Layout
-  title="Josh Wright - UX Designer, Product Strategist, Educator"
-  description="Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes."
+  title="Josh Wright - UX Design Lead, Product Strategist, Educator"
+  description="Josh Wright is a UX Design Lead, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes."
   image="/images/jw-logomark-filled.svg"
 >
   <section id="hero" class="block hero-block outer">
     <div class="inner">
       <div class="block-header">
-        <h1 class="block-title" set:html={homepageData.heroTitle.replace(/\b(UX Designer|Product Strategist|Educator|Austin)\b/g, '<strong>$1</strong>')}>
+        <h1 class="block-title" set:html={homepageData.heroTitle.replace(/\b(UX Design Lead|Product Strategist|Educator|Austin)\b/g, '<strong>$1</strong>')}>
         </h1>
       </div>
     </div>
@@ -77,9 +77,6 @@ const featuredCaseStudies = homepageCaseStudies
 
   <section id="latest-projects" class="portfolio-block block outer">
     <div class="inner">
-      <div class="block-header">
-        <h2 class="block-title line-top">{homepageData.methodology.title}</h2>
-      </div>
       <div class="block-content">
         <div class="expertise">
           {homepageData.methodology.skills.map(skill => (
