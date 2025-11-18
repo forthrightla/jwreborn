@@ -1,11 +1,7 @@
 ---
-interface Props {
-	name: string;
-	portrait: string;
-	quote: string;
-}
+import type { TestimonialProps } from '../types';
 
-const { name, portrait, quote } = Astro.props;
+const { name, title, portrait, quote } = Astro.props as TestimonialProps;
 ---
 
 <blockquote class="testimonial">
@@ -16,10 +12,12 @@ const { name, portrait, quote } = Astro.props;
 		<img
 			class="testimonial-avatar"
 			src={portrait}
-			alt={name}
+			alt=""
+			loading="lazy"
 		/>
 		<cite class="testimonial-author">
-			{name}
+			<span class="testimonial-name">{name}</span>
+			{title && <span class="testimonial-title">{title}</span>}
 		</cite>
 	</footer>
 </blockquote>

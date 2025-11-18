@@ -39,25 +39,18 @@
  *    />
  */
 
-interface Props {
-  src: string;              // Primary image (required) - used on desktop or all sizes if mobileSrc not provided
-  mobileSrc?: string;       // Optional mobile image - only loads on screens ≤768px
-  alt: string;              // Alt text for accessibility (required)
-  class?: string;           // Additional CSS classes
-  maxHeight?: string;       // Max height like "600px" or "80vh" - prevents tall images from getting huge
-  maxHeightMobile?: string; // Different max height for mobile screens
-  contain?: boolean;        // If true, centers image and prevents it from stretching to full width
-}
+import type { ResponsiveImageProps } from '../types';
 
-const { 
-  src, 
+const {
+  src,
   mobileSrc,
-  alt, 
+  alt,
   class: className = '',
   maxHeight,
   maxHeightMobile,
-  contain = false
-} = Astro.props;
+  contain = false,
+  priority = false
+} = Astro.props as ResponsiveImageProps;
 
 const containerClass = contain ? 'contain-image' : '';
 const style = maxHeight ? `--max-height: ${maxHeight}; --max-height-mobile: ${maxHeightMobile || maxHeight};` : '';
@@ -65,18 +58,42 @@ const style = maxHeight ? `--max-height: ${maxHeight}; --max-height-mobile: ${ma
 
 <div class={`responsive-image-wrapper ${containerClass} ${className}`} style={style}>
   <picture>
-    {/* Only add mobile source if a different mobile image is provided */}
+    {/* Modern format sources for primary image */}
+    <source
+      srcset={`${src}?format=avif`}
+      type="image/avif"
+    />
+    <source
+      srcset={`${src}?format=webp`}
+      type="image/webp"
+    />
+
+    {/* Mobile sources with modern formats */}
     {mobileSrc && (
-      <source 
-        media="(max-width: 768px)" 
-        srcset={mobileSrc}
-      />
+      <>
+        <source
+          media="(max-width: 768px)"
+          srcset={`${mobileSrc}?format=avif`}
+          type="image/avif"
+        />
+        <source
+          media="(max-width: 768px)"
+          srcset={`${mobileSrc}?format=webp`}
+          type="image/webp"
+        />
+        <source
+          media="(max-width: 768px)"
+          srcset={mobileSrc}
+        />
+      </>
     )}
-    {/* Primary image - used as fallback and for desktop (or all sizes if no mobileSrc) */}
-    <img 
-      src={src} 
+
+    {/* Primary image - used as fallback */}
+    <img
+      src={src}
       alt={alt}
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
     />
   </picture>
 </div>

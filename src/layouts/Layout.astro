@@ -1,17 +1,19 @@
 ---
 // Import components
 import NavBar from '../components/Navbar.astro';
-
-interface Props {
-	title: string;
-    currentNav?: string;
-}
+import type { LayoutProps } from '../types';
 
 // Import CSS
 import '../styles/reset.css';
 import '../styles/main.css';
 
-const { title, currentNav } = Astro.props;
+const { title, currentNav, description, image, type = 'website' } = Astro.props as LayoutProps;
+
+// Default meta values
+const defaultDescription = "Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes.";
+const defaultImage = "/images/jw-logomark-filled.svg";
+const siteUrl = "https://joshux.com";
+const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}${defaultImage}`;
 
 ---
 
@@ -19,16 +21,69 @@ const { title, currentNav } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin">
+		<meta name="description" content={description || defaultDescription} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta property="og:title" content="Josh Wright - UX Designer, Product Strategist, Educator" />
-		<meta property="og:description" content="Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin" />
-		<meta property="og:url" content="https://joshux.com" />
+		<meta name="author" content="Josh Wright" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description || defaultDescription} />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:image" content={fullImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:site_name" content="Josh Wright" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description || defaultDescription} />
+		<meta name="twitter:image" content={fullImageUrl} />
+
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        
+		<link rel="canonical" href={siteUrl} />
+
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={
+			JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Person",
+				"name": "Josh Wright",
+				"jobTitle": "UX Designer, Product Strategist, Educator",
+				"description": defaultDescription,
+				"url": siteUrl,
+				"image": `${siteUrl}/images/jw-logomark-filled.svg`,
+				"sameAs": [
+					"https://www.linkedin.com/in/joshuajwright/"
+				],
+				"knowsAbout": [
+					"User Experience Design",
+					"Product Strategy",
+					"User Research",
+					"Design Education",
+					"Mobile App Design",
+					"Enterprise UX"
+				],
+				"hasOccupation": {
+					"@type": "Occupation",
+					"name": "UX Designer",
+					"occupationLocation": {
+						"@type": "City",
+						"name": "Austin",
+						"addressRegion": "TX",
+						"addressCountry": "US"
+					}
+				}
+			})
+		}></script>
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
+		<!-- Preload critical fonts -->
+		<link rel="preload" href="https://fonts.gstatic.com/s/funnelsans/v1/8wEozf94ZI2eRnr2LJQ.ttf" as="font" type="font/ttf" crossorigin>
+		<link rel="preload" href="https://fonts.gstatic.com/s/ibmplexserif/v19/jizDREVNn1dOx-bsrdZtA2zgXzM.ttf" as="font" type="font/ttf" crossorigin>
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -56,31 +111,65 @@ const { title, currentNav } = Astro.props;
 		</script>
 	</head>
 	<body>
+		<a href="#content" class="skip-link sr-only">Skip to main content</a>
 		<NavBar current={currentNav} />
-		<main id="content" class="site-content">
+		<main id="content" class="site-content" role="main">
 			<slot />
 		</main>
-		<footer id="colophon" class="site-footer outer">
+		<footer id="colophon" class="site-footer outer" role="contentinfo">
 			<div class="inner">
 				<div class="site-footer-inside">
 					<p class="site-info">
 						&copy; {new Date().getFullYear()} Forthright, all rights reserved. Lovingly vibe-coded by hand.
 					</p><!-- .site-info -->
-	
-					<ul class="social-links">
-						<li>
-							<a
-								href="https://www.linkedin.com/in/joshuajwright/"
-								target="_blank"
-								rel="noopener"
-								><img src="/images/icon-linkedin.svg"></a
-							>
-						</li>
-						
-					</ul><!-- .social-links -->
+
+					<nav aria-label="Social media links">
+						<ul class="social-links">
+							<li>
+								<a
+									href="https://www.linkedin.com/in/joshuajwright/"
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label="Josh Wright on LinkedIn (opens in new tab)"
+									><img src="/images/icon-linkedin.svg" alt="" aria-hidden="true"></a
+								>
+							</li>
+						</ul><!-- .social-links -->
+					</nav>
 				</div><!-- .site-footer-inside -->
 			</div><!-- .inner -->
 		</footer><!-- .site-footer -->
+		<style>
+			.skip-link {
+				position: absolute;
+				top: -40px;
+				left: 6px;
+				background: var(--color-primary-600);
+				color: white;
+				padding: 8px;
+				border-radius: 4px;
+				text-decoration: none;
+				z-index: 10000;
+				transition: top 0.3s;
+			}
+
+			.skip-link:focus {
+				top: 6px;
+			}
+
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				padding: 0;
+				margin: -1px;
+				overflow: hidden;
+				clip: rect(0, 0, 0, 0);
+				white-space: nowrap;
+				border: 0;
+			}
+		</style>
+
 		<script>
             // If there's a video player on the page, load the MuxPlayer script
             if (document.querySelector('mux-player')) {

@@ -4,3 +4,7 @@
 /work/indeed-ai-integration/                  /work/indeed-ai-case-study              301
 /work/ribbon-case-study                       /work/ribbon-legalzoom-case-study       301
 /work/jump-rope-nationals-case-study/         /work/jumprope-nationals-case-study     301
+
+# Legacy .html redirects for clean URLs
+/case-studies.html                             /case-studies                           301
+/index.html                                    /                                        301

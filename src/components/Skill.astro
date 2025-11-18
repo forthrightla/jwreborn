@@ -1,16 +1,12 @@
 ---
-interface Props {
-	title: string;
-	description: string;
-	img: string;
-}
+import type { SkillProps } from '../types';
 
-const { description, title, img } = Astro.props;
+const { description, title, img } = Astro.props as SkillProps;
 ---
 
 
 <div class="skill">
-	<img src={img} alt="{title} icon" class="icon">
+	<img src={img} alt={`${title} icon`} class="icon">
 	<h4>{title}</h4>
 	<p>{description}</p>
 </div>

@@ -25,14 +25,14 @@ const { current } = Astro.props;
           </button>
           <ul class="menu">
             <li class={`menu-item ${current === 'case-studies' ? 'current-menu-item' : ''}`}>
-              <a href="/case-studies.html">Case studies</a>
+              <a href="/case-studies">Case studies</a>
             </li>
             <li class={`menu-item ${current === 'about' ? 'current-menu-item' : ''}`}>
-              <a href="/index.html#about">About</a>
+              <a href="/#about">About</a>
             </li>
-            <!-- <li class={`menu-item ${current === 'testimonials' ? 'current-menu-item' : ''}`}>
-              <a href="/index.html#testimonials">Testimonials</a>
-            </li> -->
+            <li class={`menu-item ${current === 'testimonials' ? 'current-menu-item' : ''}`}>
+              <a href="/#testimonials">Testimonials</a>
+            </li>
             <!-- <li class="menu-item">
               <a href="#">Resume</a>
             </li>  -->

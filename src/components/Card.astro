@@ -1,33 +1,30 @@
 ---
-interface Props {
-	title: string;
-	href: string;
-	img: string;
-	isPasswordProtected?: boolean;
-}
+import type { CardProps } from '../types';
 
-const { 
-	href, 
-	title, 
-	img, 
+const {
+	href,
+	title,
+	img,
 	isPasswordProtected = false
-} = Astro.props;
+} = Astro.props as CardProps;
 ---
 
 
 <article class="post project">
-	<a href={href} class="post-link">
+	<a href={href} class="post-link" aria-label={`${title}${isPasswordProtected ? ' (password protected)' : ''}`}>
 		<div class="post-thumbnail">
 			<img
 				class="thumbnail"
 				src={img}
-				alt={title}
+				alt=""
+				loading="lazy"
 			/>
 			{isPasswordProtected && (
-				<div class="lock-icon">	
-					<img src="/images/icon-lock.svg">
+				<div class="lock-icon" aria-label="This case study is password protected">
+					<img src="/images/icon-lock.svg" alt="" aria-hidden="true">
 				</div>
 			)}
+		</div>
 		<header class="post-header">
 			<h3 class="post-title">
 				{title}

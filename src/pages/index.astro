@@ -3,6 +3,7 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Testimonial from "../components/Testimonial.astro";
+import TestimonialsSection from "../components/TestimonialsSection.astro";
 import Skill from "../components/Skill.astro";
 import { getCollection } from "astro:content";
 import FeaturedQuote from "../components/FeaturedQuote.astro";
@@ -15,6 +16,46 @@ const homepageCaseStudies = [
   'indeed-ai-case-study',
   'ribbon-legalzoom-case-study',
   // Add other slugs in the desired order
+];
+
+// Testimonials data
+const testimonials = [
+  {
+    name: "Christine Catsifas",
+    title: "UX Director at Indeed",
+    portrait: "/images/portrait-christine.jpeg",
+    quote: "Josh is a design leader who has significantly enhanced our team dynamics. His ability to quickly adapt and contribute effectively has been a catalyst for the success of multiple design efforts."
+  },
+  {
+    name: "Bill Franz",
+    title: "Associate UX Director at AXS",
+    portrait: "/images/portrait-bill.jpeg",
+    quote: "Josh is a thoughtful and creative problem solver. He asks the right questions and gets people engaged and invested to help answer them. I'd jump at the chance to collaborate with him again."
+  },
+  {
+    name: "Louis Elfman",
+    title: "Head of Design at Cerebral",
+    portrait: "/images/portrait-louis.jpeg",
+    quote: "It was with supreme confidence that I tapped Josh to run my initial research program at Cerebral. It had to both serve as a template and convince critical leadership, and as usual he delivered top shelf work."
+  },
+  {
+    name: "Evan Geerlings",
+    title: "Sr Director of Product at LegalZoom",
+    portrait: "/images/portrait-evan.jpeg",
+    quote: "I always get excited when I get to work with Josh on a project. He brings innovative thinking and a unique ability to solve complex interaction and user experience problems."
+  },
+  {
+    name: "Girmant Ragus",
+    title: "Sr Creative Director at LegalZoom",
+    portrait: "/images/portrait-girmant.jpeg",
+    quote: "Josh is great - period! He's very detail oriented and extremely capable in both UX & visual design disciplines. As a person Josh is dependable, no nonsense and fun - a total pleasure."
+  },
+  {
+    name: "JC Casas",
+    title: "UX Design Director at LegalZoom",
+    portrait: "/images/portrait-jc.jpeg",
+    quote: "Josh strives for excellence and always goes the extra mile. An exceptional thinker and one of the best UX professionals I've had the pleasure to work with, Josh would be a great addition to any team."
+  }
 ];
 
 // Get all case studies
@@ -32,7 +73,11 @@ const featuredCaseStudies = homepageCaseStudies
   .slice(0, 4);
 ---
 
-<Layout title="Josh Wright - UX Designer, Product Strategist, Educator">
+<Layout
+  title="Josh Wright - UX Designer, Product Strategist, Educator"
+  description="Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes."
+  image="/images/jw-logomark-filled.svg"
+>
   <section id="hero" class="block hero-block outer">
     <div class="inner">
       <div class="block-header">
@@ -92,7 +137,7 @@ const featuredCaseStudies = homepageCaseStudies
         </div>
         <div class="block-content">
           <p style="text-align:center;">
-            <a href="case-studies.html" class="button">More case studies</a>
+            <a href="/case-studies" class="button">More case studies</a>
           </p>
         </div>
       </div>
@@ -136,48 +181,5 @@ const featuredCaseStudies = homepageCaseStudies
     </div>
   </section>
   
-<!-- <section id="testimonials" class="block testimonials-block outer">
-    <div class="inner">
-      <div class="block-inside">
-        <div class="block-header">
-          <h2 class="block-title line-top">More kind words</h2>
-        </div>
-
-        <div class="block-content">
-          <div class="testimonials-list">
-            <Testimonial
-              name="Christine Catsifas, UX Director at Indeed"
-              portrait="/images/portrait-christine.jpeg"
-              quote="Josh is a design leader who has significantly enhanced our team dynamics. His ability to quickly adapt and contribute effectively has been a catalyst for the success of multiple design efforts."
-            />
-            <Testimonial
-              name="Bill Franz, Associate UX Director at AXS"
-              portrait="/images/portrait-bill.jpeg"
-              quote="Josh is a thoughtful and creative problem solver. He asks the right questions and gets people engaged and invested to help answer them. I'd jump at the chance to collaborate with him again."
-            />
-            <Testimonial
-              name="Louis Elfman, Head of Design at Cerebral"
-              portrait="/images/portrait-louis.jpeg"
-              quote="It was with supreme confidence that I tapped Josh to run my initial research program at Cerebral. It had to both serve as a template and convince critical leadership, and as usual he delivered top shelf work."
-            />
-            <Testimonial
-              name="Evan Geerlings, Sr Director of Product at LegalZoom"
-              portrait="/images/portrait-evan.jpeg"
-              quote="I always get excited when I get to work with Josh on a project. He brings innovative thinking and a unique ability to solve complex interaction and user experience problems."
-            />
-             <Testimonial
-								name="Girmant Ragus, Sr Creative Director at LegalZoom"
-								portrait="/images/portrait-girmant.jpeg"
-								quote="Josh is great - period! He's very detail oriented and extremely capable in both UX & visual design disciplines. As a person Josh is dependable, no nonsense and fun - a total pleasure."
-							/>
-							<Testimonial
-								name="JC Casas, UX Design Director at LegalZoom"
-								portrait="/images/portrait-jc.jpeg"
-								quote="Josh strives for excellence and always goes the extra mile. An exceptional thinker and one of the best UX professionals I’ve had the pleasure to work with, Josh would be a great addition to any team."
-							/>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
+<TestimonialsSection testimonials={testimonials} />
 </Layout>

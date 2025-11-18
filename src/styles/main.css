@@ -1,4 +1,19 @@
 /**
+ * Font Loading Optimization
+ * ----------------------------------------------------------------------------
+ */
+
+/* Improve font loading performance with better fallbacks */
+body {
+  font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Ensure serif elements have good fallbacks */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "IBM Plex Serif", Georgia, "Times New Roman", Times, serif;
+}
+
+/**
  * Shadow System
  * ----------------------------------------------------------------------------
  */
@@ -966,6 +981,20 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
   font-size: inherit;
   font-weight: 600;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-name {
+  color: var(--color-text);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.testimonial-title {
+  font-size: 0.9em;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .testimonial-avatar {
@@ -1950,6 +1979,14 @@ mux-player {
   
   .testimonial-author {
     font-size: 0.9rem;
+  }
+
+  .testimonial-name {
+    font-size: 1rem;
+  }
+
+  .testimonial-title {
+    font-size: 0.8em;
   }
   
   /* Skill component mobile styles */

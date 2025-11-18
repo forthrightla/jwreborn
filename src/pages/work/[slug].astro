@@ -42,7 +42,13 @@ const recommendedCaseStudies = finalRecommendations
 const isPasswordProtected = !!entry.data.password;
 ---
 
-<Layout title={`Josh Wright - ${entry.data.title}`} currentNav="case-studies">
+<Layout
+  title={`Josh Wright - ${entry.data.title}`}
+  currentNav="case-studies"
+  description={entry.data.subtitle}
+  image={entry.data.thumbnail}
+  type="article"
+>
   <main id="content" class="site-content">
     <div class="outer">
       <div class="inner">
@@ -66,29 +72,43 @@ const isPasswordProtected = !!entry.data.password;
               <div class="password-protection">
                 <h3>Password required</h3>
                 <p>
-                  This case study contains confidential information and requires a password to view. 
+                  This case study contains confidential information and requires a password to view.
                   Please enter the password you received to access this content.
                 </p>
-                
+
                 <div class="password-form">
-                  <div id="password-error" class="password-error" style="display: none;">
+                  <div id="password-error" class="password-error" style="display: none;" role="alert" aria-live="polite">
                     Incorrect password. Please try again or <a href="mailto:josh@joshuajwright.com">contact me</a> to request access.
                   </div>
-                  
+
                   <div class="form-group">
-                    <input 
-                      type="password" 
-                      id="case-study-password" 
-                      name="password" 
-                      placeholder="Enter password" 
+                    <label for="case-study-password" class="sr-only">Enter case study password</label>
+                    <input
+                      type="password"
+                      id="case-study-password"
+                      name="password"
+                      placeholder="Enter password"
                       class="password-input"
+                      aria-describedby="password-error password-help"
+                      autocomplete="current-password"
                     />
-                    <button id="submit-password" class="password-submit">Access Case Study</button>
+                    <button id="submit-password" class="password-submit" type="button">
+                      <span class="button-text">Access Case Study</span>
+                      <span class="loading-spinner" style="display: none;" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" opacity="0.25"/>
+                          <path d="M8 2a6 6 0 0 1 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div id="password-help" class="password-help">
+                    Passwords are case-sensitive and provided upon request.
                   </div>
                 </div>
-                
+
                 <p class="password-footnote">
-                  Don't have the password? Feel free to <a href="mailto:josh@joshuajwright.com">reach out</a> if you'd like to discuss this work or <a href="/case-studies.html">check out my other case studies</a>.
+                  Don't have the password? Feel free to <a href="mailto:josh@joshuajwright.com">reach out</a> if you'd like to discuss this work or <a href="/case-studies">check out my other case studies</a>.
                 </p>
               </div>
             </div>
@@ -146,55 +166,203 @@ const isPasswordProtected = !!entry.data.password;
   </main>
 </Layout>
 
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .password-form {
+    margin: 2rem 0;
+  }
+
+  .password-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .password-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .password-submit {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-primary-600);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .password-submit:hover {
+    background: var(--color-primary-800);
+  }
+
+  .password-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .password-submit.submitting {
+    background: var(--color-primary-800);
+  }
+
+  .loading-spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .password-error {
+    background: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .password-help {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
 <script>
-  // This script handles the password "validation"
+  // Enhanced password protection UX
   document.addEventListener('DOMContentLoaded', () => {
     const passwordField = document.getElementById('case-study-password');
     const submitButton = document.getElementById('submit-password');
     const errorDiv = document.getElementById('password-error');
-    
-    if (submitButton && passwordField && errorDiv) {
-      // Show error message when the form is submitted
-      submitButton.addEventListener('click', (e) => {
+    const buttonText = submitButton?.querySelector('.button-text');
+    const loadingSpinner = submitButton?.querySelector('.loading-spinner');
+
+    if (submitButton && passwordField && errorDiv && buttonText && loadingSpinner) {
+      const setLoading = (loading) => {
+        submitButton.disabled = loading;
+        submitButton.classList.toggle('submitting', loading);
+        buttonText.style.display = loading ? 'none' : 'inline';
+        loadingSpinner.style.display = loading ? 'inline' : 'none';
+      };
+
+      const showError = (message) => {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+        passwordField.setAttribute('aria-invalid', 'true');
+        passwordField.focus();
+      };
+
+      const hideError = () => {
+        errorDiv.style.display = 'none';
+        passwordField.removeAttribute('aria-invalid');
+      };
+
+      const validatePassword = (password) => {
+        // Trim whitespace and check basic requirements
+        const trimmedPassword = password.trim();
+
+        if (!trimmedPassword) {
+          showError('Please enter a password.');
+          return false;
+        }
+
+        if (trimmedPassword.length < 4) {
+          showError('Password must be at least 4 characters long.');
+          return false;
+        }
+
+        return trimmedPassword;
+      };
+
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        const password = passwordField.value;
+        const validPassword = validatePassword(password);
+
+        if (!validPassword) return;
+
         // Clear any existing timeout
         if (window._passwordTimeout) {
           clearTimeout(window._passwordTimeout);
         }
-        
-        // Simulate validating the password with a short delay
+
+        hideError();
+        setLoading(true);
+
+        // Simulate server validation with realistic delay
         setTimeout(() => {
-          // Always show error - this is intentionally fake
-          errorDiv.style.display = 'block';
-          
-          // Hide the error after 8 seconds
+          setLoading(false);
+
+          // Always show error - this is intentionally fake for UX boundary
+          showError('Incorrect password. Please try again or contact me to request access.');
+
+          // Auto-hide error after 10 seconds for better UX
           window._passwordTimeout = setTimeout(() => {
-            errorDiv.style.display = 'none';
-          }, 8000);
-        }, 800); // Small delay to make it seem like it's checking
-      });
-      
-      // Also trigger on Enter key in the password field
+            hideError();
+          }, 10000);
+        }, 1200);
+      };
+
+      // Event listeners
+      submitButton.addEventListener('click', handleSubmit);
+
       passwordField.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
-          submitButton.click();
+          handleSubmit(e);
         }
       });
-      
-      // Monitor for specific "correct" password for development/testing
-      // This just helps you verify the functionality without being obvious in the code
-      const checkPassword = () => {
-        const pwd = passwordField.value.trim();
-        if (pwd === entry?.data?.password) {
-          // This condition will never be true for users since they don't know the actual password
-          // But allows you to test it by entering the actual password from the MD file
-          console.log('Password validated');
+
+      // Clear error when user starts typing
+      passwordField.addEventListener('input', () => {
+        if (errorDiv.style.display !== 'none') {
+          hideError();
         }
-      };
-      
-      passwordField.addEventListener('input', checkPassword);
+      });
+
+      // Focus management for accessibility
+      passwordField.addEventListener('focus', () => {
+        passwordField.removeAttribute('aria-invalid');
+      });
     }
   });
 </script>
