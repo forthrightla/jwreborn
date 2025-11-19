@@ -13,14 +13,10 @@ const caseStudies = allCaseStudies.sort((a, b) => {
   return 0;
 });
 
-// Group case studies by tag categories
-const mobileAppStudies = caseStudies.filter((study) =>
-  study.data.tags.includes("Mobile App"),
-);
-
 const productDevelopmentStudies = caseStudies.filter(
   (study) =>
     study.data.tags.includes("Product Launch") ||
+    study.data.tags.includes("0 -> 1 Product Strategy") ||
     study.data.tags.includes("Product Strategy"),
 );
 
@@ -63,28 +59,9 @@ const enterpriseStudies = caseStudies.filter(
         </div>
 
         {
-          mobileAppStudies.length > 0 && (
-            <>
-              <h3>Mobile app design</h3>
-              <div class="block-content">
-                <div class="portfolio-feed layout-tiles">
-                  {mobileAppStudies.map((study) => (
-                    <SimplifiedCard
-                      href={`/work/${study.slug}`}
-                      title={study.data.title}
-                      img={study.data.thumbnail}
-                    />
-                  ))}
-                </div>
-              </div>
-            </>
-          )
-        }
-
-        {
           productDevelopmentStudies.length > 0 && (
             <>
-              <h3>End-to-end product development</h3>
+              <h3>Product strategy</h3>
               <div class="block-content">
                 <div class="portfolio-feed layout-tiles">
                   {productDevelopmentStudies.map((study) => (
