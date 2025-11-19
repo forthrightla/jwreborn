@@ -5,17 +5,17 @@
     "skills": [
       {
         "title": "Evidence led",
-        "description": "I lead generative and evaluative research, combine it with product and support data, and turn it into clear product bets and roadmaps.",
+        "description": "I lead generative and evaluative research, combine it with product and support data, and turn it into clear product strategy and roadmaps.",
         "icon": "/images/icon-education.png"
       },
       {
         "title": "Systems fluent",
-        "description": "I design end to end journeys for high stakes flows, making complex experiences feel straightforward for people and workable for the business.",
+        "description": "I design end to end journeys for high impact experiences, making complexity understandable for real humans and workable for the business.",
         "icon": "/images/icon-design.png"
       },
       {
         "title": "Outcome focused",
-        "description": "I partner with product and engineering to prioritize, experiment, and ship, measuring impact so design decisions move real metrics.",
+        "description": "I partner with leadership and cross-functional teams to prioritize, experiment, and ship, measuring impact so designs move real metrics.",
         "icon": "/images/icon-strategy.png"
       }
     ]
@@ -33,4 +33,3 @@
     "bannerImage": "/images/ribbon-portraits.png"
   }
 }
-
