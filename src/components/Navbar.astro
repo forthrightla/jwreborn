@@ -123,8 +123,8 @@ const { current } = Astro.props;
   .site-navigation .theme-toggle-item { display: inline-block; margin-left: 30px; vertical-align: middle; }
   .site-navigation .theme-toggle { 
     padding: 0; 
-    line-height: 1.5; 
-    font-size: 18px; 
+    line-height: 1.5;
+    font-size: var(--text-xs);
     vertical-align: baseline;
   }
 
@@ -157,7 +157,7 @@ const { current } = Astro.props;
     .theme-toggle-text {
       display: block;
       margin-left: 12px;
-      font-size: 16px;
+      font-size: var(--text-xs);
       color: currentColor;
     }
   }

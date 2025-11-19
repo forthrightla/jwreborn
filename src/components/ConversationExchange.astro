@@ -62,7 +62,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
 
   .conversation-header h3 {
     font-family: "IBM Plex Serif", serif;
-    font-size: 2rem;
+    font-size: var(--text-xl);
     color: var(--color-text);
     margin: 0 0 1rem 0;
     line-height: 1.2;
@@ -70,7 +70,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
 
   .conversation-intro {
     color: var(--color-text-muted);
-    font-size: 1.1rem;
+    font-size: var(--text-sm);
     line-height: 1.6;
     margin: 0;
   }
@@ -99,7 +99,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: var(--text-xs);
     font-family: "Funnel Sans", sans-serif;
   }
 
@@ -120,7 +120,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
   }
 
   .speaker-label {
-    font-size: 0.875rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--color-text-muted);
     margin-bottom: 0.5rem;
@@ -148,7 +148,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
 
   .message-bubble p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: var(--text-sm);
     line-height: 1.6;
     color: var(--color-text);
     position: relative;
@@ -185,7 +185,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
 
   .conversation-outcome p {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: var(--text-sm);
     color: var(--color-text);
     font-weight: 500;
     font-family: "Funnel Sans", sans-serif;
@@ -200,7 +200,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     }
 
     .conversation-header h3 {
-      font-size: 1.6rem;
+      font-size: var(--text-lg);
     }
 
     .exchange {
@@ -210,7 +210,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     .speaker-avatar {
       width: 40px;
       height: 40px;
-      font-size: 0.75rem;
+      font-size: var(--text-xs);
     }
 
     .message-bubble {
@@ -218,7 +218,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     }
 
     .message-bubble p {
-      font-size: 1rem;
+      font-size: var(--text-sm);
       padding-left: 1.5rem;
     }
 
@@ -229,7 +229,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     }
 
     .speaker-label {
-      font-size: 0.75rem;
+      font-size: var(--text-xs);
     }
 
     .conversation-outcome {
@@ -237,7 +237,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     }
 
     .conversation-outcome p {
-      font-size: 1rem;
+      font-size: var(--text-sm);
     }
   }
 

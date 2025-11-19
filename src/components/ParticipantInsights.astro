@@ -84,7 +84,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   .theme-title {
     font-family: "IBM Plex Serif", serif;
-    font-size: 2rem;
+    font-size: var(--text-xl);
     color: var(--color-text);
     margin-bottom: 2.5rem;
     position: relative;
@@ -130,14 +130,14 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   .participant-name {
     font-family: "Funnel Sans", sans-serif;
-    font-size: 1.25rem;
+    font-size: var(--text-base);
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
   }
 
   .participant-description {
-    font-size: 1rem;
+    font-size: var(--text-sm);
     line-height: 1.6;
     color: var(--color-text-muted);
     margin: 0;
@@ -159,7 +159,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   .section-label {
     font-family: "Funnel Sans", sans-serif;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     font-weight: 700;
     color: var(--color-text);
     text-transform: uppercase;
@@ -171,7 +171,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   .insight-text,
   .recommendation-title {
     font-family: "IBM Plex Serif", serif;
-    font-size: 1.25rem;
+    font-size: var(--text-base);
     font-weight: 600;
     color: var(--color-text);
     margin: 0 0 0.75rem 0;
@@ -180,7 +180,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   .context-text,
   .recommendation-text {
-    font-size: 1.05rem;
+    font-size: var(--text-sm);
     line-height: 1.6;
     color: var(--color-text-muted);
     margin: 0;
@@ -232,7 +232,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     }
 
     .theme-title {
-      font-size: 1.6rem;
+      font-size: var(--text-lg);
       margin-bottom: 2rem;
     }
 
@@ -251,7 +251,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     }
 
     .participant-name {
-      font-size: 1.1rem;
+      font-size: var(--text-sm);
     }
 
     .insight-recommendation-block {
@@ -269,12 +269,12 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     }
 
     .insight-text {
-      font-size: 1.15rem;
+      font-size: var(--text-sm);
     }
 
     .context-text,
     .recommendation-text {
-      font-size: 1rem;
+      font-size: var(--text-sm);
     }
   }
 
@@ -285,7 +285,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     }
 
     .theme-title {
-      font-size: 1.4rem;
+      font-size: var(--text-base);
       padding-left: 0.75rem;
     }
 

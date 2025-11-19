@@ -252,27 +252,27 @@ h6:first-child {
 }
 
 h1 {
-  font-size: 2.44444rem;
+  font-size: var(--text-2xl);
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: var(--text-xl);
 }
 
 h3 {
-  font-size: 1.33333rem;
+  font-size: var(--text-lg);
 }
 
 h4 {
-  font-size: 1.11111rem;
+  font-size: var(--text-base);
 }
 
 h5 {
-  font-size: 1rem;
+  font-size: var(--text-sm);
 }
 
 h6 {
-  font-size: 0.88889rem;
+  font-size: var(--text-xs);
 }
 
 p {

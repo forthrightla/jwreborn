@@ -18,15 +18,26 @@ h1, h2, h3, h4, h5, h6 {
  * ----------------------------------------------------------------------------
  */
 :root {
+  /* Typography Scale (Major Third - 1.25 ratio) */
+  --text-xs: 0.8rem;      /* 15.36px - small text */
+  --text-sm: 1rem;        /* 19.2px - body text / h6 */
+  --text-base: 1.25rem;   /* 24px - large body / h5 */
+  --text-lg: 1.5625rem;   /* 30px - h4 */
+  --text-xl: 1.953rem;    /* 37.5px - h3 */
+  --text-2xl: 2.441rem;   /* 46.9px - h2 */
+  --text-3xl: 3.052rem;   /* 58.6px - h1 */
+  --text-4xl: 3.815rem;   /* 73.2px - hero titles */
+  --text-5xl: 4.768rem;   /* 91.5px - very large hero */
+
   /* Level 1 - Subtle elevation (base cards, inputs) */
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.06);
-  
+
   /* Level 2 - Interactive hover states */
   --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.1);
-  
+
   /* Level 3 - Prominent elements */
   --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.12);
-  
+
   /* Special shadows */
   --shadow-xs: 0 2px 8px rgba(0, 0, 0, 0.04); /* Very subtle */
   --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.05); /* Input fields */
@@ -298,7 +309,7 @@ html[data-theme="dark"] .hero-block {
 }
 
 .hero-block .block-title {
-  font-size: 2.8rem;
+  font-size: var(--text-3xl);
   margin: 0 auto;
   max-width: 1150px;
   font-weight: 400;
@@ -415,7 +426,7 @@ html[data-theme="dark"] .post-subtitle { color: var(--color-text-muted); }
 }
 
 .block-title {
-  font-size: 2.125rem;
+  font-size: var(--text-xl);
   margin: 0;
   font-family: "IBM Plex Serif", serif;
 }
@@ -515,7 +526,7 @@ html[data-theme="dark"] .block-title { color: var(--color-text); }
 }
 
 .portfolio-feed .post-title {
-  font-size: 1.25rem;
+  font-size: var(--text-base);
   font-weight: 700;
   margin: 0 0 1rem 0;
   line-height: 1.35;
@@ -632,7 +643,7 @@ html[data-theme="dark"] .post-header {
 }
 
 .post-title {
-  font-size: 1.25rem;
+  font-size: var(--text-base);
   margin: 0 0 1rem 0;
   font-weight: 700;
   line-height: 1.35;
@@ -681,7 +692,7 @@ html[data-theme="dark"] .post-tag {
 
 /* Post Highlight */
 .post-highlight {
-  font-size: 0.9375rem;
+  font-size: var(--text-xs);
   line-height: 1.6;
   margin: 0;
   color: #4a5568;
@@ -722,19 +733,19 @@ html[data-theme="dark"] .case-study-header {
 }
 
 .header-text h1 {
-  font-size: 2.8rem;
+  font-size: var(--text-3xl);
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .subtitle {
-  font-size: 1.4rem;
+  font-size: var(--text-base);
   margin-bottom: 1.5rem;
   opacity: 0.9;
 }
 
 .overview {
-  font-size: 1.1rem;
+  font-size: var(--text-sm);
   line-height: 1.6;
   margin-bottom: 2rem;
 }
@@ -747,13 +758,13 @@ html[data-theme="dark"] .case-study-header {
 }
 
 .header-quote p {
-  font-size: 1.3rem;
+  font-size: var(--text-sm);
   line-height: 1.5;
   margin-bottom: 0.5rem;
 }
 
 .header-quote cite {
-  font-size: 1rem;
+  font-size: var(--text-xs);
   opacity: 0.8;
 }
 
@@ -1187,19 +1198,19 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
 }
 
 .quote-content h3 {
-  font-size: 1.3rem;
+  font-size: var(--text-base);
   margin-bottom: 0.3rem;
   color: var(--color-text);
 }
 
 .quote-role {
-  font-size: 0.9rem;
+  font-size: var(--text-xs);
   color: #666;
   margin-bottom: 1rem;
 }
 
 .quote-content blockquote {
-  font-size: 1.1rem;
+  font-size: var(--text-sm);
   line-height: 1.6;
   font-style: italic;
   color: var(--color-text-muted);
@@ -1247,13 +1258,13 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
 }
 
 .step-text h3 {
-  font-size: 1.4rem;
+  font-size: var(--text-lg);
   margin-bottom: 1rem;
   color: var(--color-text);
 }
 
 .step-text p {
-  font-size: 1.1rem;
+  font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--color-text-muted);
 }
@@ -1309,7 +1320,7 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
 }
 
 .expertise p {
-  font-size: 1em;
+  font-size: var(--text-sm);
   color: #666;
   line-height: 1.5em;
 }
@@ -1356,14 +1367,14 @@ html[data-theme="dark"] .participant-container {
 }
 
 .name {
-  font-size: 1.5rem;
+  font-size: var(--text-lg);
   font-weight: bold;
   color: var(--color-text);
   margin: 0;
 }
 
 .participant-info p {
-  font-size: 1rem;
+  font-size: var(--text-sm);
   color: #666;
   margin: 5px 0 0;
 }
@@ -1486,7 +1497,7 @@ html[data-theme="dark"] .site-footer {
 }
 
 .case-testimonial p {
-  font-size: 1.2rem;
+  font-size: var(--text-sm);
   line-height: 1.6;
   font-style: italic;
   position: relative;
@@ -1514,12 +1525,12 @@ html[data-theme="dark"] .site-footer {
 }
 
 .case-testimonial strong {
-  font-size: 1.1rem;
+  font-size: var(--text-sm);
   color: var(--color-text);
 }
 
 .case-testimonial span {
-  font-size: 0.9rem;
+  font-size: var(--text-xs);
   color: #777;
 }
 
@@ -1766,7 +1777,7 @@ mux-player {
   }
   
   .hero-block .block-title {
-    font-size: 1.8rem;
+    font-size: var(--text-xl);
   }
   
   .post-header {
@@ -1774,11 +1785,11 @@ mux-player {
   }
   
   .post-header .post-title {
-    font-size: 1.8rem;
+    font-size: var(--text-xl);
   }
   
   .post-subtitle {
-    font-size: 1.2rem;
+    font-size: var(--text-sm);
   }
 
   .menu-toggle {
@@ -1910,7 +1921,7 @@ mux-player {
   }
   
   .header-text h1 {
-    font-size: 2.2rem;
+    font-size: var(--text-2xl);
   }
   
   .step-content {
@@ -2025,7 +2036,7 @@ mux-player {
   }
   
   .post-title {
-    font-size: 1.1rem;
+    font-size: var(--text-sm);
     margin: 0;
   }
   
@@ -2090,11 +2101,11 @@ mux-player {
   }
   
   .skill h4 {
-    font-size: 1.2rem;
+    font-size: var(--text-base);
   }
   
   .skill p {
-    font-size: 0.95rem;
+    font-size: var(--text-xs);
   }
   
   /* Portfolio feed mobile styles */
@@ -2104,14 +2115,14 @@ mux-player {
   }
   
   /* General typography improvements */
-  h2, .block-title { font-size: 1.5rem; }
+  h2, .block-title { font-size: var(--text-lg); }
   
   h3 {
-    font-size: 1.4rem;
+    font-size: var(--text-base);
   }
   
   .post-subtitle {
-    font-size: 1.2rem;
+    font-size: var(--text-sm);
     line-height: 1.5;
     margin-top: 0.5em;
     margin-bottom: 1.5em;

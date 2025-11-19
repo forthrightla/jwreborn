@@ -69,7 +69,7 @@ const { steps, className = '' } = Astro.props;
 
   .funnel:has(.funnel-step:nth-child(9)) .funnel-step p,
   .funnel:has(.funnel-step:nth-child(11)) .funnel-step p {
-    font-size: 1rem;
+    font-size: var(--text-sm);
   }
 
   .funnel-step:hover {
@@ -78,7 +78,7 @@ const { steps, className = '' } = Astro.props;
   }
 
   .funnel-step p {
-    font-size: 0.9rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--color-text);
     line-height: 1.4;
@@ -136,7 +136,7 @@ const { steps, className = '' } = Astro.props;
     }
 
     .funnel-step p {
-      font-size: 1.1rem;
+      font-size: var(--text-sm);
     }
 
     .arrow {
@@ -181,7 +181,7 @@ const { steps, className = '' } = Astro.props;
   /* Small mobile styles */
   @media (max-width: 480px) {
     .funnel-step p {
-      font-size: 1rem;
+      font-size: var(--text-sm);
     }
 
     .funnel-step {
