@@ -125,8 +125,6 @@ const displayHighlight = highlight || subtitle || title;
     z-index: 1;
   }
 
-  
-
   .case-card__content {
     display: flex;
     flex-direction: column;
@@ -240,6 +238,11 @@ const displayHighlight = highlight || subtitle || title;
     border-radius: 0;
     box-shadow: none;
     display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .case-card:hover .case-card__extra img {
+    transform: scale(1.02);
   }
 
   .case-card__media img {
