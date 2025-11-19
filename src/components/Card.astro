@@ -23,6 +23,7 @@ const displayHighlight = highlight || subtitle || title;
 ---
 
 <article class="case-card project">
+  <div class="case-card__pattern"></div>
   <a
     href={href}
     class="case-card__link"
@@ -81,14 +82,33 @@ const displayHighlight = highlight || subtitle || title;
 
 <style>
   .case-card {
-    background: var(--color-bg);
-    border-radius: 32px;
-    box-shadow: var(--shadow-lg);
+    background: linear-gradient(to bottom right, #ffffff, #f5f0ff);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
     transition:
       transform 0.3s ease,
-      box-shadow 0.3s ease;
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
     height: 100%;
     overflow: hidden;
+    position: relative;
+  }
+
+  .case-card__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: radial-gradient(circle, #000000 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 32px;
+  }
+
+  .case-card__media,
+  .case-card__extra {
+    position: relative;
+    z-index: 1;
   }
 
   .case-card__link {
@@ -101,30 +121,37 @@ const displayHighlight = highlight || subtitle || title;
     height: 100%;
     color: inherit;
     border-bottom: none;
+    position: relative;
+    z-index: 1;
   }
 
-  .case-card:hover,
-  .case-card:focus-within {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12), 0 6px 12px rgba(0, 0, 0, 0.08);
-  }
+  
 
   .case-card__content {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 1rem 0;
+    position: relative;
+    z-index: 1;
   }
 
   /* Dark mode styles */
   html[data-theme="dark"] .case-card {
     background: var(--color-surface);
-    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-sm);
+  }
+
+  html[data-theme="dark"] .case-card__pattern {
+    opacity: 0.05;
+    background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
   }
 
   html[data-theme="dark"] .case-card:hover,
   html[data-theme="dark"] .case-card:focus-within {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-lg);
   }
 
   html[data-theme="dark"] .case-card__title {
