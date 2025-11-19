@@ -142,10 +142,8 @@ const featuredCaseStudies = homepageCaseStudies
             }
           </div>
         </div>
-        <div class="block-content">
-          <p style="text-align:center;">
-            <a href="/case-studies" class="button">More case studies</a>
-          </p>
+        <div class="more-case-studies-wrapper">
+          <a href="/case-studies" class="button">More case studies</a>
         </div>
       </div>
     </div>
@@ -347,6 +345,18 @@ const featuredCaseStudies = homepageCaseStudies
     .case-card-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 2.5rem;
+    }
+  }
+
+  .more-case-studies-wrapper {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .more-case-studies-wrapper {
+      margin-top: 0;
+      margin-bottom: 2rem;
     }
   }
 </style>

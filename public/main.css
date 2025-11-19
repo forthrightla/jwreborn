@@ -5,16 +5,18 @@
 :root {
   /* Level 1 - Subtle elevation (base cards, inputs) */
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.06);
-  
+
   /* Level 2 - Interactive hover states */
   --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.1);
-  
+
   /* Level 3 - Prominent elements */
   --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.12);
-  
+
   /* Special shadows */
-  --shadow-xs: 0 2px 8px rgba(0, 0, 0, 0.04); /* Very subtle */
-  --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.05); /* Input fields */
+  --shadow-xs: 0 2px 8px rgba(0, 0, 0, 0.04);
+  /* Very subtle */
+  --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* Input fields */
 }
 
 /**
@@ -58,6 +60,7 @@
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -94,7 +97,7 @@
   line-height: 1.2;
   margin: 0;
   font-family: "Funnel Sans", sans-serif;
-  
+
   letter-spacing: -0.4px;
 }
 
@@ -323,7 +326,7 @@
   padding-top: 3.3em;
 }
 
-.block:not(.contact-block) + .block:not(.contact-block) {
+.block:not(.contact-block)+.block:not(.contact-block) {
   padding-top: 0;
 }
 
@@ -408,7 +411,7 @@
  * Portfolio & Project styles
  * ----------------------------------------------------------------------------
  */
-.page-header + .portfolio-feed {
+.page-header+.portfolio-feed {
   padding-top: 0;
 }
 
@@ -596,11 +599,13 @@
 .table-wrapper {
   margin: 2rem 0;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on iOS */
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
   position: relative;
-  max-width: 100%; /* Ensure it doesn't exceed parent */
+  max-width: 100%;
+  /* Ensure it doesn't exceed parent */
 }
 
 .modern-table {
@@ -722,16 +727,16 @@
     right: 0;
     bottom: 0;
     width: 30px;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.8));
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8));
     pointer-events: none;
     opacity: 1;
     transition: opacity 0.3s;
   }
-  
+
   .table-wrapper::-webkit-scrollbar {
     height: 6px;
   }
-  
+
   .modern-table {
     font-size: 0.875rem;
     width: 100%;
@@ -772,6 +777,7 @@
 }
 
 @media (max-width: 480px) {
+
   .modern-table thead th,
   .modern-table tbody td {
     padding: 0.75rem 0.5rem;
@@ -1350,7 +1356,7 @@
 
 .password-input:focus {
   border-color: #00296b !important;
-  box-shadow: 0 0 0 2px rgba(0,41,107,0.1);
+  box-shadow: 0 0 0 2px rgba(0, 41, 107, 0.1);
   outline: none;
 }
 
@@ -1445,7 +1451,7 @@ mux-player {
   .posts-block .post {
     margin-bottom: 1.66667em;
   }
-  
+
   .portfolio-feed {
     display: flex;
     flex-wrap: wrap;
@@ -1517,7 +1523,7 @@ mux-player {
   .page-header:last-child {
     padding-bottom: 5em;
   }
-  
+
   .block {
     padding-bottom: 2em;
     padding-top: 2em;
@@ -1554,7 +1560,7 @@ mux-player {
   .logos-container {
     justify-content: center;
   }
-  
+
   .logo {
     padding: 0 10px;
   }
@@ -1565,19 +1571,19 @@ mux-player {
     padding-bottom: 0 !important;
     padding-top: 0 !important;
   }
-  
+
   .hero-block .block-title {
     font-size: 1.8rem;
   }
-  
+
   .post-header {
     padding-top: 2em;
   }
-  
+
   .post-header .post-title {
     font-size: 1.8rem;
   }
-  
+
   .post-subtitle {
     font-size: 1.2rem;
   }
@@ -1595,7 +1601,7 @@ mux-player {
     opacity: 0;
     position: absolute;
     top: 0;
-    transition: opacity .15s ease-in-out,visibility 0s ease-in-out .15s;
+    transition: opacity .15s ease-in-out, visibility 0s ease-in-out .15s;
     visibility: hidden;
     width: 100%;
     z-index: 998;
@@ -1660,61 +1666,66 @@ mux-player {
     transition-delay: 0s;
     visibility: visible;
   }
-  
+
   .expertise {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .expertise .skill {
     width: 100%;
     margin-bottom: 30px;
   }
-  
+
+  .expertise .skill p {
+    padding: 0.5rem;
+  }
+
   .participant {
     flex-direction: column;
     text-align: center;
     align-items: center;
   }
-  
+
   .avatar {
     width: 120px;
     height: 120px;
   }
-  
+
   .header-content {
     grid-template-columns: 1fr;
   }
-  
+
   .header-text {
     order: 1;
   }
-  
+
   .header-image {
     order: 0;
   }
-  
+
   .header-text h1 {
     font-size: 2.2rem;
   }
-  
+
   .step-content {
     grid-template-columns: 1fr;
   }
-  
+
   .step-image {
     order: -1;
   }
-  
-  .columns-3, .columns-4 {
+
+  .columns-3,
+  .columns-4 {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .form-group {
     flex-direction: column;
     gap: 0.75rem;
   }
-  
+
   .password-submit {
     width: 100%;
   }
@@ -1724,69 +1735,75 @@ mux-player {
   .logos-container {
     display: none;
   }
-  
+
   .columns-2 {
     grid-template-columns: 1fr;
   }
-  
+
   .quote-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media only screen and (max-width: 767px) {
+
   /* Fix hero section alignment */
   .hero-block {
-    padding: 2rem 0 3rem !important; /* Adjusted vertical padding */
+    padding: 2rem 0 3rem !important;
+    /* Adjusted vertical padding */
     min-height: auto;
   }
-  
+
   .hero-block .inner {
-    padding-left: 4vw; /* Match the same padding as the outer container */
-    padding-right: 4vw; /* Match the same padding as the outer container */
+    padding-left: 4vw;
+    /* Match the same padding as the outer container */
+    padding-right: 4vw;
+    /* Match the same padding as the outer container */
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   .hero-block .block-title {
     font-size: 1.8rem;
     line-height: 1.3;
     max-width: 100%;
-    padding: 0; /* Remove any inner padding */
+    padding: 0;
+    /* Remove any inner padding */
     margin: 0;
   }
-  
+
   /* Fix horizontal alignment across all sections */
   .outer {
     width: 100%;
     box-sizing: border-box;
   }
-  
-  .inner, .inner-small {
+
+  .inner,
+  .inner-small {
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   .expertise .skill {
     margin: 0 auto 3rem;
     text-align: center;
   }
-  
+
   .expertise .icon {
     display: block;
     margin: 0 auto 1rem;
     width: 60px;
   }
-  
+
   .expertise h4 {
     text-align: center;
   }
-  
+
   .expertise p {
     text-align: center;
     margin: 0 auto;
   }
-  
+
   /* Card component mobile styles */
   .post-link {
     display: block;
@@ -1795,29 +1812,29 @@ mux-player {
     box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .post-link:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .post-thumbnail {
     margin-bottom: 0;
   }
-  
+
   .post-header {
     padding: 0.75rem 1rem;
   }
-  
+
   .post-title {
     font-size: 1.1rem;
     margin: 0;
   }
-  
+
   .thumbnail {
     border-radius: 12px 12px 0 0;
   }
-  
+
   /* Testimonial component mobile styles */
   .testimonial {
     background-color: #f9f9f9;
@@ -1826,30 +1843,30 @@ mux-player {
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow-sm);
   }
-  
+
   .testimonial-text {
     padding-top: 1.5rem;
     font-size: 1rem;
     line-height: 1.5;
   }
-  
+
   .testimonial-text:before {
     font-size: 2.5rem;
   }
-  
+
   .testimonial-footer {
     margin-bottom: 0;
   }
-  
+
   .testimonial-avatar {
     height: 50px;
     width: 50px;
   }
-  
+
   .testimonial-author {
     font-size: 0.9rem;
   }
-  
+
   /* Skill component mobile styles */
   .skill {
     text-align: center;
@@ -1859,78 +1876,80 @@ mux-player {
     padding: 1.5rem 0;
     box-shadow: var(--shadow-sm);
   }
-  
+
   .skill .icon {
     margin: 0 auto 0.75rem;
   }
-  
+
   .skill h4 {
     font-size: 1.2rem;
   }
-  
+
   .skill p {
     font-size: 0.95rem;
   }
-  
+
   /* Portfolio feed mobile styles */
   .portfolio-feed .post-thumbnail {
-    padding-top: 56.25%; /* 16:9 aspect ratio */
+    padding-top: 56.25%;
+    /* 16:9 aspect ratio */
     border-radius: 12px;
   }
-  
+
   /* General typography improvements */
-  h2, .block-title {
+  h2,
+  .block-title {
     font-size: 1.6rem;
   }
-  
+
   h3 {
     font-size: 1.4rem;
   }
-  
+
   .post-subtitle {
     font-size: 1.1rem;
     line-height: 1.5;
     margin-top: 0.5em;
     margin-bottom: 1.5em;
   }
-  
+
   /* Improve spacing */
   .block {
     padding-bottom: 2.5em;
     padding-top: 2.5em;
   }
-  
+
   /* Improve testimonials layout */
   .testimonial {
     margin-bottom: 2.5em;
     padding-bottom: 1em;
     border-bottom: 1px solid #f0f0f0;
   }
-  
+
   .testimonial:last-child {
     border-bottom: none;
   }
-  
+
   /* Improve site footer */
   .site-footer {
     padding-top: 2rem;
     padding-bottom: 1.5rem;
     text-align: center;
   }
-  
+
   .site-info {
     text-align: center;
   }
-  
+
   .social-links {
     justify-content: center;
     margin-top: 1rem;
   }
-  
+
   .social-links a {
     margin: 0 10px;
   }
-  
+
   /* Button improvements */
   .button {
     padding: 0.25em 40px;
@@ -1961,5 +1980,5 @@ mux-player {
 }
 
 @view-transition {
-  /* enabled! */ 
+  /* enabled! */
 }
