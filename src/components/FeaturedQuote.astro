@@ -37,10 +37,10 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 /* Featured Quote Block Styles */
 .featured-quote-block {
   background: transparent;
-  padding: 4rem 0 2rem;
+  padding: var(--space-3xl) 0 var(--space-xl);
   position: relative;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
   margin-left: 0;
   margin-right: 0;
   width: 100%;
@@ -63,7 +63,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 
 .featured-quote {
   background: transparent;
-  padding: 2.5rem;
+  padding: var(--space-xl);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   position: relative;
   z-index: 1;
@@ -88,11 +88,11 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   font-size: var(--text-sm);
   line-height: 1.7;
   color: var(--color-text-muted);
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 var(--space-lg) 0;
   font-family: "IBM Plex Serif", Georgia, serif;
   position: relative;
   font-style:italic;
-  padding-top: 2.5rem;
+  padding-top: var(--space-xl);
 }
 
 /* Testimonial-style quote mark */
@@ -114,7 +114,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 .quote-text::after {
   content: '';
   position: absolute;
-  left: -2.5rem;
+  left: calc(var(--space-xl) * -1);
   top: 2.7rem;
   height: calc(100% - 2.7rem);
   width: 3px;
@@ -173,14 +173,14 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   }
 
   .featured-quote {
-    padding: 2rem;
+    padding: var(--space-xl);
     border-radius: 12px;
   }
 
   .quote-text {
     font-size: var(--text-sm);
-    margin-bottom: 1.25rem;
-    padding-top: 2rem;
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-xl);
   }
 
   .quote-text::before {
