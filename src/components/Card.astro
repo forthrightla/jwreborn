@@ -1,5 +1,6 @@
 ---
 import type { CardProps } from "../types";
+import ClientLogo from "./ClientLogo.astro";
 
 const {
   href,
@@ -33,7 +34,24 @@ const displayHighlight = highlight || subtitle || title;
       <div class="case-card__meta">
         {
           (client || tags.length > 0) && (
-            <span class="case-card__client">{client || tags[0]}</span>
+            <div class="case-card__client">
+              {client ? (
+                <>
+                  <ClientLogo client={client} />
+                  {![
+                    "Indeed",
+                    "LegalZoom",
+                    "AXS",
+                    "Cerebral",
+                    "Make:",
+                    "O'Reilly Auto Parts",
+                    "USA Jump Rope",
+                  ].includes(client) && client}
+                </>
+              ) : (
+                tags[0]
+              )}
+            </div>
           )
         }
         {
@@ -178,6 +196,10 @@ const displayHighlight = highlight || subtitle || title;
 
   .case-card__client {
     color: var(--color-primary-800);
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .case-card__lock {
