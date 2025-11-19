@@ -1,5 +1,5 @@
+// src/content.config.ts
 import { defineCollection, z } from 'astro:content';
-import type { CaseStudyData } from './types';
 
 const caseStudiesCollection = defineCollection({
   type: 'content',
@@ -9,10 +9,18 @@ const caseStudiesCollection = defineCollection({
     thumbnail: z.string(),
     banner: z.string().optional(),
     tags: z.array(z.string()),
+    date: z.date().optional(),
     featured: z.boolean().default(false),
     password: z.string().optional(),
-    outcomes: z.array(z.any()).optional(),
-  }) satisfies z.ZodType<CaseStudyData>,
+    highlight: z.string().optional(),
+    logo: z.string().optional(),
+    client: z.string().optional(),
+    extraImage: z.string().optional(),
+    extraImageAlt: z.string().optional(),
+    extraImageHeight: z.string().optional(),
+    extraImageWidth: z.string().optional(),
+    extraImageFullWidth: z.boolean().optional(),
+  }),
 });
 
 export const collections = {

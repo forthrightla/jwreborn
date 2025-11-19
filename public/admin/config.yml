@@ -63,6 +63,13 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", required: true }
       - { label: "Featured", name: "featured", widget: "boolean", default: false }
       - { label: "Password", name: "password", widget: "string", required: false, hint: "Leave empty for public case studies" }
+      - { label: "Card Highlight", name: "highlight", widget: "string", required: false, hint: "Optional short result or impact blurb shown on cards" }
+      - { label: "Client Name", name: "client", widget: "string", required: false }
+      - { label: "Card Logo", name: "logo", widget: "image", required: false, hint: "Logo displayed on the card (SVG preferred)" }
+      - { label: "Extra Card Image", name: "extraImage", widget: "image", required: false, hint: "Optional additional image displayed at bottom of card" }
+      - { label: "Extra Card Image Alt", name: "extraImageAlt", widget: "string", required: false }
+      - { label: "Extra Card Image Height", name: "extraImageHeight", widget: "string", required: false, hint: "CSS height value (e.g. 220px)" }
+      - { label: "Extra Card Image Width", name: "extraImageWidth", widget: "string", required: false, hint: "CSS width value (e.g. 360px or 100%)" }
       - label: "Body"
         name: "body"
         widget: "markdown"

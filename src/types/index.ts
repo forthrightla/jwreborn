@@ -14,6 +14,7 @@ export interface CaseStudyData {
   tags: string[];
   featured?: boolean;
   password?: string;
+  highlight?: string;
   outcomes?: Outcome[];
 }
 
@@ -70,6 +71,16 @@ export interface CardProps {
   title: string;
   img: string;
   isPasswordProtected?: boolean;
+  tags?: string[];
+  highlight?: string;
+  subtitle?: string;
+  client?: string;
+  extraImage?: string;
+  extraImageAlt?: string;
+  extraImageHeight?: string;
+  extraImageWidth?: string;
+  extraImageFullWidth?: boolean;
+  hideThumbnail?: boolean;
 }
 
 export interface LayoutProps {

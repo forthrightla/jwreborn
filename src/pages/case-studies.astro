@@ -1,7 +1,7 @@
 ---
 // src/pages/case-studies.astro
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import SimplifiedCard from "../components/SimplifiedCard.astro";
 import { getCollection } from "astro:content";
 
 // Get all case studies, sorted by featured status
@@ -14,23 +14,26 @@ const caseStudies = allCaseStudies.sort((a, b) => {
 });
 
 // Group case studies by tag categories
-const mobileAppStudies = caseStudies.filter(study => 
-  study.data.tags.includes("Mobile App")
+const mobileAppStudies = caseStudies.filter((study) =>
+  study.data.tags.includes("Mobile App"),
 );
 
-const productDevelopmentStudies = caseStudies.filter(study => 
-  study.data.tags.includes("Product Launch") || 
-  study.data.tags.includes("Product Strategy")
+const productDevelopmentStudies = caseStudies.filter(
+  (study) =>
+    study.data.tags.includes("Product Launch") ||
+    study.data.tags.includes("Product Strategy"),
 );
 
-const researchStudies = caseStudies.filter(study => 
-  study.data.tags.includes("Research") || 
-  study.data.tags.includes("Field Research")
+const researchStudies = caseStudies.filter(
+  (study) =>
+    study.data.tags.includes("Research") ||
+    study.data.tags.includes("Field Research"),
 );
 
-const enterpriseStudies = caseStudies.filter(study => 
-  study.data.tags.includes("Enterprise UX") || 
-  study.data.tags.includes("Enterprise Software")
+const enterpriseStudies = caseStudies.filter(
+  (study) =>
+    study.data.tags.includes("Enterprise UX") ||
+    study.data.tags.includes("Enterprise Software"),
 );
 ---
 
@@ -47,82 +50,93 @@ const enterpriseStudies = caseStudies.filter(study =>
         </div>
         <div class="block-content">
           <p style="max-width:850px">
-            Each project highlights a unique challenge and reflects my approach to solving it with creativity, collaboration, and impact. For brevity and confidentiality purposes, all case studies have been condensed.<br><br>
-            <strong>If you have any questions or would like to see more, please <a href="mailto:josh@joshux.com">get in touch</a>.</strong>
+            Each project highlights a unique challenge and reflects my approach
+            to solving it with creativity, collaboration, and impact. For
+            brevity and confidentiality purposes, all case studies have been
+            condensed.<br /><br />
+            <strong
+              >If you have any questions or would like to see more, please <a
+                href="mailto:josh@joshux.com">get in touch</a
+              >.</strong
+            >
           </p>
         </div>
 
-        {mobileAppStudies.length > 0 && (
-          <>
-            <h3>Mobile app design</h3>
-            <div class="block-content">
-              <div class="portfolio-feed layout-tiles">
-                {mobileAppStudies.map(study => (
-                  <Card
-                    href={`/work/${study.slug}`}
-                    title={study.data.title}
-                    img={study.data.thumbnail}
-                    isPasswordProtected={!!study.data.password}
-                  />
-                ))}
+        {
+          mobileAppStudies.length > 0 && (
+            <>
+              <h3>Mobile app design</h3>
+              <div class="block-content">
+                <div class="portfolio-feed layout-tiles">
+                  {mobileAppStudies.map((study) => (
+                    <SimplifiedCard
+                      href={`/work/${study.slug}`}
+                      title={study.data.title}
+                      img={study.data.thumbnail}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )
+        }
 
-        {productDevelopmentStudies.length > 0 && (
-          <>
-            <h3>End-to-end product development</h3>
-            <div class="block-content">
-              <div class="portfolio-feed layout-tiles">
-                {productDevelopmentStudies.map(study => (
-                  <Card
-                    href={`/work/${study.slug}`}
-                    title={study.data.title}
-                    img={study.data.thumbnail}
-                    isPasswordProtected={!!study.data.password}
-                  />
-                ))}
+        {
+          productDevelopmentStudies.length > 0 && (
+            <>
+              <h3>End-to-end product development</h3>
+              <div class="block-content">
+                <div class="portfolio-feed layout-tiles">
+                  {productDevelopmentStudies.map((study) => (
+                    <SimplifiedCard
+                      href={`/work/${study.slug}`}
+                      title={study.data.title}
+                      img={study.data.thumbnail}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )
+        }
 
-        {researchStudies.length > 0 && (
-          <>
-            <h3>Research studies</h3>
-            <div class="block-content">
-              <div class="portfolio-feed layout-tiles">
-                {researchStudies.map(study => (
-                  <Card
-                    href={`/work/${study.slug}`}
-                    title={study.data.title}
-                    img={study.data.thumbnail}
-                    isPasswordProtected={!!study.data.password}
-                  />
-                ))}
+        {
+          researchStudies.length > 0 && (
+            <>
+              <h3>Research studies</h3>
+              <div class="block-content">
+                <div class="portfolio-feed layout-tiles">
+                  {researchStudies.map((study) => (
+                    <SimplifiedCard
+                      href={`/work/${study.slug}`}
+                      title={study.data.title}
+                      img={study.data.thumbnail}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )
+        }
 
-        {enterpriseStudies.length > 0 && (
-          <>
-            <h3>Enterprise UX design</h3>
-            <div class="block-content">
-              <div class="portfolio-feed layout-tiles">
-                {enterpriseStudies.map(study => (
-                  <Card
-                    href={`/work/${study.slug}`}
-                    title={study.data.title}
-                    img={study.data.thumbnail}
-                    isPasswordProtected={!!study.data.password}
-                  />
-                ))}
+        {
+          enterpriseStudies.length > 0 && (
+            <>
+              <h3>Enterprise UX design</h3>
+              <div class="block-content">
+                <div class="portfolio-feed layout-tiles">
+                  {enterpriseStudies.map((study) => (
+                    <SimplifiedCard
+                      href={`/work/${study.slug}`}
+                      title={study.data.title}
+                      img={study.data.thumbnail}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )
+        }
 
         <div class="block-content">
           <p style="text-align:center;">
