@@ -594,7 +594,7 @@ html[data-theme="dark"] .post-link:hover {
 
 .post-thumbnail {
   position: relative;
-  background: #f5f5f5;
+  background: transparent;
   flex-shrink: 0;
   overflow: hidden;
 }
