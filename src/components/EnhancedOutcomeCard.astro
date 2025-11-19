@@ -39,7 +39,7 @@ const colorMap = {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
     border: 1px solid var(--color-border);
@@ -47,28 +47,28 @@ const colorMap = {
 
   .enhanced-outcome-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-lg);
   }
 
   /* Color variations */
   .card-primary {
-    background: linear-gradient(135deg, #d9e1e8 0%, #e9eff4 100%);
+    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
     color: var(--color-text);
   }
 
   .card-secondary {
-    background: linear-gradient(135deg, #00296b 0%, #00509d 100%);
+    background: linear-gradient(to right, var(--color-primary-800), var(--color-primary-600));
     color: white;
   }
 
   .card-accent {
-    background: linear-gradient(135deg, #f93b6b 0%, #ff5a82 100%);
+    background: var(--color-accent);
     color: white;
   }
 
   /* Dark mode adjustments */
   :global([data-theme="dark"]) .card-primary {
-    background: linear-gradient(135deg, #2a3340 0%, #1f2732 100%);
+    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
     color: var(--color-text);
   }
 

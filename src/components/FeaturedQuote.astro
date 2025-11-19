@@ -48,7 +48,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 
 /* Light mode: full-width soft band behind the card */
 :global(html:not([data-theme="dark"])) .featured-quote-block {
-  background: #f7f8fa;
+  background: var(--color-surface-alt);
 }
 
 .quote-container {
@@ -72,7 +72,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 
 /* Light mode: keep the card itself white */
 :global(html:not([data-theme="dark"])) .featured-quote {
-  background: #ffffff;
+  background: var(--color-bg);
 }
 
 /* Dark mode: full-width neutral band and surface card */
@@ -97,7 +97,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 
 /* Testimonial-style quote mark */
 .quote-text::before {
-  color: #f93b6b;
+  color: var(--color-accent);
   content: "\201C";
   display: block;
   font-size: 4.333rem;

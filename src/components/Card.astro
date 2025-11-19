@@ -81,9 +81,9 @@ const displayHighlight = highlight || subtitle || title;
 
 <style>
   .case-card {
-    background: var(--card-bg, #fff);
+    background: var(--color-bg);
     border-radius: 32px;
-    box-shadow: 0 20px 60px rgba(12, 18, 38, 0.08);
+    box-shadow: var(--shadow-lg);
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
@@ -106,7 +106,7 @@ const displayHighlight = highlight || subtitle || title;
   .case-card:hover,
   .case-card:focus-within {
     transform: translateY(-4px);
-    box-shadow: 0 30px 80px rgba(12, 18, 38, 0.12);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12), 0 6px 12px rgba(0, 0, 0, 0.08);
   }
 
   .case-card__content {
@@ -118,21 +118,21 @@ const displayHighlight = highlight || subtitle || title;
 
   /* Dark mode styles */
   html[data-theme="dark"] .case-card {
-    background: var(--color-surface, #161b22);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lg);
   }
 
   html[data-theme="dark"] .case-card:hover,
   html[data-theme="dark"] .case-card:focus-within {
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 
   html[data-theme="dark"] .case-card__title {
-    color: var(--color-text, #e6edf3);
+    color: var(--color-text);
   }
 
   html[data-theme="dark"] .case-card__client {
-    color: #6ea8fe;
+    color: var(--color-primary-600);
   }
 
   html[data-theme="dark"] .case-card__media {
@@ -148,11 +148,11 @@ const displayHighlight = highlight || subtitle || title;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #6a6f85;
+    color: var(--color-text-muted);
   }
 
   .case-card__client {
-    color: #001a72;
+    color: var(--color-primary-800);
   }
 
   .case-card__lock {
@@ -160,7 +160,7 @@ const displayHighlight = highlight || subtitle || title;
     align-items: center;
     gap: 0.25rem;
     font-size: 0.8rem;
-    color: #a02a2a;
+    color: var(--color-accent);
   }
 
   .case-card__lock img {
@@ -171,13 +171,13 @@ const displayHighlight = highlight || subtitle || title;
   .case-card__title {
     font-size: clamp(1.2rem, 2vw, 2rem);
     line-height: 1.3;
-    color: #0a0f1c;
+    color: var(--color-text);
     margin: 0;
   }
 
   .case-card__cta {
     font-weight: 600;
-    color: #ff1f74;
+    color: var(--color-accent);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -187,7 +187,7 @@ const displayHighlight = highlight || subtitle || title;
   .case-card__media {
     margin: 0;
     overflow: hidden;
-    background: #f5f6fb;
+    background: var(--color-surface-alt);
   }
   .case-card__extra {
     display: flex;
