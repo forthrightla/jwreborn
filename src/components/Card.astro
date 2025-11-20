@@ -224,11 +224,39 @@ const displayHighlight = highlight || subtitle || title;
 
   .case-card__cta {
     font-weight: 600;
-    color: var(--color-accent);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     font-size: 1rem;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent) 0%,
+      var(--color-accent) 40%,
+      #ff6b94 50%,
+      var(--color-accent) 60%,
+      var(--color-accent) 100%
+    );
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.7s ease;
+  }
+
+  .case-card:hover .case-card__cta,
+  .case-card:focus-within .case-card__cta {
+    background-position: 100% 0%;
+  }
+
+  .case-card__cta span {
+    -webkit-text-fill-color: var(--color-accent);
+    transition: transform 0.3s ease;
+  }
+
+  .case-card:hover .case-card__cta span,
+  .case-card:focus-within .case-card__cta span {
+    transform: translateX(4px);
   }
 
   .case-card__media {

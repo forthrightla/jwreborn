@@ -484,6 +484,10 @@ html[data-theme="dark"] .block-title { color: var(--color-text); }
   display: none;
 }
 
+.case-card-grid {
+  padding: 0 var(--space-xl);
+}
+
 /**
  * Content Section Component
  * ----------------------------------------------------------------------------
