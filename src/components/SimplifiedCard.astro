@@ -8,7 +8,7 @@ const { href, title, img } = Astro.props as CardProps;
     <div class="case-card">
         <a href={href} class="case-card__link" aria-label={title}>
             <div class="case-card__media">
-                <img src={img} alt={`${title} preview`} loading="lazy" />
+                <img src={img} alt={`Case study preview for ${title}`} loading="lazy" />
             </div>
             <div class="case-card__content">
                 <h3 class="case-card__title">{title}</h3>

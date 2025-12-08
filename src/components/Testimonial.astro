@@ -1,5 +1,5 @@
 ---
-import type { TestimonialProps } from '../types';
+import type { TestimonialProps } from "../types";
 
 const { name, title, portrait, quote } = Astro.props as TestimonialProps;
 ---
@@ -12,7 +12,7 @@ const { name, title, portrait, quote } = Astro.props as TestimonialProps;
 		<img
 			class="testimonial-avatar"
 			src={portrait}
-			alt=""
+			alt={`${name} portrait`}
 			loading="lazy"
 		/>
 		<cite class="testimonial-author">
@@ -21,4 +21,3 @@ const { name, title, portrait, quote } = Astro.props as TestimonialProps;
 		</cite>
 	</footer>
 </blockquote>
-

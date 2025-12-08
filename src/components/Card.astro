@@ -71,7 +71,11 @@ const displayHighlight = highlight || subtitle || title;
     {
       !hideThumbnail && (
         <div class="case-card__media">
-          <img src={img} alt={`${title} preview`} loading="lazy" />
+          <img
+            src={img}
+            alt={`Case study preview for ${title}`}
+            loading="lazy"
+          />
         </div>
       )
     }
@@ -82,7 +86,7 @@ const displayHighlight = highlight || subtitle || title;
         >
           <img
             src={extraImage}
-            alt={extraImageAlt || ""}
+            alt={extraImageAlt || `${title} detailed mockup`}
             style={
               [
                 extraImageHeight ? `height:${extraImageHeight}` : "",

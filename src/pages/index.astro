@@ -157,7 +157,11 @@ const featuredCaseStudies = homepageCaseStudies
         </div>
       </div>
       <div class="post-thumbnail">
-        <img src={homepageData.about.bannerImage} />
+        <img
+          src={homepageData.about.bannerImage}
+          alt={homepageData.about.bannerImageAlt || "Josh Wright collaborating with teams"}
+          loading="lazy"
+        />
       </div>
 
       <div
