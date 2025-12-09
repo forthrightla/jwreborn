@@ -12,9 +12,18 @@ export interface CaseStudyData {
   thumbnail: string;
   banner?: string;
   tags: string[];
+  date?: Date;
   featured?: boolean;
+  hidden?: boolean;
   password?: string;
   highlight?: string;
+  logo?: string;
+  client?: string;
+  extraImage?: string;
+  extraImageAlt?: string;
+  extraImageHeight?: string;
+  extraImageWidth?: string;
+  extraImageFullWidth?: boolean;
   outcomes?: Outcome[];
 }
 

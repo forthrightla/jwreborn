@@ -1,0 +1,155 @@
+---
+title: "Boosting hiring outcomes by 29% for the world's largest job site"
+client: "Indeed"
+extraImage: "/images/smart-sourcing-ui.png"
+extraImageAlt: "Indeed recruiter search interface"
+extraImageWidth: "100%"
+subtitle: "Simplifying recruiter search while laying groundwork for AI-powered features"
+thumbnail: "/images/block-omni.png"
+banner: "/images/case-studies/omni-banner.png"
+tags: ["Product Strategy"]
+featured: true
+hidden: true
+highlight: "Boosting hiring outcomes by 29% for the world's largest job site"
+logo: "/images/logo-indeed.svg"
+---
+
+import Table from '../../components/Table.astro';
+import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
+import ProjectDetails from '../../components/ProjectDetails.astro';
+import FeaturedQuote from "../../components/FeaturedQuote.astro";
+
+## Summary
+
+<ProjectDetails 
+goal="Simplify the recruiter search experience to improve hiring outcomes"
+responsibilities="UX strategy, product design, stakeholder alignment"
+duration="6 months"
+/>
+
+Indeed's recruiter search tool had a confusing split: employers had to choose between AI-recommended candidates or running their own keyword search. This forced choice created friction and led to worse hiring outcomes.
+
+I led a redesign that unified both approaches into a single search experience. Instead of forcing recruiters to pick a lane, they could now combine job context with keywords in one place. The simplified experience led to a **29% increase in jobs receiving positive candidate responses**.
+
+Just as important: the new interface created a foundation for AI-powered features. By building trust through transparency (showing recruiters exactly how their inputs shaped results), we prepared users to embrace more automated workflows in the future.
+
+*A "positive connection" is when a candidate responds favorably to a recruiter's outreach. It's the key metric for successful recruiting on Indeed.*
+
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "+29%",
+      description: "more jobs receiving positive candidate responses",
+      colorClass: "primary"
+    },
+    {
+      stat: "+10.6%",
+      description: "increase in positive response rate",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>
+
+<FeaturedQuote
+              quote="This is more streamlined, I like this more. It's delightful!"
+              authorName="Nathan Srulowitz"
+              authorTitle="Indeed Recruiter"
+              authorImage="/images/portrait-nathan.jpeg"
+            />
+
+
+## Background
+
+### The challenge
+
+Indeed's recruiter search tool helps employers find candidates for their open jobs. But the experience forced a confusing choice: two separate tabs, one for AI-recommended candidates and one for keyword search.
+
+[image showing the legacy two-tab interface with Matched Candidates and Search tabs]
+
+The problems were clear:
+- Recruiters had to pick between AI recommendations OR manual search, not both
+- The AI tab was the default, but it auto-selected a random job on load, showing irrelevant candidates
+- A huge number of recruiters clicked past the AI tab to keyword search every single time. That extra click added up across millions of searches.
+- Five input fields across two tabs created unnecessary cognitive load
+- Despite being the default, the AI tab drove just 10% of resume views. Recruiters didn't trust it.
+
+### How we got here
+
+The split experience was originally a technical compromise. We couldn't merge the two result types, so we separated them. But the workaround became permanent, and recruiters were paying the price.
+
+### My role
+
+I led UX strategy and design for this initiative, partnering with product management and engineering to define the vision and ship the solution. I also handled stakeholder alignment, helping leadership understand why certain metrics would shift as we changed user behavior. Throughout the project, I mentored junior designers on the team, helping them develop their research and stakeholder communication skills.
+
+## Discovery
+
+### Comparing the experiences
+
+I mapped out the friction points in the existing experience against what a unified model could look like:
+
+<Table
+  headers={['Aspect', 'Before', 'After']}
+  data={[
+    ['Interface', '2 tabs, 5 input fields', '1 search bar, 2 inputs'],
+    ['User choice', 'AI matches OR keyword search', 'Both together'],
+    ['Starting point', 'Random job selected for you', 'You choose your job']
+  ]}
+/>
+
+The core insight: we were forcing a choice that didn't need to exist. Recruiters should be able to use job context AND keywords in the same search.
+
+
+## Solution
+
+### One search, not two
+
+We replaced the two-tab system with a single search interface. Recruiters can now add job context, keywords, or both in one place.
+
+[image showing the new unified search interface with job pill and keyword input]
+
+The key design decisions:
+
+**Gentle prompts, not forced choices.** The first thing recruiters see is a prompt to "add your job." If they skip it, the typeahead suggests their jobs before keyword suggestions. This prioritizes job context without blocking anyone.
+
+**Visual builder pattern.** Jobs appear as pills in the search bar, making it easy to add or remove context. This pattern felt familiar to recruiters and scaled well for future features.
+
+[image showing the search bar with job pill and how results update]
+
+### Building toward AI-powered recruiting
+
+The unified search wasn't just about simplification. It was a foundation for the future.
+
+The old two-tab design forced a hard split between "trust our AI" and "do it yourself." Recruiters who chose keyword search were completely opting out of AI assistance. The new design lets AI and human intent work together: recruiters can add a job for context, refine with keywords, and see how both inputs shape their results.
+
+This transparency builds trust. And trust is essential for where recruiting is headed. As AI gets better at matching candidates to jobs, recruiters need to feel like partners, not passengers. The visual builder pattern we introduced scales naturally toward more AI-assisted workflows.
+
+## Results
+
+By removing the forced choice, we saw improvements across the funnel. More recruiters reached out to candidates, and more candidates responded positively. And we created a platform ready for AI-powered features rather than fighting against them.
+
+### User feedback
+
+Recruiters noticed the simplification:
+
+* "There's nothing I miss from the old experience. I like the UI, I like how it looks and feels."
+* "The changes are definitely an improvement. It's a lot more streamlined."
+
+### Outcomes
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "+29%",
+      description: "more jobs receiving positive candidate responses",
+      colorClass: "primary"
+    },
+    {
+      stat: "+10.6%",
+      description: "increase in positive response rate",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>

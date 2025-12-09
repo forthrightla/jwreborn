@@ -9,13 +9,15 @@ import { getCollection } from "astro:content";
 import FeaturedQuote from "../components/FeaturedQuote.astro";
 import homepageData from "../data/homepage.json";
 
-// Define the specific order by slug for homepage showcase
-const homepageCaseStudies = [
+// Define the preferred order by slug for homepage showcase
+// Hidden case studies are automatically skipped
+const preferredOrder = [
   "axs-event-entry-case-study",
   "cerebral-case-study",
-  "indeed-ai-case-study",
+  "indeed-case-study",
   "ribbon-legalzoom-case-study",
-  // Add other slugs in the desired order
+  "jumprope-nationals-case-study",
+  "oreilly-case-study",
 ];
 
 // Testimonials data
@@ -50,18 +52,19 @@ const testimonials = [
   },
 ];
 
-// Get all case studies
+// Get all case studies, filter out hidden ones
 const allCaseStudies = await getCollection("case-studies");
+const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
 
 // Create a map of case studies by slug for quick lookup
 const caseStudiesBySlug = Object.fromEntries(
-  allCaseStudies.map((study) => [study.slug, study]),
+  visibleCaseStudies.map((study) => [study.slug, study]),
 );
 
-// Get case studies in the specified order
-const featuredCaseStudies = homepageCaseStudies
+// Get case studies in preferred order, falling back to any remaining featured ones
+const featuredCaseStudies = preferredOrder
   .map((slug) => caseStudiesBySlug[slug])
-  .filter((study) => study && study.data.featured) // only show featured case studies
+  .filter((study) => study && study.data.featured)
   .slice(0, 3);
 ---
 
@@ -119,7 +122,7 @@ const featuredCaseStudies = homepageCaseStudies
     <div class="inner">
       <div class="block-content">
         <div class="case-card-rail">
-          <div class="portfolio-feed layout-tiles case-card-grid">
+          <div class="portfolio-feed case-card-grid">
             {
               featuredCaseStudies.map((study) => (
                 <Card

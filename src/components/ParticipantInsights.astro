@@ -39,7 +39,12 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   <div class="insight-recommendation-block">
     <div class="insight-section">
-      <h4 class="section-label">Insight</h4>
+      <h4 class="section-label">
+        <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+        </svg>
+        Insight
+      </h4>
       <p class="insight-text">{insight}</p>
       <p class="context-text">{context}</p>
     </div>
@@ -47,7 +52,12 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     <div class="divider"></div>
     
     <div class="recommendation-section">
-      <h4 class="section-label">Recommendation</h4>
+      <h4 class="section-label">
+        <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Recommendation
+      </h4>
       <p class="recommendation-title">{recommendationTitle}</p>
       <p class="recommendation-text">{recommendation}</p>
     </div>
@@ -84,10 +94,25 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   .theme-title {
     font-family: "IBM Plex Serif", serif;
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     color: var(--color-text);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     position: relative;
+    padding-top: var(--space-xl);
+  }
+
+  .theme-title::before {
+    content: "\201C";
+    display: block;
+    font-size: 3.333rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: var(--color-primary-600);
+    line-height: 1.3rem;
+    position: absolute;
+    font-style: normal;
+    top: 0;
+    left: 0;
   }
 
  
@@ -97,20 +122,13 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   .participant-card {
-    background: transparent;
+    background: linear-gradient(135deg, var(--color-surface) 0%, transparent 100%);
     border-radius: 12px;
     padding: 1.75rem;
-    border: 1px solid var(--color-border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .participant-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
 
   .participant-header {
@@ -121,11 +139,14 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   }
 
   .participant-avatar {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
+    border: 3px solid var(--color-accent);
+    padding: 2px;
+    background: var(--color-bg);
   }
 
   .participant-name {
@@ -146,9 +167,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   /* Combined Insight and Recommendation Block */
   .insight-recommendation-block {
     background: transparent;
-    border: 1px solid var(--color-border);
     border-radius: 12px;
-    margin: 0 -0.5rem;
     overflow: hidden;
   }
 
@@ -166,6 +185,17 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     letter-spacing: 0.1em;
     margin: 0 0 1rem 0;
     opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .label-icon {
+    width: 1.1em;
+    height: 1.1em;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.8;
   }
 
   .insight-text,
@@ -196,6 +226,11 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   /* Add accent for insight section */
   .insight-section {
     position: relative;
+    background: linear-gradient(90deg, rgba(0, 80, 157, 0.04) 0%, transparent 50%);
+  }
+
+  :global([data-theme="dark"]) .insight-section {
+    background: linear-gradient(90deg, rgba(0, 80, 157, 0.08) 0%, transparent 50%);
   }
 
   .insight-section::before {
@@ -205,13 +240,17 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     top: 0;
     bottom: 0;
     width: 4px;
-    background: var(--color-primary-800);
+    background: var(--color-primary-600);
   }
 
   /* Add accent for recommendation section */
   .recommendation-section {
     position: relative;
-    background: transparent;
+    background: linear-gradient(90deg, rgba(249, 59, 107, 0.04) 0%, transparent 50%);
+  }
+
+  :global([data-theme="dark"]) .recommendation-section {
+    background: linear-gradient(90deg, rgba(249, 59, 107, 0.08) 0%, transparent 50%);
   }
 
   .recommendation-section::before {
@@ -234,6 +273,11 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     .theme-title {
       font-size: var(--text-lg);
       margin-bottom: 2rem;
+      padding-top: var(--space-lg);
+    }
+
+    .theme-title::before {
+      font-size: 2.5rem;
     }
 
     .participants-grid {
@@ -256,7 +300,6 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
     .insight-recommendation-block {
       padding: 1.5rem;
-      margin: 0 -0.25rem;
     }
 
     .insight-section,
@@ -286,7 +329,11 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
     .theme-title {
       font-size: var(--text-base);
-      padding-left: 0.75rem;
+      padding-top: var(--space-lg);
+    }
+
+    .theme-title::before {
+      font-size: 2rem;
     }
 
     .participant-card {

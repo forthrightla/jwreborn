@@ -13,6 +13,7 @@ const { title, currentNav, description, image, type = 'website' } = Astro.props 
 const defaultDescription = "Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes.";
 const defaultImage = "/images/jw-logomark-filled.svg";
 const siteUrl = "https://joshux.com";
+const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
 const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}${defaultImage}`;
 
 ---
@@ -29,7 +30,7 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 		<meta property="og:type" content={type} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description || defaultDescription} />
-		<meta property="og:url" content={siteUrl} />
+		<meta property="og:url" content={currentUrl} />
 		<meta property="og:image" content={fullImageUrl} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
@@ -42,7 +43,7 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 		<meta name="twitter:image" content={fullImageUrl} />
 
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="canonical" href={siteUrl} />
+		<link rel="canonical" href={currentUrl} />
 
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={
@@ -81,9 +82,6 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
-		<!-- Preload critical fonts -->
-		<link rel="preload" href="https://fonts.gstatic.com/s/funnelsans/v1/8wEozf94ZI2eRnr2LJQ.ttf" as="font" type="font/ttf" crossorigin>
-		<link rel="preload" href="https://fonts.gstatic.com/s/ibmplexserif/v19/jizDREVNn1dOx-bsrdZtA2zgXzM.ttf" as="font" type="font/ttf" crossorigin>
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -102,7 +100,7 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 		<!-- Netlify Identity Widget -->
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 		<!-- Microsoft clarity -->
-		<script type="text/javascript">
+		<script type="text/javascript" defer>
 			(function(c,l,a,r,i,t,y){
 				c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
 				t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -155,18 +153,6 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 
 			.skip-link:focus {
 				top: 6px;
-			}
-
-			.sr-only {
-				position: absolute;
-				width: 1px;
-				height: 1px;
-				padding: 0;
-				margin: -1px;
-				overflow: hidden;
-				clip: rect(0, 0, 0, 0);
-				white-space: nowrap;
-				border: 0;
 			}
 		</style>
 

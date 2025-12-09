@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Page Not Found - Josh Wright"
+  description="The page you're looking for doesn't exist."
+>
+  <section class="block outer" style="min-height: 60vh; display: flex; align-items: center;">
+    <div class="inner" style="text-align: center;">
+      <h1 class="block-title" style="font-size: var(--text-4xl); margin-bottom: 1rem;">404</h1>
+      <p style="font-size: var(--text-lg); color: var(--color-text-muted); margin-bottom: 2rem;">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/" class="button">Go Home</a>
+        <a href="/case-studies" class="button" style="background: transparent; border: 2px solid var(--color-primary-600); color: var(--color-primary-600);">
+          View Case Studies
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

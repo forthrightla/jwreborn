@@ -1,7 +1,12 @@
 ---
 import type { CardProps } from "../types";
 
-const { href, title, img } = Astro.props as CardProps;
+interface SimplifiedCardProps extends CardProps {
+  highlight?: string;
+}
+
+const { href, title, img, highlight } = Astro.props as SimplifiedCardProps;
+const displayTitle = highlight || title;
 ---
 
 <article class="project simplified">
@@ -11,7 +16,10 @@ const { href, title, img } = Astro.props as CardProps;
                 <img src={img} alt={`Case study preview for ${title}`} loading="lazy" />
             </div>
             <div class="case-card__content">
-                <h3 class="case-card__title">{title}</h3>
+                <h3 class="case-card__title">{displayTitle}</h3>
+                <span class="case-card__cta">
+                    View case study <span aria-hidden="true">→</span>
+                </span>
             </div>
         </a>
     </div>
@@ -57,6 +65,24 @@ const { href, title, img } = Astro.props as CardProps;
         color: var(--color-text);
         margin: 0;
         font-weight: 700;
+    }
+
+    .case-card__cta {
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.95rem;
+        color: var(--color-accent);
+        margin-top: 0.5rem;
+    }
+
+    .case-card__cta span {
+        transition: transform 0.3s ease;
+    }
+
+    .case-card:hover .case-card__cta span {
+        transform: translateX(4px);
     }
 
     .case-card__media {

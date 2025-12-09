@@ -2,9 +2,7 @@
 // src/pages/work/[slug].astro - cleaned up version
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import Card from '../../components/Card.astro';
 import SimplifiedCard from '../../components/SimplifiedCard.astro';
-import SimpleOutcomes from '../../components/SimpleOutcomes.astro';
 
 
 // Generate static paths for all case studies
@@ -144,12 +142,14 @@ const isPasswordProtected = !!entry.data.password;
               <h2 class="block-title line-top">Other case studies</h2>
             </div>
             <div class="block-content">
-              <div class="portfolio-feed layout-tiles">
+              <div class="portfolio-feed">
                 {recommendedCaseStudies.map(caseStudy => (
                   <SimplifiedCard
                     href={`/work/${caseStudy.slug}`}
                     title={caseStudy.data.title}
                     img={caseStudy.data.thumbnail}
+                    client={caseStudy.data.client}
+                    highlight={caseStudy.data.highlight}
                   />
                 ))}
               </div>
@@ -167,18 +167,6 @@ const isPasswordProtected = !!entry.data.password;
 </Layout>
 
 <style>
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
   .password-form {
     margin: 2rem 0;
   }
