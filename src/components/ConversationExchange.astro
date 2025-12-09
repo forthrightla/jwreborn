@@ -157,7 +157,8 @@ const { title, intro, exchanges, outcome } = Astro.props;
 
   /* Quote marks matching FeaturedQuote component */
   .message-bubble p::before {
-    color: rgba(249, 59, 107, 0.3);
+    color: var(--color-accent);
+    opacity: 0.3;
     content: "\201C";
     display: block;
     font-size: 3rem;

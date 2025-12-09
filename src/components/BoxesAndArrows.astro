@@ -40,7 +40,7 @@ const { steps, className = '' } = Astro.props;
   }
 
   .funnel-step {
-    background: color-mix(in srgb, var(--color-primary-600) 6%, #ffffff);
+    background: color-mix(in srgb, var(--color-primary-600) 6%, var(--color-bg));
     padding: 40px 20px;
     border-radius: var(--radius-sm);
     text-align: center;
@@ -115,7 +115,7 @@ const { steps, className = '' } = Astro.props;
 
   /* In dark mode, lighten the brand blue for contrast */
   :global([data-theme="dark"]) .arrow {
-    --arrow-color: color-mix(in srgb, var(--color-primary-600) 40%, #ffffff);
+    --arrow-color: color-mix(in srgb, var(--color-primary-600) 40%, var(--color-bg));
   }
 
   /* Tablet styles */

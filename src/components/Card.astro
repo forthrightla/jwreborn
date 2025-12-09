@@ -160,7 +160,7 @@ const displayHighlight = highlight || subtitle || title;
 
   html[data-theme="dark"] .case-card__pattern {
     opacity: 0.05;
-    background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+    background-image: radial-gradient(circle, var(--color-accent-contrast) 1px, transparent 1px);
   }
 
   html[data-theme="dark"] .case-card:hover,
@@ -231,7 +231,7 @@ const displayHighlight = highlight || subtitle || title;
       90deg,
       var(--color-accent) 0%,
       var(--color-accent) 40%,
-      #ff6b94 50%,
+      var(--color-accent-light) 50%,
       var(--color-accent) 60%,
       var(--color-accent) 100%
     );
