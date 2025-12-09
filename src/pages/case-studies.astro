@@ -4,9 +4,10 @@ import Layout from "../layouts/Layout.astro";
 import SimplifiedCard from "../components/SimplifiedCard.astro";
 import { getCollection } from "astro:content";
 
-// Get all case studies, sorted by featured status
+// Get all case studies, filter out hidden ones, sorted by featured status
 const allCaseStudies = await getCollection("case-studies");
-const caseStudies = allCaseStudies.sort((a, b) => {
+const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
+const caseStudies = visibleCaseStudies.sort((a, b) => {
   // Sort by featured first, then by whatever other criteria you want
   if (a.data.featured && !b.data.featured) return -1;
   if (!a.data.featured && b.data.featured) return 1;
