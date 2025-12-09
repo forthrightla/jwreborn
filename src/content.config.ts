@@ -5,7 +5,7 @@ const caseStudiesCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    subtitle: z.string(),
+    subtitle: z.string().optional(),
     thumbnail: z.string(),
     banner: z.string().optional(),
     tags: z.array(z.string()),
