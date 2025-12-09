@@ -175,10 +175,10 @@ const isPasswordProtected = !!entry.data.password;
     width: 100%;
     padding: 0.75rem;
     border: 2px solid var(--color-border);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: 1rem;
     margin-bottom: 1rem;
-    transition: border-color 0.2s ease;
+    transition: border-color var(--transition-fast);
   }
 
   .password-input:focus {
@@ -192,11 +192,11 @@ const isPasswordProtected = !!entry.data.password;
     background: var(--color-primary-600);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color var(--transition-fast);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -231,9 +231,9 @@ const isPasswordProtected = !!entry.data.password;
     border: 1px solid #fcc;
     color: #c33;
     padding: 0.75rem;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     margin-bottom: 1rem;
-    animation: slideIn 0.3s ease-out;
+    animation: slideIn var(--transition-normal);
   }
 
   .password-help {

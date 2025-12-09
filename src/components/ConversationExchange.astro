@@ -50,10 +50,10 @@ const { title, intro, exchanges, outcome } = Astro.props;
     max-width: 960px;
     margin: var(--space-2xl) auto;
     background: transparent;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: var(--space-xl);
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-border);
+    border: var(--border-default);
   }
 
   .conversation-header {
@@ -94,7 +94,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
     flex-shrink: 0;
     width: 48px;
     height: 48px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +104,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
   }
 
   .speaker-avatar.stakeholder {
-    background: linear-gradient(to right, var(--color-primary-800), var(--color-primary-600));
+    background: var(--gradient-primary);
     color: white;
   }
 
@@ -135,15 +135,15 @@ const { title, intro, exchanges, outcome } = Astro.props;
 
   .message-bubble {
     background: transparent;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: var(--space-lg);
     position: relative;
-    border: 1px solid var(--color-border);
+    border: var(--border-default);
   }
 
   .exchange:nth-child(even) .message-bubble {
     background: transparent;
-    border: 2px solid var(--color-accent);
+    border: var(--border-width-thick) solid var(--color-accent);
   }
 
   .message-bubble p {
@@ -176,8 +176,8 @@ const { title, intro, exchanges, outcome } = Astro.props;
   /* Outcome section */
   .conversation-outcome {
     background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border: var(--border-default);
+    border-radius: var(--radius-md);
     padding: 1.5rem;
     margin-top: 2rem;
     text-align: center;
@@ -195,7 +195,7 @@ const { title, intro, exchanges, outcome } = Astro.props;
   @media (max-width: 768px) {
     .conversation-container {
       padding: 1.5rem;
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       margin: 2rem auto;
     }
 

@@ -68,12 +68,12 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   .participant-insights-section {
     margin: 3rem 0;
     background: transparent;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 3rem;
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--color-border);
+    border: var(--border-default);
   }
 
   /* Add subtle background pattern */
@@ -84,12 +84,9 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
     right: -10%;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(249, 59, 107, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
+    background: var(--gradient-accent-glow);
+    border-radius: var(--radius-full);
     pointer-events: none;
-  }
-  :global([data-theme="dark"]) .participant-insights-section::before {
-    background: radial-gradient(circle, rgba(249, 59, 107, 0.08) 0%, transparent 70%);
   }
 
   .theme-title {
@@ -126,8 +123,8 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   }
 
   .participant-card {
-    background: linear-gradient(135deg, var(--color-surface) 0%, transparent 100%);
-    border-radius: 12px;
+    background: var(--gradient-surface-fade);
+    border-radius: var(--radius-md);
     padding: 1.75rem;
   }
 
@@ -141,7 +138,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   .participant-avatar {
     width: 56px;
     height: 56px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     object-fit: cover;
     flex-shrink: 0;
     border: 3px solid var(--color-accent);
@@ -167,7 +164,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   /* Combined Insight and Recommendation Block */
   .insight-recommendation-block {
     background: transparent;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     overflow: hidden;
   }
 
@@ -219,18 +216,14 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
 
   .divider {
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-divider) 20%, var(--color-divider) 80%, transparent);
+    background: var(--gradient-divider);
     margin: 0 2rem;
   }
 
   /* Add accent for insight section */
   .insight-section {
     position: relative;
-    background: linear-gradient(90deg, rgba(0, 80, 157, 0.04) 0%, transparent 50%);
-  }
-
-  :global([data-theme="dark"]) .insight-section {
-    background: linear-gradient(90deg, rgba(0, 80, 157, 0.08) 0%, transparent 50%);
+    background: var(--gradient-primary-subtle);
   }
 
   .insight-section::before {
@@ -246,11 +239,7 @@ const { theme, participants, insight, context, recommendationTitle, recommendati
   /* Add accent for recommendation section */
   .recommendation-section {
     position: relative;
-    background: linear-gradient(90deg, rgba(249, 59, 107, 0.04) 0%, transparent 50%);
-  }
-
-  :global([data-theme="dark"]) .recommendation-section {
-    background: linear-gradient(90deg, rgba(249, 59, 107, 0.08) 0%, transparent 50%);
+    background: var(--gradient-accent-subtle);
   }
 
   .recommendation-section::before {
