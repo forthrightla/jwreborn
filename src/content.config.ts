@@ -27,6 +27,8 @@ const caseStudiesCollection = defineCollection({
     duration: z.string().optional(),
     // Custom accent color for the case study
     accentColor: z.string().optional(),
+    // Hero wash color (RGB values) for soft gradient below image
+    heroWashColor: z.string().optional(),
   }),
 });
 

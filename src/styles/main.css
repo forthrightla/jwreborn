@@ -545,8 +545,28 @@ html[data-theme="dark"] .hero-block {
 
 .case-hero {
   --case-accent: var(--color-accent);
+  --hero-wash-color: 120, 110, 100; /* Fallback: neutral warm gray (RGB values) */
   position: relative;
   margin-bottom: calc(var(--space-xl) + 130px); /* Space for card extending below image */
+}
+
+/* Color wash below hero image to soften transition */
+.case-hero__wash {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 200px;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--hero-wash-color), 0.28) 0%,
+    rgba(var(--hero-wash-color), 0.15) 35%,
+    rgba(var(--hero-wash-color), 0.05) 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .case-hero__image {

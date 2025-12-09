@@ -120,7 +120,7 @@ const isPasswordProtected = !!entry.data.password;
             <!-- Modern Hero with Glassmorphism Card -->
             <div 
               class="case-hero"
-              style={`--case-accent: ${entry.data.accentColor || 'var(--color-accent)'}`}
+              style={`--case-accent: ${entry.data.accentColor || 'var(--color-accent)'}; ${entry.data.heroWashColor ? `--hero-wash-color: ${entry.data.heroWashColor}` : ''}`}
             >
               {entry.data.banner && (
                 <div class="case-hero__image">
@@ -131,6 +131,7 @@ const isPasswordProtected = !!entry.data.password;
                     />
                     <div class="case-hero__overlay"></div>
                   </div>
+                  <div class="case-hero__wash"></div>
                 </div>
               )}
               <div class="case-hero__card">
