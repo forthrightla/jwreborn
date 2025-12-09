@@ -53,19 +53,21 @@ const isPasswordProtected = !!entry.data.password;
       <div class="inner">
         {isPasswordProtected ? (
           <article class="post project post-full">
-            <header class="post-header inner-small">
-              <h1 class="post-title line-top">{entry.data.title}</h1>
-              <div class="post-subtitle">{entry.data.subtitle}</div>
-            </header>
-
-            {entry.data.banner && (
-              <div class="post-thumbnail">
-                <img
-                  src={entry.data.banner}
-                  alt={entry.data.title}
-                />
+            <!-- Modern Hero with Overlapping Card -->
+            <div class="case-hero">
+              {entry.data.banner && (
+                <div class="case-hero__image">
+                  <img
+                    src={entry.data.banner}
+                    alt={entry.data.title}
+                  />
+                </div>
+              )}
+              <div class="case-hero__card">
+                <h1 class="case-hero__title">{entry.data.title}</h1>
+                <p class="case-hero__subtitle">{entry.data.subtitle}</p>
               </div>
-            )}
+            </div>
 
             <div class="post-content inner-small">
               <div class="password-protection">
@@ -115,19 +117,50 @@ const isPasswordProtected = !!entry.data.password;
         ) : (
           <!-- Default rendering for all case studies -->
           <article class="post project post-full">
-            <header class="post-header inner-small">
-              <h1 class="post-title line-top">{entry.data.title}</h1>
-              <div class="post-subtitle">{entry.data.subtitle}</div>
-            </header>
-
-            {entry.data.banner && (
-              <div class="post-thumbnail">
-                <img
-                  src={entry.data.banner}
-                  alt={entry.data.title}
-                />
+            <!-- Modern Hero with Glassmorphism Card -->
+            <div 
+              class="case-hero"
+              style={`--case-accent: ${entry.data.accentColor || 'var(--color-accent)'}`}
+            >
+              {entry.data.banner && (
+                <div class="case-hero__image">
+                  <div class="case-hero__image-inner" data-parallax>
+                    <img
+                      src={entry.data.banner}
+                      alt={entry.data.title}
+                    />
+                    <div class="case-hero__overlay"></div>
+                  </div>
+                </div>
+              )}
+              <div class="case-hero__card">
+                <h1 class="case-hero__title">{entry.data.title}</h1>
+                <p class="case-hero__subtitle">{entry.data.subtitle}</p>
+                
+                {(entry.data.goal || entry.data.responsibilities || entry.data.duration) && (
+                  <div class="case-hero__details">
+                    {entry.data.goal && (
+                      <div class="case-hero__detail">
+                        <span class="case-hero__detail-label">Goal</span>
+                        <span class="case-hero__detail-value">{entry.data.goal}</span>
+                      </div>
+                    )}
+                    {entry.data.responsibilities && (
+                      <div class="case-hero__detail">
+                        <span class="case-hero__detail-label">Responsibilities</span>
+                        <span class="case-hero__detail-value">{entry.data.responsibilities}</span>
+                      </div>
+                    )}
+                    {entry.data.duration && (
+                      <div class="case-hero__detail">
+                        <span class="case-hero__detail-label">Duration</span>
+                        <span class="case-hero__detail-value">{entry.data.duration}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
 
             <div class="post-content inner-small">
               <Content />
@@ -353,4 +386,92 @@ const isPasswordProtected = !!entry.data.password;
       });
     }
   });
+</script>
+
+<script>
+  // Position card so divider aligns exactly with image bottom
+  const positionHeroCard = () => {
+    const card = document.querySelector('.case-hero__card') as HTMLElement;
+    const details = document.querySelector('.case-hero__details') as HTMLElement;
+    const imageWrapper = document.querySelector('.case-hero__image') as HTMLElement;
+    
+    if (!card || !details || !imageWrapper) return;
+    
+    // Get the height of the metadata section (from divider to card bottom)
+    const detailsHeight = details.offsetHeight;
+    const cardPaddingBottom = parseInt(getComputedStyle(card).paddingBottom) || 0;
+    const metadataHeight = detailsHeight + cardPaddingBottom;
+    
+    // Position card so the divider (top of details) aligns with image bottom
+    card.style.bottom = `-${metadataHeight}px`;
+    
+    // Update the hero margin to accommodate the card extension
+    const hero = document.querySelector('.case-hero') as HTMLElement;
+    if (hero) {
+      // Smaller margin on mobile
+      const isMobile = window.innerWidth < 768;
+      const spacing = isMobile ? 24 : 32;
+      hero.style.marginBottom = `${metadataHeight + spacing}px`;
+    }
+  };
+  
+  // Debounced resize handler
+  let resizeTimeout: ReturnType<typeof setTimeout>;
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(positionHeroCard, 100);
+  };
+  
+  // Subtle parallax effect on hero image
+  const initParallax = () => {
+    const parallaxWrapper = document.querySelector('[data-parallax]') as HTMLElement;
+    const parallaxImage = parallaxWrapper?.querySelector('img') as HTMLImageElement;
+    if (!parallaxImage || !parallaxWrapper) return;
+    
+    // Check for reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    let ticking = false;
+    
+    const updateParallax = () => {
+      const scrolled = window.scrollY;
+      const heroHeight = parallaxWrapper.offsetHeight || 500;
+      
+      // Only apply parallax while hero is in view
+      if (scrolled < heroHeight * 1.5) {
+        // Subtle movement: image moves at 30% of scroll speed
+        const yPos = scrolled * 0.3;
+        parallaxImage.style.transform = `translateY(${yPos}px)`;
+      }
+      
+      ticking = false;
+    };
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  };
+  
+  // Initialize on load and Astro transitions
+  const initHero = () => {
+    // Run positioning after a short delay to ensure fonts/layout are ready
+    requestAnimationFrame(() => {
+      positionHeroCard();
+      initParallax();
+    });
+  };
+  
+  document.addEventListener('DOMContentLoaded', initHero);
+  document.addEventListener('astro:page-load', initHero);
+  
+  // Reposition on resize with debounce
+  window.addEventListener('resize', handleResize);
+  
+  // Reposition after fonts load (can affect text height)
+  if (document.fonts) {
+    document.fonts.ready.then(positionHeroCard);
+  }
 </script>

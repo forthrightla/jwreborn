@@ -21,6 +21,12 @@ const caseStudiesCollection = defineCollection({
     extraImageHeight: z.string().optional(),
     extraImageWidth: z.string().optional(),
     extraImageFullWidth: z.boolean().optional(),
+    // Project details for hero section
+    goal: z.string().optional(),
+    responsibilities: z.string().optional(),
+    duration: z.string().optional(),
+    // Custom accent color for the case study
+    accentColor: z.string().optional(),
   }),
 });
 

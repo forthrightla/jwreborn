@@ -535,6 +535,252 @@ html[data-theme="dark"] .hero-block {
 }
 
 /**
+ * Case Study Hero - Glassmorphism card with parallax image
+ * ----------------------------------------------------------------------------
+ */
+/* Override post-full padding for case study hero */
+.post.project.post-full:has(.case-hero) {
+  padding-top: 0;
+}
+
+.case-hero {
+  --case-accent: var(--color-accent);
+  position: relative;
+  margin-bottom: calc(var(--space-xl) + 130px); /* Space for card extending below image */
+}
+
+.case-hero__image {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  height: 48vh;
+  min-height: 320px;
+  max-height: 440px;
+  overflow: visible; /* Allow card to extend below */
+  position: relative;
+}
+
+/* Inner wrapper to clip image and overlay */
+.case-hero__image-inner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.case-hero__image img {
+  width: 100%;
+  height: 120%; /* Extra height for parallax movement */
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Gradient overlay for text contrast */
+.case-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Glassmorphism card - JS positions this so divider aligns with image bottom */
+.case-hero__card {
+  position: absolute;
+  bottom: -120px; /* Fallback, JS will calculate exact value */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  padding: var(--space-2xl);
+  width: calc(100% - 6vw);
+  max-width: 920px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.case-hero__title {
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 var(--space-base) 0;
+  color: var(--color-text);
+}
+
+.case-hero__subtitle {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: var(--space-base) 0 0 0;
+}
+
+/* Metadata details */
+.case-hero__details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+}
+
+.case-hero__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-left: var(--space-base);
+  border-left: 2px solid var(--case-accent);
+  align-self: stretch;
+}
+
+.case-hero__detail-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.case-hero__detail-value {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Dark mode glassmorphism */
+html[data-theme="dark"] .case-hero__card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+html[data-theme="dark"] .case-hero__overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 80%
+  );
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .case-hero__card {
+    width: calc(100% - 4rem);
+    max-width: 100%;
+  }
+  
+  .case-hero__details {
+    gap: var(--space-lg);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .case-hero {
+    margin-bottom: calc(var(--space-lg) + 200px); /* Space for stacked metadata */
+  }
+  
+  .case-hero__image {
+    height: 36vh;
+    min-height: 220px;
+    max-height: 300px;
+  }
+  
+  .case-hero__card {
+    bottom: -200px; /* Fallback, JS calculates exact value */
+    width: calc(100% - 2rem);
+    padding: var(--space-lg);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .case-hero__title {
+    font-size: var(--text-xl);
+    line-height: 1.3;
+  }
+  
+  .case-hero__subtitle {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-top: var(--space-sm);
+  }
+  
+  .case-hero__details {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    margin-top: var(--space-base);
+    padding-top: var(--space-base);
+  }
+  
+  .case-hero__detail {
+    padding-left: var(--space-sm);
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+  }
+  
+  .case-hero__detail-label {
+    font-size: 0.625rem;
+  }
+  
+  .case-hero__detail-value {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .case-hero__image {
+    height: 32vh;
+    min-height: 180px;
+    max-height: 240px;
+  }
+  
+  .case-hero__card {
+    width: calc(100% - 1rem);
+    padding: var(--space-base);
+    border-radius: 10px;
+  }
+  
+  .case-hero__title {
+    font-size: var(--text-lg);
+  }
+  
+  .case-hero__subtitle {
+    font-size: var(--text-xs);
+  }
+  
+  .case-hero__details {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .case-hero__image img {
+    height: 100%;
+    transition: none;
+  }
+}
+
+/**
  * Posts and Content
  * ----------------------------------------------------------------------------
  */
