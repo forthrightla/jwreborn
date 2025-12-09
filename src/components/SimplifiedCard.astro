@@ -5,8 +5,8 @@ interface SimplifiedCardProps extends CardProps {
   highlight?: string;
 }
 
-const { href, title, img, highlight } = Astro.props as SimplifiedCardProps;
-const displayTitle = highlight || title;
+const { href, title, img } = Astro.props as SimplifiedCardProps;
+const displayTitle = title;
 ---
 
 <article class="project simplified">
