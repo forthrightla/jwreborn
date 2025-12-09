@@ -96,7 +96,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   padding-top: var(--space-xl);
 }
 
-/* Testimonial-style quote mark */
+/* Testimonial-style quote mark with entrance animation */
 .quote-text::before {
   color: var(--color-accent);
   content: "\201C";
@@ -109,6 +109,7 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
   position: absolute;
   font-style: normal;
   top: 0;
+  animation: quoteEntrance 0.5s ease-out 0.2s both;
 }
 
 /* Add accent bar */

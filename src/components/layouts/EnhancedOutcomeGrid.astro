@@ -21,7 +21,7 @@ const {
 } = Astro.props;
 
 // Default colors if none specified
-const defaultColors = ['primary', 'secondary', 'accent'];
+const defaultColors: Array<'primary' | 'secondary' | 'accent'> = ['primary', 'secondary', 'accent'];
 
 // Determine grid class based on number of items and columns setting
 const getGridClass = () => {
@@ -158,3 +158,35 @@ const gridClass = getGridClass();
     }
   }
 </style>
+
+<script>
+  // Trigger stat shimmer animation when cards scroll into view
+  const observeStats = () => {
+    const cards = document.querySelectorAll('.enhanced-outcome-card');
+    
+    if (!cards.length) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Add animation class with slight delay for stagger effect
+          const card = entry.target as HTMLElement;
+          const delay = parseInt(card.closest('[data-delay]')?.getAttribute('data-delay') || '0') * 100;
+          
+          setTimeout(() => {
+            card.classList.add('animate-stat');
+          }, delay);
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    cards.forEach(card => observer.observe(card));
+  };
+  
+  // Run on page load
+  document.addEventListener('DOMContentLoaded', observeStats);
+  // Also run for Astro view transitions
+  document.addEventListener('astro:page-load', observeStats);
+</script>

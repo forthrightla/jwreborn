@@ -30,6 +30,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /**
+ * Focus States - Beautiful, accessible focus indicators
+ * ----------------------------------------------------------------------------
+ */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Cards and interactive containers */
+a:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+/* Skip redundant focus on wrapper links */
+.case-card:focus-within {
+  box-shadow: var(--focus-ring);
+}
+
+.case-card__link:focus-visible {
+  box-shadow: none;
+}
+
+/**
  * Decorative Quote Marks
  * Reusable utility for large decorative opening quotes
  * ----------------------------------------------------------------------------
@@ -282,6 +308,38 @@ html[data-theme="dark"] a:hover { color: var(--color-accent); }
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Bounce arrow for CTAs */
+@keyframes bounceRight {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* Quote mark entrance */
+@keyframes quoteEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Stat number count-up shimmer */
+@keyframes statShimmer {
+  0% {
+    background-position: -100% 0;
   }
   100% {
     background-position: 200% 0;

@@ -70,7 +70,7 @@ const colorMap = {
     background: var(--gradient-primary);
   }
 
-  /* Stat styles */
+  /* Stat styles with shimmer highlight on scroll */
   .outcome-stat {
     font-size: var(--text-3xl);
     font-weight: 700;
@@ -79,14 +79,52 @@ const colorMap = {
     font-family: "IBM Plex Serif", serif;
     position: relative;
     z-index: 1;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary-800) 0%,
+      var(--color-primary-800) 40%,
+      var(--color-accent) 50%,
+      var(--color-primary-800) 60%,
+      var(--color-primary-800) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .enhanced-outcome-card.animate-stat .outcome-stat {
+    animation: statShimmer 1.5s ease-out forwards;
   }
 
   .card-primary .outcome-stat {
-    color: var(--color-primary-800);
+    background: linear-gradient(
+      90deg,
+      var(--color-primary-800) 0%,
+      var(--color-primary-800) 40%,
+      var(--color-accent) 50%,
+      var(--color-primary-800) 60%,
+      var(--color-primary-800) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   :global([data-theme="dark"]) .card-primary .outcome-stat {
-    color: var(--color-text);
+    background: linear-gradient(
+      90deg,
+      var(--color-text) 0%,
+      var(--color-text) 40%,
+      var(--color-accent) 50%,
+      var(--color-text) 60%,
+      var(--color-text) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   /* Description styles */
