@@ -428,16 +428,19 @@ input[type="submit"],
 input[type="button"],
 input[type="reset"] {
   background: transparent;
-  border: 3px solid var(--color-accent);
-  border-radius: 0;
+  border: 2px solid var(--color-primary);
+  border-radius: 6px;
   box-sizing: border-box;
-  color: var(--color-accent);
+  color: var(--color-primary);
+  cursor: pointer;
   display: inline-block;
-  font-size: 120%;
-  font-weight: normal;
-  height: 3em;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  height: auto;
   line-height: 1.5;
-  padding: 0.25em 80px;
+  padding: 0.75em 2.5em;
+  transition: all 0.2s ease;
 }
 
 .button:hover,
@@ -455,7 +458,9 @@ input[type="button"]:active,
 input[type="reset"]:hover,
 input[type="reset"]:focus,
 input[type="reset"]:active {
-  color: var(--color-accent);
+  background: rgba(46, 58, 89, 0.08);
+  border-color: var(--color-primary-hover);
+  color: var(--color-primary-hover);
   outline: 0;
 }
 
@@ -466,50 +471,23 @@ a.button {
 
 button.button,
 a.button {
-  border: 0;
   position: relative;
 }
 
-button.button:before,
-button.button:after,
-a.button:before,
-a.button:after {
-  border: 3px solid var(--color-accent);
-  box-sizing: border-box;
-  content: "";
-  height: 100%;
-  left: 0;
-  position: absolute;
-  transition: .3s ease;
-  -webkit-transition: .3s ease;
-  width: 100%;
+/* Accent button variant */
+.button--accent,
+a.button--accent {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
-button.button:before,
-a.button:before {
-  border-bottom: 0;
-  top: 0;
-}
-
-button.button:after,
-a.button:after {
-  border-top: 0;
-  bottom: 0;
-}
-
-button.button:hover:before,
-button.button:hover:after,
-button.button:focus:before,
-button.button:focus:after,
-button.button:active:before,
-button.button:active:after,
-a.button:hover:before,
-a.button:hover:after,
-a.button:focus:before,
-a.button:focus:after,
-a.button:active:before,
-a.button:active:after {
-  height: 50%;
+.button--accent:hover,
+.button--accent:focus,
+a.button--accent:hover,
+a.button--accent:focus {
+  background: rgba(249, 59, 107, 0.08);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 /* Screen reader text */

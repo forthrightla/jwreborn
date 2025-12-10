@@ -2590,6 +2590,12 @@ mux-player {
 }
 
 @media only screen and (max-width: 767px) {
+  /* Align header padding with hero content */
+  .site-header {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+
   /* Fix hero section alignment */
   .hero-block {
     padding: 2rem 0 3rem !important; /* Adjusted vertical padding */
