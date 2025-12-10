@@ -4,11 +4,36 @@ import Layout from "../layouts/Layout.astro";
 import SimplifiedCard from "../components/SimplifiedCard.astro";
 import { getCollection } from "astro:content";
 
-// Get all case studies, filter out hidden ones, sorted by featured status
+// Preferred ordering for case studies page (slug order)
+const preferredOrder = [
+  "indeed-case-study",
+  "axs-event-entry-case-study",
+  "cerebral-case-study",
+  "ribbon-legalzoom-case-study",
+  "jumprope-nationals-case-study",
+  "makerspace-case-study",
+  "oreilly-case-study"
+];
+
+// Get all case studies, filter out hidden ones
 const allCaseStudies = await getCollection("case-studies");
 const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
+
+const preferredOrderMap = new Map(preferredOrder.map((slug, index) => [slug, index]));
+
 const caseStudies = visibleCaseStudies.sort((a, b) => {
-  // Sort by featured first
+  const indexA = preferredOrderMap.has(a.slug)
+    ? preferredOrderMap.get(a.slug)
+    : preferredOrder.length;
+  const indexB = preferredOrderMap.has(b.slug)
+    ? preferredOrderMap.get(b.slug)
+    : preferredOrder.length;
+
+  if (indexA !== indexB) {
+    return indexA - indexB;
+  }
+
+  // Preserve original featured-first ordering for any remaining ties fallback
   if (a.data.featured && !b.data.featured) return -1;
   if (!a.data.featured && b.data.featured) return 1;
   return 0;
