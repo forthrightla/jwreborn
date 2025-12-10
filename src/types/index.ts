@@ -57,7 +57,8 @@ export interface Testimonial {
 export interface Skill {
   title: string;
   description: string;
-  icon: string;
+  icon?: string;
+  svg?: string;
 }
 
 export interface HomepageData {

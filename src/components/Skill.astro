@@ -1,12 +1,48 @@
 ---
-import type { SkillProps } from '../types';
+interface Props {
+  title: string;
+  description: string;
+  img?: string;
+  svg?: string;
+}
 
-const { description, title, img } = Astro.props as SkillProps;
+const { description, title, img, svg } = Astro.props;
 ---
 
-
 <div class="skill">
-	<img src={img} alt={`${title} icon`} class="icon">
-	<h4>{title}</h4>
-	<p>{description}</p>
+  {svg ? (
+    <div class="icon icon-svg" set:html={svg} />
+  ) : img ? (
+    <img src={img} alt={`${title} icon`} class="icon" />
+  ) : null}
+  <h4>{title}</h4>
+  <p>{description}</p>
 </div>
+
+<style>
+  .icon-svg {
+    width: 80px;
+    height: 80px;
+    color: var(--color-accent);
+  }
+
+  .icon-svg :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .icon-svg {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-xs);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .icon-svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+</style>

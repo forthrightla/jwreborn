@@ -98,7 +98,8 @@ const featuredCaseStudies = preferredOrder
               <Skill
                 title={skill.title}
                 description={skill.description}
-                img={skill.icon}
+                img={skill.icon ?? undefined}
+                svg={skill.svg ?? undefined}
               />
             ))
           }
