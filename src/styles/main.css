@@ -731,16 +731,21 @@ html[data-theme="dark"] .hero-block {
 
 /* Glassmorphism card - JS positions this so divider aligns with image bottom */
 .case-hero__card {
+  /* Golden ratio spacing: φ = 1.618, base unit = title font-size (~32px) */
+  --card-base: 2rem; /* 32px base unit */
+  --card-phi: calc(var(--card-base) * 1.618); /* ~52px */
+  --card-phi-sm: calc(var(--card-base) * 0.618); /* ~20px */
+  
   position: absolute;
   bottom: -120px; /* Fallback, JS will calculate exact value */
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-none);
-  padding: var(--space-2xl);
+  padding: var(--card-phi) var(--card-phi) var(--card-base);
   width: calc(100% - 6vw);
   max-width: 920px;
   box-shadow: 
@@ -754,7 +759,7 @@ html[data-theme="dark"] .hero-block {
   font-size: var(--text-3xl);
   font-weight: 700;
   line-height: 1.2;
-  margin: 0 0 var(--space-base) 0;
+  margin: 0;
   color: var(--color-text);
 }
 
@@ -765,13 +770,14 @@ html[data-theme="dark"] .hero-block {
   margin: var(--space-base) 0 0 0;
 }
 
-/* Metadata details */
+/* Metadata details - uses card's golden ratio spacing */
 .case-hero__details {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
-  margin-top: var(--space-xl);
-  padding-top: var(--space-xl);
+  gap: var(--card-base);
+  margin-top: var(--card-base);
+  padding-top: var(--card-phi-sm);
+  border-top: 1px solid var(--color-divider);
 }
 
 .case-hero__detail {
