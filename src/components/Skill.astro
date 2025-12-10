@@ -59,6 +59,95 @@ const { description, title, img, svg } = Astro.props;
     height: 100%;
   }
 
+  /* Evidence led - Gear rotation (first two paths are the gear, third is the brain) */
+  .skill:nth-child(1) .icon-svg :global(svg g path:nth-child(1)),
+  .skill:nth-child(1) .icon-svg :global(svg g path:nth-child(2)) {
+    transform-box: fill-box;
+    transform-origin: center center;
+    animation: gearRotate 1s ease-out 0.3s forwards;
+  }
+
+  @keyframes gearRotate {
+    0% {
+      transform: rotate(-45deg);
+    }
+    70% {
+      transform: rotate(10deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Systems fluent - Content appears sequentially like being written */
+  .skill:nth-child(2) .icon-svg :global(.content-box) {
+    opacity: 0;
+    animation: contentPopIn 0.4s ease-out 0.3s forwards;
+  }
+
+  .skill:nth-child(2) .icon-svg :global(.content-line1) {
+    opacity: 0;
+    animation: contentPopIn 0.4s ease-out 0.55s forwards;
+  }
+
+  .skill:nth-child(2) .icon-svg :global(.content-line2) {
+    opacity: 0;
+    animation: contentPopIn 0.4s ease-out 0.8s forwards;
+  }
+
+  @keyframes contentPopIn {
+    0% {
+      opacity: 0;
+      transform: scaleX(0.3);
+      transform-origin: left center;
+    }
+    100% {
+      opacity: 1;
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+  }
+
+  /* Outcome focused - Dot and X pop in, arrow is static */
+  .skill:nth-child(3) .icon-svg :global(.dot) {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center center;
+    animation: dotPopIn 0.5s ease-out 0.4s forwards;
+  }
+
+  .skill:nth-child(3) .icon-svg :global(.x-mark) {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center center;
+    animation: xPopIn 0.4s ease-out 0.7s forwards;
+  }
+
+  @keyframes dotPopIn {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    70% {
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes xPopIn {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(-45deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
   @media (max-width: 768px) {
     .icon-svg {
       width: 48px;
@@ -75,9 +164,17 @@ const { description, title, img, svg } = Astro.props;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .icon-svg {
+    .icon-svg,
+    .skill:nth-child(1) .icon-svg :global(svg g path:nth-child(1)),
+    .skill:nth-child(1) .icon-svg :global(svg g path:nth-child(2)),
+    .skill:nth-child(2) .icon-svg :global(.content-box),
+    .skill:nth-child(2) .icon-svg :global(.content-line1),
+    .skill:nth-child(2) .icon-svg :global(.content-line2),
+    .skill:nth-child(3) .icon-svg :global(.dot),
+    .skill:nth-child(3) .icon-svg :global(.x-mark) {
       animation: none;
       opacity: 1;
+      transform: none;
     }
   }
 </style>
