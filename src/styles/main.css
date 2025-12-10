@@ -158,7 +158,7 @@ button:focus-visible {
   --gradient-surface-fade: linear-gradient(var(--gradient-direction-diagonal), var(--color-surface), transparent);
   --gradient-divider: linear-gradient(var(--gradient-direction-horizontal), transparent, var(--color-divider) 20%, var(--color-divider) 80%, transparent);
   --gradient-accent-glow: radial-gradient(circle, rgba(249, 59, 107, 0.05) 0%, transparent 70%);
-  --gradient-primary-subtle: linear-gradient(90deg, rgba(0, 80, 157, 0.04) 0%, transparent 50%);
+  --gradient-primary-subtle: linear-gradient(90deg, rgba(46, 58, 89, 0.06) 0%, transparent 50%);
   --gradient-accent-subtle: linear-gradient(90deg, rgba(249, 59, 107, 0.04) 0%, transparent 50%);
   --gradient-participant: linear-gradient(var(--gradient-direction-diagonal), var(--pink-50), var(--pink-100));
 
@@ -170,7 +170,7 @@ button:focus-visible {
   --border-default: var(--border-width-default) solid var(--color-border);
   --border-accent: var(--border-width-accent) solid var(--color-accent);
   --border-focus: 2px solid var(--color-primary-600);
-  --focus-ring: 0 0 0 3px rgba(0, 80, 157, 0.15);
+  --focus-ring: 0 0 0 3px rgba(46, 58, 89, 0.2);
   
   /* Component Pattern Tokens */
   --pattern-info-bg: color-mix(in srgb, var(--color-accent) 6%, transparent);
@@ -197,14 +197,14 @@ button:focus-visible {
   --gray-900: #1a1a1a;
   
   /* Primary Scale - Brand Blue */
-  --blue-50: #e6f0fa;
-  --blue-100: #cce0f5;
-  --blue-200: #99c2eb;
-  --blue-300: #66a3e0;
-  --blue-400: #3385d6;
-  --blue-500: #00509d;
-  --blue-600: #00296b;
-  --blue-700: #001d4d;
+--blue-50:  #ECEEF2;
+--blue-100: #D8DCE4;
+--blue-200: #B1B8C9;
+--blue-300: #8A94AE;
+--blue-400: #5C6A84;
+--blue-500: #2E3A59;
+--blue-600: #252F49;
+--blue-700: #1C2339;
   
   /* Accent Scale - Pink */
   --pink-50: #fef2f5;
@@ -249,9 +249,9 @@ button:focus-visible {
   
   /* Brand Colors */
   --color-primary: var(--blue-500);
-  --color-primary-600: var(--blue-500);
-  --color-primary-800: var(--blue-600);
-  --color-primary-hover: var(--blue-600);
+  --color-primary-600: var(--blue-600);
+  --color-primary-800: var(--blue-700);
+  --color-primary-hover: var(--blue-400);
   
   /* Accent Colors */
   --color-accent: var(--pink-500);
@@ -276,7 +276,7 @@ button:focus-visible {
   /* Utility */
   --scroll-fade: linear-gradient(to right, transparent, rgba(0,0,0,0.08));
   --table-stripe: rgba(0,0,0,0.03);
-  --logo-color: var(--blue-600);
+  --logo-color: var(--blue-500);
 }
 
 /* ===========================================
@@ -298,10 +298,10 @@ button:focus-visible {
   --color-divider: #30363d;
   
   /* Brand - adjusted for dark backgrounds */
-  --color-primary: #3385d6;
-  --color-primary-600: #0b2447;
-  --color-primary-800: #0e1a33;
-  --color-primary-hover: #4d9de6;
+  --color-primary: var(--blue-300);
+  --color-primary-600: var(--blue-600);
+  --color-primary-800: var(--blue-700);
+  --color-primary-hover: var(--blue-200);
   
   /* Accent - same vibrant pink works in dark */
   --color-accent: var(--pink-500);
@@ -340,7 +340,7 @@ button:focus-visible {
   --gradient-primary: linear-gradient(var(--gradient-direction-horizontal), var(--color-primary-800), var(--color-primary-600));
   --gradient-card-featured: linear-gradient(var(--gradient-direction-diagonal), var(--color-surface), var(--color-surface-alt));
   --gradient-accent-glow: radial-gradient(circle, rgba(249, 59, 107, 0.08) 0%, transparent 70%);
-  --gradient-primary-subtle: linear-gradient(90deg, rgba(0, 80, 157, 0.08) 0%, transparent 50%);
+  --gradient-primary-subtle: linear-gradient(90deg, rgba(46, 58, 89, 0.12) 0%, transparent 50%);
   --gradient-accent-subtle: linear-gradient(90deg, rgba(249, 59, 107, 0.08) 0%, transparent 50%);
   --gradient-participant: linear-gradient(var(--gradient-direction-diagonal), var(--color-primary-800), var(--color-primary-600));
   --focus-ring: 0 0 0 3px rgba(249, 59, 107, 0.2);
