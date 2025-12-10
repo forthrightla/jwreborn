@@ -152,7 +152,7 @@ button:focus-visible {
   /* Gradient System */
   --gradient-direction-horizontal: to right;
   --gradient-direction-diagonal: 135deg;
-  --gradient-primary: linear-gradient(var(--gradient-direction-horizontal), var(--blue-600), var(--blue-500));
+  --gradient-primary: linear-gradient(var(--gradient-direction-horizontal), var(--blue-700), var(--blue-500));
   --gradient-card-featured: linear-gradient(to bottom right, var(--color-bg), var(--pink-50));
   --gradient-surface: linear-gradient(var(--gradient-direction-diagonal), var(--color-surface), var(--color-surface-alt));
   --gradient-surface-fade: linear-gradient(var(--gradient-direction-diagonal), var(--color-surface), transparent);
