@@ -533,3 +533,24 @@ a.button:active:after {
   content: "";
   display: table;
 }
+
+/* Mobile Typography Adjustments */
+@media (max-width: 480px) {
+  blockquote {
+    font-size: 1.25rem;
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+}

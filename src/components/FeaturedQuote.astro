@@ -227,35 +227,83 @@ const { quote, authorName, authorTitle, authorImage } = Astro.props;
 }
 
 @media (max-width: 768px) {
+  /* Remove the edge-to-edge background treatment on mobile */
   .featured-quote-block {
-    margin-left: -4vw; /* Match the page padding */
-    margin-right: -4vw;
-    width: calc(100% + 8vw);
+    background: transparent !important;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    padding: 0;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
   }
-}
-
-@media (max-width: 480px) {
-  .featured-quote-block {
-    padding: 2.5rem 0;
+  
+  :global(html:not([data-theme="dark"])) .featured-quote-block {
+    background: transparent !important;
+  }
+  
+  :global([data-theme="dark"]) .featured-quote-block {
+    background: transparent !important;
   }
 
+  /* QUOTE pattern - uses pattern token */
   .featured-quote {
-    padding: 1.75rem;
+    background: transparent;
+    padding: 0;
+    padding-left: var(--space-base);
+    border-left: var(--pattern-quote-border);
+    box-shadow: none;
+    border-radius: 0;
   }
-
+  
+  :global(html:not([data-theme="dark"])) .featured-quote {
+    background: transparent;
+  }
+  
+  :global([data-theme="dark"]) .featured-quote {
+    background: transparent;
+  }
+  
   .quote-text {
     font-size: var(--text-sm);
+    padding-top: 0;
+    margin-bottom: var(--space-base);
   }
-
-  .quote-mark {
-    font-size: 4.5rem;
-    top: -10px;
-    left: -15px;
-    opacity: 0.2;
+  
+  .quote-text::before {
+    display: none;
   }
 
   .quote-text::after {
     display: none;
+  }
+  
+  .quote-avatar {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .author-name {
+    font-size: var(--text-sm);
+  }
+  
+  .author-title {
+    font-size: var(--text-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-quote {
+    padding-left: var(--space-sm);
+  }
+  
+  .quote-text {
+    font-size: var(--text-xs);
+  }
+  
+  .quote-avatar {
+    width: 40px;
+    height: 40px;
   }
 }
 

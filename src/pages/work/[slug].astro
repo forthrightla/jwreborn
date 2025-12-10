@@ -409,9 +409,9 @@ const isPasswordProtected = !!entry.data.password;
     // Update the hero margin to accommodate the card extension
     const hero = document.querySelector('.case-hero') as HTMLElement;
     if (hero) {
-      // Smaller margin on mobile
+      // Spacing between metadata card and content below
       const isMobile = window.innerWidth < 768;
-      const spacing = isMobile ? 24 : 32;
+      const spacing = isMobile ? 48 : 64;
       hero.style.marginBottom = `${metadataHeight + spacing}px`;
     }
   };

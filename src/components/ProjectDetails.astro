@@ -32,9 +32,10 @@ const { goal, responsibilities, duration } = Astro.props;
   .project-details {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    padding: 1rem 0;
-    margin: 2rem 0;
+    gap: var(--space-2xl);
+    padding: var(--space-base) 0;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-3xl);
     border-top: 1px solid var(--color-divider);
     border-bottom: 1px solid var(--color-divider);
   }
@@ -65,8 +66,9 @@ const { goal, responsibilities, duration } = Astro.props;
   @media (max-width: 768px) {
     .project-details {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      row-gap: 2rem;
+      gap: var(--space-lg);
+      row-gap: var(--space-xl);
+      margin-bottom: var(--space-2xl);
     }
   }
 
@@ -74,8 +76,9 @@ const { goal, responsibilities, duration } = Astro.props;
   @media (max-width: 480px) {
     .project-details {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem 0;
+      gap: var(--space-lg);
+      padding: var(--space-lg) 0;
+      margin-bottom: var(--space-xl);
     }
 
     .detail-item {

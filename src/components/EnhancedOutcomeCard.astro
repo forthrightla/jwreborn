@@ -163,7 +163,25 @@ const colorMap = {
     }
 
     .outcome-description {
-      font-size: var(--text-xs);
+      font-size: var(--text-sm);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .enhanced-outcome-card {
+      padding: 1.25rem 1rem;
+    }
+
+    .outcome-stat {
+      font-size: 1.75rem;
+    }
+
+    .outcome-description {
+      font-size: 0.9375rem;
+    }
+    
+    .enhanced-outcome-card.text-only {
+      min-height: 100px;
     }
   }
 </style>

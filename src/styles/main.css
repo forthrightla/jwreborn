@@ -104,7 +104,7 @@ button:focus-visible {
  */
 :root {
   /* Typography Scale (Major Third - 1.25 ratio) */
-  --text-xs: 0.8rem;      /* 15.36px - small text */
+  --text-xs: 0.875rem;    /* 14px - small text, minimum readable */
   --text-sm: 1rem;        /* 19.2px - body text / h6 */
   --text-base: 1.25rem;   /* 24px - large body / h5 */
   --text-lg: 1.5625rem;   /* 30px - h4 */
@@ -171,6 +171,10 @@ button:focus-visible {
   --border-accent: var(--border-width-accent) solid var(--color-accent);
   --border-focus: 2px solid var(--color-primary-600);
   --focus-ring: 0 0 0 3px rgba(0, 80, 157, 0.15);
+  
+  /* Component Pattern Tokens */
+  --pattern-info-bg: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  --pattern-quote-border: var(--border-width-accent) solid var(--color-accent);
 
   /* Animation Durations */
   --animation-fast: 0.3s;
@@ -349,8 +353,8 @@ button:focus-visible {
 
 /* Base layout styles */
 .outer {
-  padding-left: 4vw;
-  padding-right: 4vw;
+  padding-left: max(4vw, 1rem);
+  padding-right: max(4vw, 1rem);
 }
 
 .inner {
@@ -735,7 +739,7 @@ html[data-theme="dark"] .hero-block {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 14px;
+  border-radius: var(--radius-none);
   padding: var(--space-2xl);
   width: calc(100% - 6vw);
   max-width: 920px;
@@ -780,7 +784,7 @@ html[data-theme="dark"] .hero-block {
 }
 
 .case-hero__detail-label {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -789,7 +793,7 @@ html[data-theme="dark"] .hero-block {
 }
 
 .case-hero__detail-value {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.5;
   color: var(--color-text);
@@ -842,7 +846,7 @@ html[data-theme="dark"] .case-hero__overlay {
     bottom: -200px; /* Fallback, JS calculates exact value */
     width: calc(100% - 2rem);
     padding: var(--space-lg);
-    border-radius: 12px;
+    border-radius: var(--radius-none);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -872,11 +876,11 @@ html[data-theme="dark"] .case-hero__overlay {
   }
   
   .case-hero__detail-label {
-    font-size: 0.625rem;
+    font-size: 0.8125rem;
   }
   
   .case-hero__detail-value {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -889,13 +893,13 @@ html[data-theme="dark"] .case-hero__overlay {
   }
   
   .case-hero__card {
-    width: calc(100% - 1rem);
+    width: calc(100% - 2rem);
     padding: var(--space-base);
-    border-radius: 10px;
+    border-radius: var(--radius-none);
   }
   
   .case-hero__title {
-    font-size: var(--text-lg);
+    font-size: 1.375rem;
   }
   
   .case-hero__subtitle {
@@ -913,6 +917,17 @@ html[data-theme="dark"] .case-hero__overlay {
   .case-hero__image img {
     height: 100%;
     transition: none;
+  }
+}
+
+/* Content spacing below case hero card */
+.post.project.post-full .post-content {
+  margin-top: var(--space-3xl);
+}
+
+@media (max-width: 768px) {
+  .post.project.post-full .post-content {
+    margin-top: var(--space-2xl);
   }
 }
 
@@ -1065,6 +1080,12 @@ html[data-theme="dark"] .block-title { color: var(--color-text); }
 
 .case-card-grid {
   padding: 0 var(--space-xl);
+}
+
+@media (max-width: 768px) {
+  .case-card-grid {
+    padding: 0;
+  }
 }
 
 /**
@@ -1253,7 +1274,7 @@ html[data-theme="dark"] .post-title {
   display: inline-flex;
   align-items: center;
   padding: var(--space-2xs) var(--space-sm);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.2;
   background: var(--gradient-primary);
@@ -1368,7 +1389,7 @@ html[data-theme="dark"] .case-study-header {
   margin: var(--space-xl) 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-none);
   box-shadow: var(--shadow-sm);
   position: relative;
   max-width: 100%; /* Ensure it doesn't exceed parent */
@@ -1410,11 +1431,11 @@ html[data-theme="dark"] .modern-table tbody tr { border-bottom: 1px solid rgba(2
 html[data-theme="dark"] .modern-table thead th { color: var(--color-text); }
 
 .modern-table thead th:first-child {
-  border-top-left-radius: var(--radius-lg);
+  border-top-left-radius: var(--radius-none);
 }
 
 .modern-table thead th:last-child {
-  border-top-right-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-none);
 }
 
 /* Add subtle separator between header columns */
@@ -1484,7 +1505,7 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
 /* Responsive behavior */
 @media (max-width: 768px) {
   .table-wrapper {
-    border-radius: 12px;
+    border-radius: var(--radius-none);
     margin: 1.5rem 0;
     box-shadow: var(--shadow-sm);
     margin: 1.5rem -1rem;
@@ -1522,7 +1543,7 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
   }
 
   .modern-table thead th {
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
   }
 
   /* Make first column sticky on mobile for better context */
@@ -1551,11 +1572,11 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
   .modern-table thead th,
   .modern-table tbody td {
     padding: 0.75rem 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
   }
 
   .modern-table thead th {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
 
   .modern-table tbody td.first-col,
@@ -1692,6 +1713,13 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
   margin-bottom: 3rem;
 }
 
+@media (max-width: 768px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 .two-column-layout.reverse {
   direction: rtl;
 }
@@ -1757,11 +1785,17 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
 .quote-card {
   background-color: transparent;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-none);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 480px) {
+  .quote-card {
+    padding: 1.25rem;
+  }
 }
 
 .quote-avatar {
@@ -2058,7 +2092,7 @@ html[data-theme="dark"] .site-footer {
 .case-testimonial {
   background-color: transparent;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-none);
   padding: 2rem;
   box-shadow: var(--shadow-sm);
   position: relative;
@@ -2125,7 +2159,7 @@ html[data-theme="dark"] .site-footer {
   padding: 2rem;
   background-color: transparent;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-none);
   box-shadow: var(--shadow-sm);
 }
 
@@ -2625,24 +2659,26 @@ mux-player {
     border-radius: var(--radius-md) var(--radius-md) 0 0;
   }
   
-  /* Testimonial component mobile styles */
+  /* Testimonial component mobile styles - QUOTE pattern */
   .testimonial {
     background-color: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--shadow-sm);
+    border: none;
+    border-left: var(--pattern-quote-border);
+    border-radius: 0;
+    padding: 0;
+    padding-left: var(--space-base);
+    margin-bottom: var(--space-xl);
+    box-shadow: none;
   }
   
   .testimonial-text {
-    padding-top: 1.5rem;
-    font-size: 1rem;
+    padding-top: var(--space-lg);
+    font-size: var(--text-sm);
     line-height: 1.5;
   }
   
   .testimonial-text:before {
-    font-size: 2.5rem;
+    font-size: var(--text-2xl);
   }
   
   .testimonial-footer {
@@ -2650,44 +2686,53 @@ mux-player {
   }
   
   .testimonial-avatar {
-    height: 50px;
-    width: 50px;
+    height: 44px;
+    width: 44px;
   }
   
   .testimonial-author {
-    font-size: 0.9rem;
+    font-size: var(--text-xs);
   }
 
   .testimonial-name {
-    font-size: 1rem;
+    font-size: var(--text-sm);
   }
 
   .testimonial-title {
-    font-size: 0.8em;
+    font-size: var(--text-xs);
   }
   
-  /* Skill component mobile styles */
+  /* Skill component mobile styles - INFORMATIONAL pattern */
   .skill {
     text-align: center;
-    margin-bottom: 2.5rem;
-    background-color: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-lg);
+    background: var(--pattern-info-bg);
+    border: none;
+    border-radius: var(--radius-none);
+    padding: var(--space-lg) var(--space-base);
+    box-shadow: none;
     box-sizing: border-box;
   }
   
+  html[data-theme="dark"] .skill {
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+  
   .skill .icon {
-    margin: 0 auto 0.75rem;
+    margin: 0 auto var(--space-xs);
+    width: 36px;
+    height: 36px;
   }
   
   .skill h4 {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2xs);
   }
   
   .skill p {
     font-size: var(--text-xs);
+    margin: 0;
+    line-height: 1.4;
   }
   
   /* Portfolio feed mobile styles */
@@ -2716,14 +2761,10 @@ mux-player {
     padding-top: 2.5em;
   }
   
-  /* Improve testimonials layout */
+  /* Improve testimonials layout - flat, no card */
   .testimonial {
-    margin-bottom: 2.5em;
-    padding-bottom: 1em;
-    border-bottom: 1px solid var(--color-border);
-  }
-  
-  .testimonial:last-child {
+    margin-bottom: 2rem;
+    padding-bottom: 0;
     border-bottom: none;
   }
   
@@ -2754,7 +2795,71 @@ mux-player {
   }
 }
 
+/**
+ * ===========================================
+ * MOBILE DESIGN SYSTEM (≤480px)
+ * ===========================================
+ * 
+ * TYPOGRAPHY SCALE (mobile):
+ *   --text-xs:   14px  (minimum readable)
+ *   --text-sm:   16px  (body text)
+ *   --text-base: 18px  (large body)
+ *   --text-lg:   20px  (h4)
+ *   --text-xl:   24px  (h3)
+ *   --text-2xl:  28px  (h2)
+ *   --text-3xl:  32px  (h1)
+ *   --text-4xl:  36px  (hero max)
+ *
+ * SPACING SCALE (mobile):
+ *   --space-xl:  24px  (component spacing)
+ *   --space-2xl: 32px  (section spacing)
+ *   --space-3xl: 40px  (page spacing)
+ *
+ * COMPONENT PATTERNS:
+ *   Interactive (tappable):
+ *     - ROUNDED CORNERS (--radius-lg)
+ *     - Border + shadow
+ *     - Clear CTA with arrow
+ *     - Hover/active states
+ *   
+ *   Informational (skills, outcomes):
+ *     - NO ROUNDED CORNERS (--radius-none)
+ *     - Subtle accent-tinted background
+ *     - No border, no shadow
+ *   
+ *   Quotes (testimonials):
+ *     - NO ROUNDED CORNERS
+ *     - Left accent border only
+ *     - Italic text style
+ *     - Attribution with avatar
+ *
+ * RULE: Only clickable elements get rounded corners.
+ */
+
 @media only screen and (max-width: 480px) {
+  /* Mobile Token Overrides */
+  :root {
+    /* Typography Scale - Mobile */
+    --text-xs: 0.875rem;
+    --text-sm: 1rem;
+    --text-base: 1.125rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.5rem;
+    --text-2xl: 1.75rem;
+    --text-3xl: 2rem;
+    --text-4xl: 2.25rem;
+    
+    /* Spacing Scale - Mobile */
+    --space-xl: 1.5rem;
+    --space-2xl: 2rem;
+    --space-3xl: 2.5rem;
+    
+    /* Mobile-specific patterns */
+    --mobile-card-padding: var(--space-base);
+    --mobile-component-gap: var(--space-lg);
+    --mobile-section-gap: var(--space-2xl);
+  }
+  
   .image-grid {
     grid-template-columns: 1fr;
   }

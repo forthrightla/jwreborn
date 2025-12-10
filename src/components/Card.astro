@@ -308,16 +308,43 @@ const displayHighlight = highlight || subtitle || title;
     }
 
     .case-card__content {
-      padding: var(--space-xl) var(--space-xl) 0;
+      padding: var(--space-lg) var(--space-lg) 0;
     }
 
     .case-card__media {
-      margin: 0 var(--space-xl);
+      margin: 0 var(--space-lg);
       border-radius: var(--radius-lg) var(--radius-lg) var(--radius-xl) var(--radius-xl);
     }
 
     .case-card__extra {
       display: none;
+    }
+    
+    .case-card__title {
+      font-size: var(--text-base);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .case-card__content {
+      padding: var(--space-base) var(--space-base) 0;
+      gap: var(--space-xs);
+    }
+
+    .case-card__media {
+      margin: 0 var(--space-base);
+    }
+    
+    .case-card__title {
+      font-size: 1.0625rem;
+    }
+    
+    .case-card__cta {
+      font-size: 0.9rem;
+    }
+    
+    .case-card__meta {
+      font-size: 0.85rem;
     }
   }
 </style>

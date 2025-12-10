@@ -130,4 +130,25 @@ const displayTitle = title;
             padding-right: 0.83333rem;
         }
     }
+    
+    @media (max-width: 600px) {
+        .case-card__content {
+            padding: var(--space-base);
+        }
+        
+        .case-card__title {
+            font-size: 1.0625rem;
+        }
+        
+        .case-card__cta {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .case-card__media {
+            aspect-ratio: 2/1;
+        }
+    }
 </style>
