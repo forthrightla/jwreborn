@@ -4,8 +4,9 @@ import EnhancedOutcomeCard from '../EnhancedOutcomeCard.astro';
 interface Outcome {
   stat?: string;
   description: string;
-  colorClass?: 'primary' | 'secondary' | 'accent';
+  colorClass?: 'primary' | 'secondary' | 'accent' | 'muted';
   variant?: 'with-stat' | 'text-only';
+  shimmer?: boolean;
 }
 
 interface Props {
@@ -47,6 +48,7 @@ const gridClass = getGridClass();
         description={outcome.description}
         colorClass={outcome.colorClass || defaultColors[index % defaultColors.length]}
         variant={outcome.variant || 'with-stat'}
+        shimmer={outcome.shimmer || false}
       />
     </div>
   ))}

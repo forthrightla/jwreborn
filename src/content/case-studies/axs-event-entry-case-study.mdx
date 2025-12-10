@@ -18,7 +18,6 @@ heroWashColor: "139, 156, 194"
 ---
 
 import Video from '../../components/Video.astro';
-import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
@@ -36,12 +35,14 @@ I led a research-driven effort focused on solving a critical problem: the "AXS M
     {
       stat: "+68%",
       description: "improvement in successful event entry",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     },
     {
       stat: "-42%",
       description: "reduction in app customer support calls",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     }
   ]}
   columns={2}
@@ -110,53 +111,65 @@ I owned UX design and product strategy for event entry, creating all wireframes,
 
 ### Competitive analysis
 
-I analyzed 13 apps across different categories to understand QR code implementation patterns:
+I analyzed 13 apps across events (Ticketmaster, Seatgeek), rewards (Starbucks, Chipotle), and payments (Venmo, PayPal) to understand QR code implementation patterns.
 
-<Table
-  headers={['Category', 'Apps', 'Key Finding', 'User Understanding']}
-  data={[
-    ['Events', 'Ticketmaster, Seatgeek', 'QR codes tied to specific tickets', 'High - clear context'],
-    ['Rewards', 'Starbucks, Chipotle', 'Single purpose, prominent placement', 'High - one function'],
-    ['Payments', 'Venmo, PayPal', 'Clear labels like "Scan to pay"', 'High - action-oriented']
-  ]}
-/>
-
-**Critical insight:** Successful apps always provide context *before* displaying QR codes, never assuming users understand their purpose.
-
-**Industry insight:** Our analysis also revealed that successful ticketing apps consistently use 2 taps to access tickets, providing event-specific context to avoid overwhelming stressed fans.
+Successful apps always provide context *before* displaying QR codes, never assuming users understand their purpose. They also consistently use 2 taps to access tickets, providing event-specific context to avoid overwhelming stressed fans.
 
 ### User testing round 1: Validating the problem
 
-**Testing methodology:** 40 participants across 4 tests, 10 per test to achieve statistical significance
+I ran 40 participants across 4 tests to validate the problem with statistical significance.
 
-<Table
-  headers={['Test Condition', 'User Behavior', 'Success Rate', 'Key Quote']}
-  data={[
-    ['Current app with "Mobile ID"', 'Participants avoided the feature entirely', '12%', '"Mobile ID means nothing to me"'],
-    ['QR code shown on app open', 'Participants closed it immediately, confused', '8%', '"Why is this popping up? I don\'t have tickets"']
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "12%",
+      description: "success rate with current 'Mobile ID' label",
+      colorClass: "muted"
+    },
+    {
+      stat: "8%",
+      description: "success rate when QR shown on app open",
+      colorClass: "muted"
+    }
   ]}
-  variant="compact"
+  columns={2}
+  animateOnScroll={false}
 />
 
-**Key findings:**
-- The term "Mobile ID" had zero meaning to participants
-- Showing the code without context created anxiety
+Participants avoided the Mobile ID feature entirely, telling us *"Mobile ID means nothing to me"* and *"Why is this popping up? I don't have tickets."* The term had zero meaning, and showing the code without context created anxiety.
 
 ### User testing round 2: Testing solutions
 
-**New hypothesis:** Adding context before showing the code would improve understanding, even if it adds a tap.
+I hypothesized that adding context before showing the code would improve understanding, even if it adds a tap.
 
 ![User testing session showing participants interacting with mobile app prototypes](/images/case-studies/axs-usertesting.png)
 
-<Table
-  headers={['Solution Tested', 'Change Made', 'Success Rate', 'Key Learning']}
-  data={[
-    ['Contextual labels', 'Changed "Mobile ID" to "Entry Pass" for events', '78%', 'Functional names work'],
-    ['Preview screens', 'Added screen explaining what participants would see next', '81%', 'Context reduces anxiety'],
-    ['Visual cues', 'Showed event name and "Tap to enter" before code', '89%', 'Specificity builds confidence']
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "78%",
+      description: "success with contextual labels like 'Entry Pass'",
+      colorClass: "primary",
+      shimmer: true
+    },
+    {
+      stat: "81%",
+      description: "success with preview screens explaining what comes next",
+      colorClass: "primary",
+      shimmer: true
+    },
+    {
+      stat: "89%",
+      description: "success showing event name and 'Tap to enter' before code",
+      colorClass: "primary",
+      shimmer: true
+    }
   ]}
-  variant="compact"
+  columns={3}
+  animateOnScroll={false}
 />
+
+Functional names worked. Context reduced anxiety. Specificity built confidence.
 
 <ConversationExchange
   title="Making the case to leadership"
@@ -297,12 +310,14 @@ The lesson? Sometimes the best UX decision is to slow users down just enough to 
     {
       stat: "+68%",
       description: "improvement in successful event entry",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     },
     {
       stat: "-42%",
       description: "reduction in app customer support calls",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     }
   ]}
   columns={2}

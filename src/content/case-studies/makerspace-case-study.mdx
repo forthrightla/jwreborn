@@ -13,7 +13,6 @@ duration: "6 weeks"
 ---
 
 import Video from '../../components/Video.astro';
-import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
@@ -77,15 +76,9 @@ With limited time for formal research, I combined insights from Maker Media's co
 
 ### Design principles
 
-<Table
-  headers={['Principle', 'Why it matters', 'How we applied it']}
-  data={[
-    ['Show the journey', 'Makers learn from process, not just outcomes', 'Multi-step project documentation'],
-    ['Make collaboration visible', 'Community thrives on helping each other', 'Comments, remixes, and co-creator credits'],
-    ['Welcome all skill levels', 'Everyone starts somewhere', 'No gatekeeping in UI language or features']
-  ]}
-  variant="compact"
-/>
+- **Show the journey.** Makers learn from process, not just outcomes.
+- **Make collaboration visible.** Community thrives on helping each other.
+- **Welcome all skill levels.** Everyone starts somewhere.
 
 ### Rapid iteration
 
@@ -104,22 +97,13 @@ Working closely with developers, I moved quickly from concepts to implementation
 
 ### Project sharing: The heart of the platform
 
-The most critical feature was how makers would share their projects. I explored two approaches:
-
-<Table
-  headers={['Approach', 'Concept', 'Pros', 'Cons']}
-  data={[
-    ['Steps as blocks', 'Modular units for each step', 'Easy to reorder, clear structure', 'Less narrative flow'],
-    ['Flowing narrative', 'Medium-style continuous story', 'Better for storytelling', 'Harder to scan steps']
-  ]}
-  variant="compact"
-/>
+The most critical feature was how makers would share their projects. I explored two approaches: modular blocks for clear structure, versus a flowing Medium-style narrative.
 
 ![High-fidelity mockup displaying the 'Steps as blocks' design approach for user project sharing.](/images/case-studies/makerspace-project-a.png)
 
 ![High-fidelity mockup showcasing the 'Steps in a flowing, Medium-esque format' design approach for user project sharing.](/images/case-studies/makerspace-project-b.png)
 
-**Decision:** We chose the modular blocks approach. It aligned with how makers think about projects in discrete steps and made it easier to remix or reference specific parts of a build.
+We chose the modular blocks approach. It aligned with how makers think about projects in discrete steps and made it easier to remix or reference specific parts of a build.
 
 ### Community feed design
 

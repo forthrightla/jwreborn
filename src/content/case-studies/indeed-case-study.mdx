@@ -16,7 +16,6 @@ responsibilities: "UX strategy, Product design, Customer research"
 duration: "6 months"
 ---
 
-import Table from '../../components/Table.astro';
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
@@ -36,12 +35,14 @@ Just as important: the new interface created a foundation for AI-powered feature
     {
       stat: "+29%",
       description: "more jobs receiving positive candidate responses",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     },
     {
       stat: "+10.6%",
       description: "increase in positive response rate",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     }
   ]}
   columns={2}
@@ -83,18 +84,26 @@ I led UX strategy and design for this initiative, partnering with product manage
 
 ### Comparing the experiences
 
-I mapped out the friction points in the existing experience against what a unified model could look like:
+I mapped out the friction points in the existing experience against what a unified model could look like.
 
-<Table
-  headers={['Aspect', 'Before', 'After']}
-  data={[
-    ['Interface', '2 tabs, 5 input fields', '1 search bar, 2 inputs'],
-    ['User choice', 'AI matches OR keyword search', 'Both together'],
-    ['Starting point', 'Random job selected for you', 'You choose your job']
+<EnhancedOutcomeGrid 
+  outcomes={[
+    {
+      stat: "Before",
+      description: "2 tabs with 5 input fields. AI matches OR keyword search. Random job selected for you.",
+      colorClass: "muted"
+    },
+    {
+      stat: "After",
+      description: "1 search bar with 2 inputs. AI and keywords together. You choose your job.",
+      colorClass: "primary"
+    }
   ]}
+  columns={2}
+  animateOnScroll={false}
 />
 
-The core insight: we were forcing a choice that didn't need to exist. Recruiters should be able to use job context AND keywords in the same search.
+We were forcing a choice that didn't need to exist. Recruiters should be able to use job context AND keywords in the same search.
 
 
 ## Solution
@@ -138,12 +147,14 @@ Recruiters noticed the simplification:
     {
       stat: "+29%",
       description: "more jobs receiving positive candidate responses",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     },
     {
       stat: "+10.6%",
       description: "increase in positive response rate",
-      colorClass: "primary"
+      colorClass: "primary",
+      shimmer: true
     }
   ]}
   columns={2}

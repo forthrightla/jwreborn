@@ -2,26 +2,29 @@
 interface Props {
   stat?: string;
   description: string;
-  colorClass?: 'primary' | 'secondary' | 'accent';
+  colorClass?: 'primary' | 'secondary' | 'accent' | 'muted';
   variant?: 'with-stat' | 'text-only';
+  shimmer?: boolean;
 }
 
 const { 
   stat, 
   description, 
   colorClass = 'primary',
-  variant = 'with-stat'
+  variant = 'with-stat',
+  shimmer = false
 } = Astro.props;
 
 // Map color classes to actual CSS classes
 const colorMap = {
   primary: 'card-primary',
   secondary: 'card-secondary',
-  accent: 'card-accent'
+  accent: 'card-accent',
+  muted: 'card-muted'
 };
 ---
 
-<div class={`enhanced-outcome-card ${colorMap[colorClass]} ${variant}`}>
+<div class={`enhanced-outcome-card ${colorMap[colorClass]} ${variant}${shimmer ? ' shimmer-enabled' : ''}`}>
   {variant === 'with-stat' && stat && (
     <div class="outcome-stat">{stat}</div>
   )}
@@ -61,6 +64,25 @@ const colorMap = {
     color: white;
   }
 
+  .card-muted {
+    background: var(--gradient-surface);
+    color: var(--color-text);
+    border-left: 3px solid var(--color-text-muted);
+  }
+
+  .card-muted .outcome-stat {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: var(--color-text-muted);
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+
+  .card-muted .outcome-description {
+    color: var(--color-text-muted);
+  }
+
   /* Dark mode adjustments - tokens handle this automatically */
   :global([data-theme="dark"]) .card-primary {
     background: var(--gradient-surface);
@@ -93,7 +115,7 @@ const colorMap = {
     -webkit-text-fill-color: transparent;
   }
 
-  .enhanced-outcome-card.animate-stat .outcome-stat {
+  .enhanced-outcome-card.shimmer-enabled.animate-stat .outcome-stat {
     animation: statShimmer 1.5s ease-out forwards;
   }
 
