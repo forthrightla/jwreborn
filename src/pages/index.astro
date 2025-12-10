@@ -78,10 +78,12 @@ const featuredCaseStudies = preferredOrder
       <div class="block-header">
         <h1
           class="block-title"
-          set:html={homepageData.heroTitle.replace(
-            /\b(UX Design Lead|Product Strategist|Educator|Researcher|Austin)\b/g,
-            "<strong>$1</strong>",
-          )}
+          set:html={homepageData.heroTitle
+            .replace(/\.$/, '')
+            .replace(
+              /\b(UX Design Lead|Product Strategist|Educator|Researcher|Austin)\b/g,
+              "<strong>$1</strong>",
+            ) + '<span class="accent-period">.</span>'}
         />
       </div>
     </div>

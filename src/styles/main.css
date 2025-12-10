@@ -639,8 +639,10 @@ html[data-theme="dark"] .hero-block {
   font-size: var(--text-3xl);
   margin: 0 auto;
   max-width: 1150px;
-  font-weight: 400;
-  line-height: 1.3;
+}
+
+.accent-period {
+  color: var(--color-accent);
 }
 
 .hero-block .block-subtitle {
@@ -1039,12 +1041,18 @@ html[data-theme="dark"] .post-subtitle { color: var(--color-text-muted); }
   font-size: var(--text-xl);
   margin: 0;
   font-family: "IBM Plex Serif", serif;
+  font-weight: 400;
 }
 
 html[data-theme="dark"] .block-title { color: var(--color-text); }
 
 .block-title strong {
-  font-weight: 800;
+  font-weight: 700;
+  color: inherit;
+}
+
+.hero-block .block-title strong {
+  font-weight: 700;
 }
 
 .line-top {
