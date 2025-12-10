@@ -98,6 +98,7 @@ export interface LayoutProps {
   description?: string;
   image?: string;
   type?: 'website' | 'article';
+  useSvgLogo?: boolean;
 }
 
 export interface TestimonialProps {

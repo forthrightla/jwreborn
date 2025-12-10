@@ -7,7 +7,7 @@ import type { LayoutProps } from '../types';
 import '../styles/reset.css';
 import '../styles/main.css';
 
-const { title, currentNav, description, image, type = 'website' } = Astro.props as LayoutProps;
+const { title, currentNav, description, image, type = 'website', useSvgLogo = true } = Astro.props as LayoutProps;
 
 // Default meta values
 const defaultDescription = "Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes.";
@@ -110,7 +110,7 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 	</head>
 	<body>
 		<a href="#content" class="skip-link sr-only">Skip to main content</a>
-		<NavBar current={currentNav} />
+		<NavBar current={currentNav} useSvgLogo={useSvgLogo} />
 		<main id="content" class="site-content" role="main">
 			<slot />
 		</main>
