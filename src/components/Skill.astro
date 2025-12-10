@@ -24,6 +24,34 @@ const { description, title, img, svg } = Astro.props;
     width: 80px;
     height: 80px;
     color: var(--color-accent);
+    animation: iconFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .skill:nth-child(1) .icon-svg {
+    animation-delay: 0.1s;
+  }
+
+  .skill:nth-child(2) .icon-svg {
+    animation-delay: 0.25s;
+  }
+
+  .skill:nth-child(3) .icon-svg {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes iconFadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(8px);
+    }
+    60% {
+      transform: scale(1.03) translateY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
   }
 
   .icon-svg :global(svg) {
@@ -43,6 +71,13 @@ const { description, title, img, svg } = Astro.props;
     .icon-svg {
       width: 36px;
       height: 36px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon-svg {
+      animation: none;
+      opacity: 1;
     }
   }
 </style>
