@@ -759,7 +759,7 @@ html[data-theme="dark"] .hero-block {
 .case-hero__title {
   font-family: "IBM Plex Serif", Georgia, serif;
   font-size: var(--text-3xl);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
   margin: 0;
   color: var(--color-text);
