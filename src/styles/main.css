@@ -747,7 +747,7 @@ html[data-theme="dark"] .hero-block {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-none);
-  padding: var(--card-phi) var(--card-phi) var(--card-base);
+  padding: var(--card-phi);
   width: calc(100% - 6vw);
   max-width: 920px;
   box-shadow: 
@@ -778,7 +778,7 @@ html[data-theme="dark"] .hero-block {
   grid-template-columns: repeat(3, 1fr);
   gap: var(--card-base);
   margin-top: var(--card-base);
-  padding-top: var(--card-phi-sm);
+  padding-top: var(--card-base);
   border-top: 1px solid var(--color-divider);
 }
 
@@ -1041,7 +1041,7 @@ html[data-theme="dark"] .post-subtitle { color: var(--color-text-muted); }
   font-size: var(--text-xl);
   margin: 0;
   font-family: "IBM Plex Serif", serif;
-  font-weight: 400;
+  font-weight: 900;
 }
 
 html[data-theme="dark"] .block-title { color: var(--color-text); }
