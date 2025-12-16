@@ -639,6 +639,11 @@ html[data-theme="dark"] .hero-block {
   font-size: var(--text-3xl);
   margin: 0 auto;
   max-width: 1150px;
+  font-weight: 400;
+}
+
+.hero-block .block-title strong {
+  font-weight: 700;
 }
 
 .accent-period {
@@ -754,7 +759,7 @@ html[data-theme="dark"] .hero-block {
 .case-hero__title {
   font-family: "IBM Plex Serif", Georgia, serif;
   font-size: var(--text-3xl);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   margin: 0;
   color: var(--color-text);
@@ -1041,7 +1046,7 @@ html[data-theme="dark"] .block-title { color: var(--color-text); }
   color: inherit;
 }
 
-.hero-block .block-title strong {
+.case-hero__title strong {
   font-weight: 700;
 }
 
