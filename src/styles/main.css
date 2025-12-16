@@ -717,16 +717,11 @@ html[data-theme="dark"] .hero-block {
   transition: transform 0.1s linear;
 }
 
-/* Gradient overlay for text contrast */
+/* Gradient overlay for text contrast - disabled, keeping element for potential future use */
 .case-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.15) 40%,
-    transparent 70%
-  );
+  background: transparent;
   pointer-events: none;
   z-index: 2;
 }
@@ -818,12 +813,7 @@ html[data-theme="dark"] .case-hero__card {
 
 
 html[data-theme="dark"] .case-hero__overlay {
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    transparent 80%
-  );
+  background: transparent;
 }
 
 /* Tablet */

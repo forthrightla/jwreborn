@@ -131,7 +131,7 @@ const isPasswordProtected = !!entry.data.password;
                     />
                     <div class="case-hero__overlay"></div>
                   </div>
-                  <div class="case-hero__wash"></div>
+                  {entry.data.showHeroWash !== false && <div class="case-hero__wash"></div>}
                 </div>
               )}
               <div class="case-hero__card">

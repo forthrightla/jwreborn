@@ -29,6 +29,8 @@ const caseStudiesCollection = defineCollection({
     accentColor: z.string().optional(),
     // Hero wash color (RGB values) for soft gradient below image
     heroWashColor: z.string().optional(),
+    // Toggle hero wash on/off (defaults to true if heroWashColor is set)
+    showHeroWash: z.boolean().optional()
   }),
 });
 
