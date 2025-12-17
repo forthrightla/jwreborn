@@ -39,6 +39,9 @@ const recommendedCaseStudies = finalRecommendations
 
 // Check if this case study requires a password
 const isPasswordProtected = !!entry.data.password;
+
+// Check if this case study should be hidden from search engines
+const isHidden = !!entry.data.hidden;
 ---
 
 <Layout
@@ -47,6 +50,7 @@ const isPasswordProtected = !!entry.data.password;
   description={entry.data.subtitle}
   image={entry.data.thumbnail}
   type="article"
+  noindex={isHidden}
 >
   <main id="content" class="site-content">
     <div class="outer">

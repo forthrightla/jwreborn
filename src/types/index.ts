@@ -100,6 +100,7 @@ export interface LayoutProps {
   image?: string;
   type?: 'website' | 'article';
   useSvgLogo?: boolean;
+  noindex?: boolean;
 }
 
 export interface TestimonialProps {

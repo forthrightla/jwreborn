@@ -7,7 +7,7 @@ import type { LayoutProps } from '../types';
 import '../styles/reset.css';
 import '../styles/main.css';
 
-const { title, currentNav, description, image, type = 'website', useSvgLogo = true } = Astro.props as LayoutProps;
+const { title, currentNav, description, image, type = 'website', useSvgLogo = true, noindex = false } = Astro.props as LayoutProps;
 
 // Default meta values
 const defaultDescription = "Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes.";
@@ -25,6 +25,7 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 		<meta name="description" content={description || defaultDescription} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="author" content="Josh Wright" />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={type} />

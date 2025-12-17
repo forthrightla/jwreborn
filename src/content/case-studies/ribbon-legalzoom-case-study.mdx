@@ -5,7 +5,7 @@ extraImage: "/images/screenshot-ribbon-light.png"
 extraImageAlt: "Ribbon app screens"
 extraImageWidth: "100%"
 thumbnail: "/images/block-legalzoom.png"
-banner: "/images/case-studies/ribbon-banner.png"
+banner: "/images/case-studies/banner-ribbon.png"
 tags: ["0 -> 1 Product Strategy"]
 featured: true
 highlight: "De-risking the pivot to freemium via an internal stealth startup"
@@ -90,20 +90,21 @@ With only four weeks to deliver, we had to make informed assumptions based on ex
 
 Based on our research synthesis, I proposed a fundamental shift in approach. Instead of requiring all information upfront, we would ask easy questions first, building trust progressively through the experience. This was especially important for a freemium model, where the goal shifted from immediate purchase to building enough engagement that users would add paid services later.
 
-#### Existing LegalZoom purchase funnel
+#### Before: Front-loaded friction
 <BoxesAndArrows steps={[
-      { text: "Click CTA to start purchase funnel" },
-      { text: "Answer 23 pages of detailed questions" },
-      { text: "Checkout and purchase" },
-      { text: "Answer even more questions" }
-    ]} />
+  { text: "\"Get started\"", zone: "Enter funnel" },
+  { text: "23 pages of detailed questions", subtext: "~45 min", variant: "problem" },
+  { text: "Purchase", variant: "threshold", zone: "Commitment" },
+  { text: "Remaining questions", zone: "After purchase" }
+]} />
 
-#### Our hypothesis: ask the easy questions first
+#### After: Progressive disclosure
 <BoxesAndArrows steps={[
-      { text: "Click CTA to start purchase funnel" },
-      { text: "Answer a short set of easy questions" },
-      { text: "Checkout and purchase" }
-    ]} />
+  { text: "\"Get started\"", zone: "Enter funnel" },
+  { text: "4 pages of quick questions", subtext: "~5 min", variant: "solution" },
+  { text: "Purchase", variant: "threshold", zone: "Commitment" },
+  { text: "Detailed questions", zone: "After purchase" }
+]} />
 
 ## Design process
 
