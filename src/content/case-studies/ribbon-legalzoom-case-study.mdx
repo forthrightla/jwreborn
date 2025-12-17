@@ -1,17 +1,17 @@
 ---
-title: "De-risking freemium through an internal stealth startup"
+title: "Validating a freemium price point for a $5B company's core product"
 client: "LegalZoom"
 extraImage: "/images/screenshot-ribbon-light.png"
 extraImageAlt: "Ribbon app screens"
 extraImageWidth: "100%"
 thumbnail: "/images/block-legalzoom.png"
 banner: "/images/case-studies/banner-ribbon.png"
-tags: ["0 -> 1 Product Strategy"]
+tags: ["0 → 1 Product Strategy"]
 featured: true
-highlight: "De-risking the pivot to freemium via an internal stealth startup"
+highlight: "Validating a freemium price point for a $5B company's core product"
 logo: "/images/logo-legalzoom.svg"
-goal: "Test innovative approaches to business formation experiences"
-responsibilities: "UX design, rapid experimentation, user research"
+goal: "Test whether freemium could work for business formation"
+responsibilities: "UX design, product scoping, rapid experimentation"
 duration: "4 weeks"
 accentColor: "#AC5DE0"
 showHeroWash: false
@@ -25,24 +25,21 @@ import FeaturedQuote from "../../components/FeaturedQuote.astro";
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import BoxesAndArrows from '../../components/BoxesAndArrows.astro';
 
-
 ## Summary
 
-LegalZoom is a $5B legal technology leader that has formed over 3.7M businesses since launch. With nearly half its revenue coming from business formation, leadership was understandably cautious about experimenting with the core product.
+LegalZoom is a $5B legal technology leader that has formed over 3.7M businesses since launch. With nearly half its revenue coming from business formation at $79+, leadership needed to know: would anyone choose free formation from an unknown brand? And could we even test that without a multi-month engineering effort?
 
-I led UX for Ribbon, a cross-functional stealth startup created to test what leadership couldn't risk on the main product: offering business formation for free. We had complete freedom to reimagine pricing, visual design, and funnel structure. We were essentially building a competitor to our own product to see if freemium could work.
-
-Through rapid experimentation and user research, we **validated key hypotheses about progressive disclosure, trust-building, and conversion optimization** that influenced product thinking across the organization.
+I led UX for Ribbon, a stealth startup created to answer these questions. When leadership pushed for a full-featured clone of LegalZoom, I advocated for something simpler: a lightweight capture flow with human-powered fulfillment behind the scenes. This scoping decision let us validate demand without touching legacy systems. The project's success led to my promotion from Lead to Principal Designer.
 
 <EnhancedOutcomeGrid 
   outcomes={[
     {
-      description: "Validated freemium viability without cannibalizing core revenue",
+      description: "Validated freemium demand without building production infrastructure",
       variant: "text-only",
       colorClass: "primary"
     },
     {
-      description: "Progressive disclosure approach adopted for main product simplification",
+      description: "Gave leadership confidence to explore freemium for the core product",
       variant: "text-only",
       colorClass: "primary"
     }
@@ -60,119 +57,92 @@ Through rapid experimentation and user research, we **validated key hypotheses a
 
 ## Background
 
-### The challenge
+### The business question
 
-LegalZoom's business formation product generates almost half the company's revenue, but the existing experience required users to answer 23 pages of detailed questions before purchase. This created significant drop-off and user frustration.
+LegalZoom charged $79+ for business formation. Competitors were racing to the bottom. Leadership wondered if freemium could work, but couldn't risk testing it on the core product.
 
-Leadership was hesitant to take risks with such a critical product. They needed a way to test new ideas without disrupting the core business.
+The challenge wasn't just strategic. Fifteen years of legacy systems meant any real experiment would require months of engineering work just to stand up a new pricing model.
 
 ### The opportunity
 
-Enter Ribbon: a stealth startup with autonomy to test what seemed unthinkable for a company that charged $79+ for formation. We would offer it for free and see what happened. Our mission was to discover if freemium could work, then bring those insights back to the main product.
-
-### My role
-
-As Principal Designer, I partnered closely with the VPs of Marketing, Creative, and UX to determine product strategy. Working alongside another Product Designer, we pair-designed the entire experience from top to bottom, developing both a design system and visual language. I also worked closely with engineering to ensure velocity and 1:1 parity with shipped designs.
-
-## Discovery & strategy
-
-### Understanding the market landscape
-
-Our competitive analysis revealed where LegalZoom sat in the market. We positioned Ribbon to explore the "high value, low cost" quadrant to offer a premium experience at accessible prices.
+Enter Ribbon: a stealth startup with permission to test what seemed unthinkable. Separate brand, separate traffic, no risk of cannibalization. Our mission was simple: prove whether demand exists at $0 from an unknown brand.
 
 ![Determining target market](/images/case-studies/ribbon-target-market.png)
+### My role
 
-### Research constraints and approach
+As Lead Designer, I partnered with VPs of Marketing, Creative, and UX on product strategy. I worked alongside a Product Designer to develop the experience and visual identity. My most significant contribution was pushing back on the initial scope to get us to learning faster.
 
-With only four weeks to deliver, we had to make informed assumptions based on existing research. This included competitive analyses of 13+ competitors, proto-personas based on customer data, customer journey maps from previous studies, and mothballed designs that had been previously tested.
+## The scoping decision
 
-### The hypothesis: Progressive disclosure
+### The original plan
 
-Based on our research synthesis, I proposed a fundamental shift in approach. Instead of requiring all information upfront, we would ask easy questions first, building trust progressively through the experience. This was especially important for a freemium model, where the goal shifted from immediate purchase to building enough engagement that users would add paid services later.
+Leadership wanted to build a near-complete replica of LegalZoom's formation flow. This would have required integrating with the same legacy fulfillment systems, the same state-by-state filing logic, the same complex question sequences. We'd be months away from learning anything.
 
-#### Before: Front-loaded friction
-<BoxesAndArrows steps={[
-  { text: "\"Get started\"", zone: "Enter funnel" },
-  { text: "23 pages of detailed questions", subtext: "~45 min", variant: "problem" },
-  { text: "Purchase", variant: "threshold", zone: "Commitment" },
-  { text: "Remaining questions", zone: "After purchase" }
-]} />
+### The question I asked
 
-#### After: Progressive disclosure
-<BoxesAndArrows steps={[
-  { text: "\"Get started\"", zone: "Enter funnel" },
-  { text: "4 pages of quick questions", subtext: "~5 min", variant: "solution" },
-  { text: "Purchase", variant: "threshold", zone: "Commitment" },
-  { text: "Detailed questions", zone: "After purchase" }
-]} />
+We weren't trying to build a sustainable product. We were trying to answer one question: *will people form businesses through an unknown brand if it's free?*
 
-## Design process
+I advocated for a Wizard of Oz approach. Make the experience feel real to users, but handle the complexity through humans rather than systems.
 
-### Rapid prototyping
+### The solution
 
-I started by mapping the existing flow and identifying where to cut. The key insight: complex questions could move to after purchase, when users were already committed.
+Instead of automating everything, we designed a simple capture flow:
 
-Working in tandem with my design partner, we rapidly moved from sketches to high-fidelity designs, ensuring everything was clear for our engineering partners.
+- User answers about 10 questions
+- We collect their information and intent
+- A fulfillment partner calls them to finalize the details and complete the filing
 
-### Creating Thread: Our design system
-
-We developed a comprehensive design system called Thread, enabling rapid iteration while maintaining consistency. This became the foundation for all Ribbon designs and allowed us to move quickly without sacrificing quality.
-
-### A new brand identity: Ribbon
-
-The visual design balanced playfulness with professionalism, using illustrations and animations to reduce anxiety around legal processes. We wanted to make business formation feel accessible, not intimidating.
+To users, it looked like a real product. Behind the scenes, we'd built just enough to get signal on demand without touching legacy infrastructure.
 
 ![The brand emerges](/images/case-studies/ribbon-responsive.png)
 
-## Key design decisions
+## Design approach
 
-### Simplified entry experience
+### Creating the experience
 
-Instead of overwhelming users with forms, we started with a single, friendly question: "Where do you want to form your business?" This immediately reduced bounce rates and set a conversational tone.
+We developed a design system called Thread to enable rapid iteration. The visual design balanced playfulness with professionalism. Business formation should feel accessible, not intimidating.
 
-### Building trust through transparency
-
-We designed each step to clearly communicate value. Users understood exactly what they were getting and why each piece of information was needed. No hidden fees, no surprises.
+The capture flow started with a single friendly question: "Where do you want to form your business?" Each step after that was designed to feel conversational rather than bureaucratic.
 
 ![A friendly voice, delightful animations](/images/case-studies/ribbon-funnel.png)
 
+### Building trust for an unknown brand
+
+Ribbon had no reputation to rely on. We needed users to trust us with their business formation despite having never heard of us. Every design decision aimed to build credibility: clear value communication, transparent process explanation, and a visual language that felt professional without being corporate.
+
 ## Validation
 
-We launched with limited AdWords traffic, capping orders at 40 to avoid overwhelming our third-party vendor. Despite being an unknown brand competing against LegalZoom itself, we saw promising early conversion.
+We launched with limited AdWords traffic, capping orders at 40 to stay within our fulfillment partner's capacity. Despite being an unknown brand competing against LegalZoom itself, we saw real conversions.
 
 ![Iterating and A/B testing the funnel](/images/case-studies/ribbon-postits.jpg)
 
-Between test cycles, we analyzed drop-off points and optimized the flow. Conversion improved 28% after clarifying value propositions and simplifying the question sequence. This gave us enough signal to present findings to leadership and created a recruiting pool for ongoing research.
+I conducted follow-up calls with users who completed the flow. They confirmed the experience felt simple and trustworthy. They hadn't questioned whether Ribbon was a legitimate service.
 
-## Results and organizational impact
+## Results and impact
 
-### Influencing the broader organization
+### What we proved
 
-While Ribbon operated independently, our findings influenced thinking across LegalZoom. The project demonstrated that freemium could generate real conversions without cannibalizing the core business, giving leadership confidence to explore the model further. Our approach to progressive disclosure and trust-building became a reference point for other teams.
+The experiment answered the core question: yes, people will form businesses through an unknown brand if the price is right. Demand exists at $0. The LegalZoom name isn't required.
 
-Our validated principles influenced thinking across LegalZoom:
+This gave leadership concrete evidence to inform pricing strategy discussions for the core product. The question shifted from "could freemium work?" to "how do we build out the full model?"
 
-- **Progressive disclosure reduces drop-off.** This initiated projects to simplify the main funnel.
-- **Friendly language improves trust.** Content strategy shifted across products.
-- **Visual delight reduces anxiety.** Animation guidelines were added to the design system.
+### What I learned
 
-## Reflection
+Sometimes the most valuable design decision is what you choose *not* to build. By scoping for learning rather than shipping, we got signal in weeks instead of months.
 
-Ribbon proved that sometimes the best way to improve a product is to pretend you're competing with it. That outside perspective, combined with inside knowledge, created conditions for insights that wouldn't have emerged from incremental optimization.
-
-The project also demonstrated that innovation doesn't require massive resources. Just the freedom to experiment and learn quickly.
+The project's success led to my promotion from Lead to Principal Designer.
 
 ### Outcomes
 
 <EnhancedOutcomeGrid 
   outcomes={[
     {
-      description: "Validated freemium viability without cannibalizing core revenue",
+      description: "Validated freemium demand without building production infrastructure",
       variant: "text-only",
       colorClass: "primary"
     },
     {
-      description: "Progressive disclosure approach adopted for main product simplification",
+      description: "Gave leadership confidence to explore freemium for the core product",
       variant: "text-only",
       colorClass: "primary"
     }
