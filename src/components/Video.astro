@@ -4,13 +4,15 @@ interface Props {
   playbackId: string;
   title?: string;
   accentColor?: string;
+  thumbnail?: string;
 }
 
 const { 
   playbackId, 
   title = "Video", 
-  accentColor = "var(--color-accent)" 
-} = Astro.props;
+  accentColor = "var(--color-accent)",
+  thumbnail
+} = Astro.props as Props;
 ---
 
 <div class="video-container">
@@ -18,6 +20,7 @@ const {
     playback-id={playbackId}
     metadata-video-title={title}
     accent-color={accentColor}
+    poster={thumbnail}
   ></mux-player>
 </div>
 
