@@ -81,7 +81,7 @@ const featuredCaseStudies = preferredOrder
           set:html={homepageData.heroTitle
             .replace(/\.$/, '')
             .replace(
-              /\b(UX Design Lead|Product Strategist|Educator|Researcher|Austin)\b/g,
+              /\b(complex products simple|millions of people)\b/g,
               "<strong>$1</strong>",
             ) + '<span class="accent-period">.</span>'}
         />
@@ -170,10 +170,7 @@ const featuredCaseStudies = preferredOrder
         />
       </div>
 
-      <div
-        class="post-content inner-small"
-        style="margin-bottom:64px;margin-top:64px;"
-      >
+      <div class="post-content inner-small about-body">
         <h3>{homepageData.about.heading}</h3>
         <div
           set:html={homepageData.about.content

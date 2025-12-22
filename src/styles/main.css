@@ -1,3 +1,7 @@
+.case-studies-page #case-studies {
+  margin-top: 0;
+  padding-top:0;
+}
 /**
  * Font Loading Optimization
  * ----------------------------------------------------------------------------
@@ -228,6 +232,9 @@ button:focus-visible {
   
   /* Special */
   --highlight-bg: #fff493;
+
+  /* Brand Accents */
+  --slate-accent: #6b7280;
   
   /* ===========================================
      SEMANTIC COLOR TOKENS - Light Theme
@@ -276,7 +283,7 @@ button:focus-visible {
   /* Utility */
   --scroll-fade: linear-gradient(to right, transparent, rgba(0,0,0,0.08));
   --table-stripe: rgba(0,0,0,0.03);
-  --logo-color: var(--blue-500);
+  --logo-color: var(--slate-accent);
 }
 
 /* ===========================================
@@ -1022,9 +1029,18 @@ html[data-theme="dark"] .post-subtitle { color: var(--color-text-muted); }
 }
 
 .block .post-feed,
-.block .portfolio-feed {
-  margin-bottom: 0;
+.block .portfolio-block {
+  background: transparent;
   padding-bottom: 0;
+}
+
+#case-studies,
+.about.block,
+.testimonials-section {
+  margin-top: calc(var(--space-2xl) * 1.5);
+}
+
+.portfolio-block .block-header {
   padding-top: 0;
 }
 
@@ -1801,6 +1817,16 @@ html[data-theme="dark"] .table-wrapper.striped .modern-table tbody tr:nth-child(
   box-shadow: var(--shadow-sm);
 }
 
+.case-testimonial {
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-none);
+  padding: var(--space-xl) var(--space-2xl);
+  box-shadow: none;
+  position: relative;
+  margin: 0;
+}
+
 @media (max-width: 480px) {
   .quote-card {
     padding: 1.25rem;
@@ -2063,7 +2089,20 @@ html[data-theme="dark"] .site-footer {
  * ----------------------------------------------------------------------------
  */
 .logos-outer {
-  margin: 40px auto 0;
+  margin: var(--space-2xl) auto 0;
+}
+
+.about.block .post-thumbnail {
+  margin-bottom: 0;
+}
+
+.about-body {
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.about.block .logos-outer {
+  margin-top: 0;
 }
 
 .logos-container {
@@ -2072,8 +2111,11 @@ html[data-theme="dark"] .site-footer {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin: 0 auto 3.3em;
+  max-width: 960px;
+  margin: 0 auto var(--space-2xl);
 }
+
+
 
 .logo {
   display: flex;
@@ -2084,10 +2126,11 @@ html[data-theme="dark"] .site-footer {
   color: var(--logo-color);
 }
 
+.logo svg,
 .logo img {
   max-width: 100%;
-  height: auto;
   width: 100%;
+  height: auto;
   object-fit: contain;
 }
 
@@ -2100,14 +2143,17 @@ html[data-theme="dark"] .site-footer {
   max-width: 800px;
 }
 
-.case-testimonial {
-  background-color: transparent;
-  border: 1px solid var(--color-border);
+.case-testimonial-list {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.testimonial {
+  border: none;
   border-radius: var(--radius-none);
-  padding: 2rem;
-  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl) var(--space-2xl);
+  box-shadow: none;
   position: relative;
-  border-left: 4px solid var(--color-accent);
   margin: 0;
 }
 

@@ -1,5 +1,5 @@
 {
-  "heroTitle": "I'm a UX Design Lead, Researcher, and Product Strategist working in Austin.",
+  "heroTitle": "I make complex products simple for the millions of people who use them.",
   "methodology": {
     "title": "My methodology",
     "skills": [
@@ -28,8 +28,7 @@
   },
   "about": {
     "title": "Who I am",
-    "heading": "I design meaningful products that have real impact.",
-    "content": "For over 15 years I've had the privilege to serve tens of millions of users, collaborating with diverse cross-functional teams and executive leadership to identify and solve complex problems. I've led design initiatives for top brands like Indeed, AXS, and LegalZoom, and thrive at the intersection of business and design.\n\nAs an instructor and the Assistant Managing Director at the [Austin Center for Design (AC4D)](http://ac4d.com), I strive to empower the next generation of designers to tackle complex societal challenges with creativity and autonomy. Additionally, I serve on the [Media & Design Advisory Board](https://sopa.tulane.edu/about-sopa/advisory-boards/media-design-advisory-board) for Tulane University's School of Professional Advancement, helping to refine and shape a design curriculum that meets the constantly evolving needs of the field.\n\n**Let's build something!**",
+    "content": "I've spent my career focused on one problem: **making complex systems feel simple**. Recruiters finding candidates. Fans getting into venues. People starting their first business. I care about products that work for **real people at real scale**.\n\nI also **love to teach**. At the [Austin Center for Design](http://ac4d.com) I help designers learn to navigate ambiguity and ship work that matters. I serve on the [Media & Design Advisory Board](https://sopa.tulane.edu/about-sopa/advisory-boards/media-design-advisory-board) at the Tulane School of Professional Advancement and work to keep curricula grounded in real practice.\n\nOutside of work, I'm probably at a concert. [Say hi](mailto:josh@joshux.com).",
     "bannerImage": "/images/banner-portraits.png",
     "bannerImageAlt": "Collage of Josh Wright mentoring design teams and presenting case studies"
   }
