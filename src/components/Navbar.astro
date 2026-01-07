@@ -49,12 +49,12 @@ const { current, useSvgLogo = false } = Astro.props;
             <li class={`menu-item ${current === 'about' ? 'current-menu-item' : ''}`}>
               <a href="/#about">About</a>
             </li>
-            <li class={`menu-item ${current === 'testimonials' ? 'current-menu-item' : ''}`}>
+            <!-- <li class={`menu-item ${current === 'testimonials' ? 'current-menu-item' : ''}`}>
               <a href="/#testimonials">Testimonials</a>
+            </li> -->
+            <li class="menu-item">
+              <a href="/joshwright-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="#">Resume</a>
-            </li>  -->
             <li class="menu-item">
               <a href="mailto:josh@joshux.com">Contact</a>
             </li>

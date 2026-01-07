@@ -1,0 +1,4 @@
+# Prevent search engines from indexing the resume PDF
+/joshwright-resume.pdf
+  X-Robots-Tag: noindex, nofollow
+
