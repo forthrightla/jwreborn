@@ -11,7 +11,7 @@ const { title, currentNav, description, image, type = 'website', useSvgLogo = tr
 
 // Default meta values
 const defaultDescription = "Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes.";
-const defaultImage = "/images/jw-logomark-filled.svg";
+const defaultImage = "/images/banner-portraits.png";
 const siteUrl = "https://joshux.com";
 const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
 const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}${defaultImage}`;
@@ -61,7 +61,7 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 				"jobTitle": "UX Designer, Product Strategist, Educator",
 				"description": defaultDescription,
 				"url": siteUrl,
-				"image": `${siteUrl}/images/jw-logomark-filled.svg`,
+				"image": `${siteUrl}/images/banner-portraits.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/joshuajwright/"
 				],
