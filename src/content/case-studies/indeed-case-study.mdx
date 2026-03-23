@@ -1,36 +1,34 @@
 ---
-title: "Boosting hiring outcomes by 29% for the world's largest job site"
+title: "Increasing recruiter success by 29% across millions of searches"
 client: "Indeed"
-extraImage: "/images/smart-sourcing-ui.png"
-extraImageAlt: "Indeed recruiter search interface"
+extraImage: "/images/screenshot-indeed.png"
+extraImageAlt: "Indeed natural language search interface"
 extraImageWidth: "100%"
-thumbnail: "/images/block-omni.png"
-banner: "/images/case-studies/omni-banner.png"
+thumbnail: "/images/block-indeed.png"
+banner: "/images/case-studies/banner-indeed.png"
 tags: ["Product Strategy"]
 featured: true
-hidden: true
-highlight: "Boosting hiring outcomes by 29% for the world's largest job site"
+highlight: "Increasing recruiter success by 29% across millions of searches"
 logo: "/images/logo-indeed.svg"
-goal: "Simplify the recruiter search experience to improve hiring outcomes"
+goal: "Make recruiters trust automated recommendations by redesigning the search experience"
 responsibilities: "UX strategy, Product design, Customer research"
 duration: "6 months"
+accentColor: "#2164f3"
+heroWashColor: "180, 160, 140"
 ---
 
 import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
 import ProjectDetails from '../../components/ProjectDetails.astro';
 import FeaturedQuote from "../../components/FeaturedQuote.astro";
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
 
 ## Summary
 
-Indeed's recruiter search tool had a confusing split: employers had to choose between AI-recommended candidates or running their own keyword search. This forced choice created friction and led to worse hiring outcomes.
+Indeed's recruiter search tool forced recruiters to choose between system-recommended candidates and keyword search. Recruiters overwhelmingly chose keywords, clicking past the recommendations tab on every visit. Despite being the default, it drove just 10% of resume views.
 
-I led a redesign that unified both approaches into a single search experience. Instead of forcing recruiters to pick a lane, they could now combine job context with keywords in one place. The simplified experience led to a **29% increase in jobs receiving positive candidate responses**.
+I led a redesign that unified both approaches into a single search experience. Instead of asking recruiters to trust an opaque matching system, I made it invisible. The result: a **29% increase in jobs receiving positive candidate responses**.
 
-Just as important: the new interface created a foundation for AI-powered features. By building trust through transparency (showing recruiters exactly how their inputs shaped results), we prepared users to embrace more automated workflows in the future.
-
-*A "positive connection" is when a candidate responds favorably to a recruiter's outreach. It's the key metric for successful recruiting on Indeed.*
-
-<EnhancedOutcomeGrid 
+<EnhancedOutcomeGrid
   outcomes={[
     {
       stat: "+29%",
@@ -39,63 +37,8 @@ Just as important: the new interface created a foundation for AI-powered feature
       shimmer: true
     },
     {
-      stat: "+10.6%",
-      description: "increase in positive response rate",
-      colorClass: "primary",
-      shimmer: true
-    }
-  ]}
-  columns={2}
-  animateOnScroll={false}
-/>
-
-<FeaturedQuote
-              quote="This is more streamlined, I like this more. It's delightful!"
-              authorName="Nathan Srulowitz"
-              authorTitle="Indeed Recruiter"
-              authorImage="/images/portrait-nathan.jpeg"
-            />
-
-
-## Background
-
-### The challenge
-
-Indeed's recruiter search tool helps employers find candidates for their open jobs. But the experience forced a confusing choice: two separate tabs, one for AI-recommended candidates and one for keyword search.
-
-[image showing the legacy two-tab interface with Matched Candidates and Search tabs]
-
-The problems were clear:
-- Recruiters had to pick between AI recommendations OR manual search, not both
-- The AI tab was the default, but it auto-selected a random job on load, showing irrelevant candidates
-- A huge number of recruiters clicked past the AI tab to keyword search every single time. That extra click added up across millions of searches.
-- Five input fields across two tabs created unnecessary cognitive load
-- Despite being the default, the AI tab drove just 10% of resume views. Recruiters didn't trust it.
-
-### How we got here
-
-The split experience was originally a technical compromise. We couldn't merge the two result types, so we separated them. But the workaround became permanent, and recruiters were paying the price.
-
-### My role
-
-I led UX strategy and design for this initiative, partnering with product management and engineering to define the vision and ship the solution. I also handled stakeholder alignment, helping leadership understand why certain metrics would shift as we changed user behavior. Throughout the project, I mentored junior designers on the team, helping them develop their research and stakeholder communication skills.
-
-## Discovery
-
-### Comparing the experiences
-
-I mapped out the friction points in the existing experience against what a unified model could look like.
-
-<EnhancedOutcomeGrid 
-  outcomes={[
-    {
-      stat: "Before",
-      description: "2 tabs with 5 input fields. AI matches OR keyword search. Random job selected for you.",
-      colorClass: "muted"
-    },
-    {
-      stat: "After",
-      description: "1 search bar with 2 inputs. AI and keywords together. You choose your job.",
+      description: "Built the foundation for natural language, LLM-powered search",
+      variant: "text-only",
       colorClass: "primary"
     }
   ]}
@@ -103,46 +46,119 @@ I mapped out the friction points in the existing experience against what a unifi
   animateOnScroll={false}
 />
 
-We were forcing a choice that didn't need to exist. Recruiters should be able to use job context AND keywords in the same search.
+<FeaturedQuote
+  quote="Josh's willingness and enthusiasm to go deep on an incredibly specific user interaction, and his discipline in using user research to (in)validate our intuitions consistently transformed ho-hum experiences into unusually well thought-out ones. He's a talented researcher, artfully pulling insights from synchronous and asynchronous user sessions that he himself sets up."
+  authorName="Ben Phillips"
+  authorTitle="Senior Product Manager at Indeed"
+  authorImage="/images/portrait-ben.jpeg"
+/>
 
+## Background
+
+### The challenge
+
+The experience forced a confusing choice: two separate tabs, one for system-recommended candidates ("Matched Candidates") and one for keyword search.
+
+{/* TODO: Replace with real screenshot of legacy two-tab interface */}
+![The legacy two-tab interface showing Matched Candidates and Search tabs](/images/case-studies/indeed-matchedcandidates.png)
+
+The matching algorithm wasn't bad. It was opaque. Recruiters couldn't see where candidates came from or why they were being shown. The system auto-selected a random job on load, so the recommendations often felt irrelevant. Meanwhile, recruiters had spent years honing their own Boolean search strategies. They trusted keywords because they could see the cause and effect: *I typed this, I got that.* The matching tab offered no such legibility.
+
+The organizational assumption was "if we make it the default, people will use it." The data proved otherwise. Despite being the default tab, matched candidates drove just 10% of resume views. Millions of recruiters were clicking past it every single visit. The split was originally a technical compromise that became permanent, and recruiters were paying the price.
+
+<EnhancedOutcomeGrid
+  outcomes={[
+    {
+      stat: "10%",
+      description: "of resume views came from system recommendations despite being the default experience",
+      colorClass: "muted"
+    }
+  ]}
+  columns={1}
+  animateOnScroll={false}
+/>
+
+### My role
+
+I led UX strategy and design for this initiative, partnering with product management and engineering to define the vision and ship the solution. I also led stakeholder alignment, helping leadership understand why certain metrics would shift as we fundamentally changed user behavior.
+
+## Discovery
+
+Rather than starting with solutions, I dug into the behavioral data to understand *why* the current experience was failing. I combined analytics analysis with direct recruiter observation and interviews.
+
+[ BEHAVIORAL DATA VISUALIZATION ]
+{/* TODO: Replace with research artifact or behavioral data visualization */}
+{/* ![Behavioral data showing recruiter click patterns bypassing the matching tab](/images/case-studies/indeed-research-data.png) */}
+
+Recruiters weren't against getting help finding candidates. They were against not understanding where those candidates came from. This reframed the problem from feature adoption to trust, and it meant the fix wasn't to explain the algorithm better. It was to stop making recruiters think about it at all.
+
+<EnhancedOutcomeGrid
+  outcomes={[
+    {
+      stat: "Before",
+      description: "2 tabs with 5 input fields. Matched candidates OR keyword search. Random job selected for you.",
+      colorClass: "muted"
+    },
+    {
+      stat: "After",
+      description: "1 search bar with 2 inputs. Matching and keywords together. You choose your job.",
+      colorClass: "primary"
+    }
+  ]}
+  columns={2}
+  animateOnScroll={false}
+/>
+
+## Design process
+
+### The gentle prompt pattern
+
+We needed recruiters to use the matching system, but we couldn't ask them to trust it. Years of opaque recommendations had eroded that trust. So instead of making the matching system a separate choice, I designed it as a natural consequence of the actions recruiters already wanted to take.
+
+The first thing recruiters see in the new experience is a prompt to "add your job." But it's a suggestion, not a requirement. If they skip it, the typeahead suggests their open jobs before keyword suggestions. This means job context gets attached naturally during search, without forcing anyone.
+
+![Unified search introduction](/images/case-studies/indeed-searchexamples.png)
+
+The critical nuance: when a recruiter attaches a job, the system quietly blends matched candidates into the keyword results. The recruiter doesn't see a separate "recommended" section. They just see better candidates. Over time, they learn through their own experience that searches with a job attached produce better results.
+
+
+### The visual builder pattern
+
+Jobs appear as pills in the search bar, making it easy to add or remove context. This pattern felt immediately familiar to recruiters (similar to email address fields) and created a clear visual connection between inputs and results. It also scaled well for future features. We could add other context types like skills, location, or experience level using the same pill pattern.
+
+### Getting buy-in
+
+The hardest part of this project wasn't the design. It was convincing stakeholders that the best way to increase adoption of the matching system was to stop showcasing it. The engineering team had invested years in the algorithm, and removing its dedicated tab felt like a step backward. Leadership worried that engagement with matched candidates would drop even further.
+
+The 10% stat did the heavy lifting. It was hard to argue that the current approach was working when 90% of recruiters were ignoring it. Once the team saw the behavioral data, they aligned on the approach: we weren't removing the matching algorithm. We were removing the barrier to its adoption.
 
 ## Solution
 
-### One search, not two
+### How it worked
 
-We replaced the two-tab system with a single search interface. Recruiters can now add job context, keywords, or both in one place.
+We replaced the two-tab system with a single search interface. Recruiters can now add job context, keywords, or both in one place. The system blends matched and keyword results together.
 
-[image showing the new unified search interface with job pill and keyword input]
+![The new unified search interface showing job pill and keyword input with blended results](/images/case-studies/indeed-omni.png)
 
-The key design decisions:
+When recruiters attached a job to their search, the system used that job's requirements to surface matched candidates *alongside* their keyword results. But it didn't label them as "recommended by our algorithm." They just appeared as relevant candidates.
 
-**Gentle prompts, not forced choices.** The first thing recruiters see is a prompt to "add your job." If they skip it, the typeahead suggests their jobs before keyword suggestions. This prioritizes job context without blocking anyone.
+Recruiters noticed that searches with a job attached consistently produced better candidates, and they started attaching jobs more frequently on their own. They built trust in the matching system through their own experience, without us ever asking them to.
 
-**Visual builder pattern.** Jobs appear as pills in the search bar, making it easy to add or remove context. This pattern felt familiar to recruiters and scaled well for future features.
+### Designing for the future of search
 
-[image showing the search bar with job pill and how results update]
+I also designed the unified search as scaffolding for natural language search.
 
-### Building toward AI-powered recruiting
+The old two-tab system locked recruiters into Boolean queries and rigid keyword fields. The new unified interface, with its visual builder pattern and contextual job pills, was built to evolve. The same search bar that today accepts keywords and job context could tomorrow accept a plain English query like "senior React engineer in Austin with healthcare experience." The structure was already there.
 
-The unified search wasn't just about simplification. It was a foundation for the future.
+Recruiter search was clearly heading toward more conversational, LLM-powered interactions. I wanted to make sure the interface we shipped today wouldn't need to be torn down and rebuilt when that future arrived.
 
-The old two-tab design forced a hard split between "trust our AI" and "do it yourself." Recruiters who chose keyword search were completely opting out of AI assistance. The new design lets AI and human intent work together: recruiters can add a job for context, refine with keywords, and see how both inputs shape their results.
-
-This transparency builds trust. And trust is essential for where recruiting is headed. As AI gets better at matching candidates to jobs, recruiters need to feel like partners, not passengers. The visual builder pattern we introduced scales naturally toward more AI-assisted workflows.
+![Natural language search](/images/case-studies/indeed-omnifuture.png)
 
 ## Results
 
-By removing the forced choice, we saw improvements across the funnel. More recruiters reached out to candidates, and more candidates responded positively. And we created a platform ready for AI-powered features rather than fighting against them.
+By removing the forced choice and making the matching invisible, we saw improvements across the entire recruiting funnel.
 
-### User feedback
-
-Recruiters noticed the simplification:
-
-* "There's nothing I miss from the old experience. I like the UI, I like how it looks and feels."
-* "The changes are definitely an improvement. It's a lot more streamlined."
-
-### Outcomes
-<EnhancedOutcomeGrid 
+<EnhancedOutcomeGrid
   outcomes={[
     {
       stat: "+29%",
@@ -151,12 +167,21 @@ Recruiters noticed the simplification:
       shimmer: true
     },
     {
-      stat: "+10.6%",
-      description: "increase in positive response rate",
-      colorClass: "primary",
-      shimmer: true
+      description: "Built the foundation for natural language, LLM-powered search",
+      variant: "text-only",
+      colorClass: "primary"
     }
   ]}
   columns={2}
   animateOnScroll={false}
 />
+
+The increase in positive connections, particularly for searches with a job attached, showed that recruiters were discovering the value of the matching system through their own experience. They weren't told the algorithm was better. They saw it for themselves.
+
+### What recruiters said
+
+* "The changes are definitely an improvement. It's a lot more streamlined."
+
+### What I learned
+
+Every time we put the matching algorithm in a separate tab or tried to explain why it was better, we were reminding users that they were supposed to trust something they didn't understand. When we made the matching just another part of the results, recruiters formed their own positive associations through experience. Sometimes the best way to build trust in a system is to stop asking for it.
