@@ -58,7 +58,7 @@ const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
 
 // Create a map of case studies by slug for quick lookup
 const caseStudiesBySlug = Object.fromEntries(
-  visibleCaseStudies.map((study) => [study.slug, study]),
+  visibleCaseStudies.map((study) => [study.id, study]),
 );
 
 // Get case studies in preferred order, falling back to any remaining featured ones
@@ -129,7 +129,7 @@ const featuredCaseStudies = preferredOrder
             {
               featuredCaseStudies.map((study) => (
                 <Card
-                  href={`/work/${study.slug}`}
+                  href={`/work/${study.id}`}
                   title={study.data.title}
                   img={study.data.thumbnail}
                   isPasswordProtected={!!study.data.password}

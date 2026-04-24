@@ -1,8 +1,9 @@
-// src/content.config.ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const caseStudiesCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/case-studies' }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string().optional(),
@@ -21,19 +22,26 @@ const caseStudiesCollection = defineCollection({
     extraImageHeight: z.string().optional(),
     extraImageWidth: z.string().optional(),
     extraImageFullWidth: z.boolean().optional(),
-    // Project details for hero section
     goal: z.string().optional(),
     responsibilities: z.string().optional(),
     duration: z.string().optional(),
-    // Custom accent color for the case study
     accentColor: z.string().optional(),
-    // Hero wash color (RGB values) for soft gradient below image
     heroWashColor: z.string().optional(),
-    // Toggle hero wash on/off (defaults to true if heroWashColor is set)
     showHeroWash: z.boolean().optional()
+  }),
+});
+
+const writingCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/writing' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    description: z.string(),
+    heroImage: z.string().optional(),
   }),
 });
 
 export const collections = {
   'case-studies': caseStudiesCollection,
+  'writing': writingCollection,
 };

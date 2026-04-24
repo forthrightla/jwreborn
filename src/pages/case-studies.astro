@@ -22,11 +22,11 @@ const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
 const preferredOrderMap = new Map(preferredOrder.map((slug, index) => [slug, index]));
 
 const caseStudies = visibleCaseStudies.sort((a, b) => {
-  const indexA = preferredOrderMap.has(a.slug)
-    ? preferredOrderMap.get(a.slug)
+  const indexA = preferredOrderMap.has(a.id)
+    ? preferredOrderMap.get(a.id)
     : preferredOrder.length;
-  const indexB = preferredOrderMap.has(b.slug)
-    ? preferredOrderMap.get(b.slug)
+  const indexB = preferredOrderMap.has(b.id)
+    ? preferredOrderMap.get(b.id)
     : preferredOrder.length;
 
   if (indexA !== indexB) {
@@ -41,7 +41,7 @@ const caseStudies = visibleCaseStudies.sort((a, b) => {
 ---
 
 <Layout
-  title="Josh Wright - Case Studies | UX Design & Product Strategy"
+  title="Case Studies - Josh Wright"
   currentNav="case-studies"
   description="Explore case studies showcasing UX design, product strategy, and user research work across mobile apps, enterprise software, and consumer products."
 >
@@ -61,7 +61,7 @@ const caseStudies = visibleCaseStudies.sort((a, b) => {
           <div class="portfolio-feed">
             {caseStudies.map((study) => (
               <SimplifiedCard
-                href={`/work/${study.slug}`}
+                href={`/work/${study.id}`}
                 title={study.data.title}
                 img={study.data.thumbnail}
                 client={study.data.client}

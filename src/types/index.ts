@@ -1,7 +1,7 @@
 // Core types for Josh Wright's portfolio site
 
 export interface CaseStudy {
-  slug: string;
+  id: string;
   data: CaseStudyData;
   body?: string;
 }

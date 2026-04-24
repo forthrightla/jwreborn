@@ -1016,6 +1016,291 @@ html[data-theme="dark"] .post-subtitle { color: var(--color-text-muted); }
 }
 
 /**
+ * Prose Styles (for blog/article content)
+ * ----------------------------------------------------------------------------
+ * These styles apply to rendered markdown content within .post-content
+ */
+
+/* Lists - bulleted */
+.post-content ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-lg) 0;
+}
+
+.post-content ul li {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-sm);
+  line-height: 1.7;
+}
+
+.post-content ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+/* Lists - numbered */
+.post-content ol {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-lg) 0;
+  counter-reset: ol-counter;
+}
+
+.post-content ol li {
+  position: relative;
+  padding-left: var(--space-xl);
+  margin-bottom: var(--space-sm);
+  line-height: 1.7;
+  counter-increment: ol-counter;
+}
+
+.post-content ol li::before {
+  content: counter(ol-counter) ".";
+  position: absolute;
+  left: 0;
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+}
+
+/* Nested lists */
+.post-content ul ul,
+.post-content ol ol,
+.post-content ul ol,
+.post-content ol ul {
+  margin: var(--space-sm) 0;
+}
+
+.post-content ul ul li::before {
+  background: var(--color-text-muted);
+  width: 4px;
+  height: 4px;
+}
+
+/* Native blockquotes in markdown */
+.post-content > blockquote {
+  position: relative;
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg) var(--space-xl);
+  padding-left: var(--space-xl);
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-none);
+}
+
+.post-content > blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-base);
+  font-size: 2.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--color-accent);
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.post-content > blockquote p {
+  padding-left: var(--space-lg);
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-style: italic;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.post-content > blockquote p + p {
+  margin-top: var(--space-base);
+}
+
+/* Native code blocks in markdown */
+.post-content pre {
+  margin: var(--space-xl) 0;
+  padding: var(--space-base);
+  background: var(--color-surface);
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.post-content pre code {
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: none;
+  padding: 0;
+}
+
+/* Inline code */
+.post-content code {
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--color-surface);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+}
+
+/* Headings in content */
+.post-content h2 {
+  font-size: var(--text-xl);
+  margin-top: var(--space-3xl);
+  margin-bottom: var(--space-lg);
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.post-content h3 {
+  font-size: var(--text-lg);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-base);
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.post-content h4 {
+  font-size: var(--text-base);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Paragraphs */
+.post-content p {
+  margin-bottom: var(--space-lg);
+  line-height: 1.75;
+}
+
+/* Horizontal rules */
+.post-content hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-2xl) 0;
+}
+
+/* Links */
+.post-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+
+.post-content a:hover {
+  color: var(--color-accent-dark);
+}
+
+/* Strong/Bold */
+.post-content strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Images in markdown */
+.post-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: var(--space-xl) 0;
+  border-radius: var(--radius-sm);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .post-content pre {
+  background: var(--gray-900);
+  border-color: var(--gray-700);
+}
+
+[data-theme="dark"] .post-content pre code {
+  color: var(--gray-100);
+}
+
+[data-theme="dark"] .post-content code {
+  background: var(--gray-800);
+  color: var(--gray-100);
+}
+
+[data-theme="dark"] .post-content > blockquote {
+  background: var(--color-surface);
+}
+
+/* Responsive prose styles */
+@media (max-width: 768px) {
+  .post-content h2 {
+    font-size: var(--text-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  .post-content h3 {
+    font-size: var(--text-base);
+    margin-top: var(--space-xl);
+  }
+
+  .post-content > blockquote {
+    margin: var(--space-lg) 0;
+    padding: var(--space-base) var(--space-lg);
+  }
+
+  .post-content > blockquote::before {
+    font-size: 2rem;
+    left: var(--space-sm);
+  }
+
+  .post-content > blockquote p {
+    padding-left: var(--space-base);
+  }
+
+  .post-content pre {
+    margin: var(--space-lg) 0;
+    padding: var(--space-sm);
+  }
+
+  .post-content pre code {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-content > blockquote {
+    padding: var(--space-sm) var(--space-base);
+  }
+
+  .post-content > blockquote::before {
+    display: none;
+  }
+
+  .post-content > blockquote p {
+    padding-left: 0;
+    font-size: var(--text-xs);
+  }
+
+  .post-content ul li,
+  .post-content ol li {
+    padding-left: var(--space-base);
+  }
+
+  .post-content ol li::before {
+    font-size: var(--text-xs);
+  }
+}
+
+/**
  * Block and Section Styles
  * ----------------------------------------------------------------------------
  */

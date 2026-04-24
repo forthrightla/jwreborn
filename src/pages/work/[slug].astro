@@ -1,6 +1,6 @@
 ---
 // src/pages/work/[slug].astro - cleaned up version
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import SimplifiedCard from '../../components/SimplifiedCard.astro';
 
@@ -9,22 +9,22 @@ import SimplifiedCard from '../../components/SimplifiedCard.astro';
 export async function getStaticPaths() {
   const caseStudies = await getCollection('case-studies');
   return caseStudies.map(entry => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Get other case studies for "Other case studies" section
 const recommendedSlugs = ['axs-event-entry-case-study', 'cerebral-case-study'];
 
 // If we're currently on AXS or Cerebral, swap it out for Ribbon
 let finalRecommendations = [];
-if (entry.slug === 'axs-event-entry-case-study') {
+if (entry.id === 'axs-event-entry-case-study') {
   finalRecommendations = ['cerebral-case-study', 'ribbon-legalzoom-case-study'];
-} else if (entry.slug === 'cerebral-case-study') {
+} else if (entry.id === 'cerebral-case-study') {
   finalRecommendations = ['axs-event-entry-case-study', 'ribbon-legalzoom-case-study'];
 } else {
   // For all other case studies, show AXS and Cerebral
@@ -34,7 +34,7 @@ if (entry.slug === 'axs-event-entry-case-study') {
 // Get the case studies by slug
 const allCaseStudies = await getCollection('case-studies');
 const recommendedCaseStudies = finalRecommendations
-  .map(slug => allCaseStudies.find(study => study.slug === slug))
+  .map(slug => allCaseStudies.find(study => study.id === slug))
   .filter(study => study); // Filter out any undefined entries
 
 // Check if this case study requires a password
@@ -45,7 +45,7 @@ const isHidden = !!entry.data.hidden;
 ---
 
 <Layout
-  title={`Josh Wright - ${entry.data.title}`}
+  title={`${entry.data.title} - Josh Wright`}
   currentNav="case-studies"
   description={entry.data.subtitle}
   image={entry.data.thumbnail}
@@ -185,7 +185,7 @@ const isHidden = !!entry.data.hidden;
               <div class="portfolio-feed">
                 {recommendedCaseStudies.map(caseStudy => (
                   <SimplifiedCard
-                    href={`/work/${caseStudy.slug}`}
+                    href={`/work/${caseStudy.id}`}
                     title={caseStudy.data.title}
                     img={caseStudy.data.thumbnail}
                     client={caseStudy.data.client}
