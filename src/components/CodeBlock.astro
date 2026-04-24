@@ -1,0 +1,193 @@
+---
+/**
+ * CodeBlock Component
+ *
+ * Styled monospace code block with one-click copy button.
+ * No syntax highlighting - clean presentation only.
+ *
+ * Usage in MDX:
+ *   <CodeBlock>
+ *     const greeting = "Hello, world!";
+ *     console.log(greeting);
+ *   </CodeBlock>
+ *
+ * With language label:
+ *   <CodeBlock lang="javascript">
+ *     function add(a, b) {
+ *       return a + b;
+ *     }
+ *   </CodeBlock>
+ */
+
+interface Props {
+  lang?: string;
+}
+
+const { lang } = Astro.props;
+---
+
+<div class="code-block">
+  <div class="code-block-header">
+    {lang && <span class="code-block-lang">{lang}</span>}
+    <button class="code-block-copy" type="button" aria-label="Copy code to clipboard">
+      <svg class="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M11 5V3.5C11 2.67 10.33 2 9.5 2H3.5C2.67 2 2 2.67 2 3.5V9.5C2 10.33 2.67 11 3.5 11H5" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display: none;">
+        <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="copy-text">Copy</span>
+    </button>
+  </div>
+  <pre class="code-block-pre"><code class="code-block-code"><slot /></code></pre>
+</div>
+
+<style>
+  .code-block {
+    margin: var(--space-xl) 0;
+    background: var(--color-surface);
+    border: var(--border-default);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-base);
+    background: var(--color-surface-alt);
+    border-bottom: var(--border-default);
+  }
+
+  .code-block-lang {
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .code-block-copy {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-xs);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .code-block-copy:hover {
+    color: var(--color-text);
+    background: var(--color-border);
+  }
+
+  .code-block-copy.copied {
+    color: var(--green-500);
+  }
+
+  .code-block-pre {
+    margin: 0;
+    padding: var(--space-base);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .code-block-code {
+    font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    white-space: pre;
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) .code-block {
+    background: var(--gray-900);
+    border-color: var(--gray-700);
+  }
+
+  :global([data-theme="dark"]) .code-block-header {
+    background: var(--gray-800);
+    border-color: var(--gray-700);
+  }
+
+  :global([data-theme="dark"]) .code-block-code {
+    color: var(--gray-100);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .code-block {
+      margin: var(--space-lg) 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .code-block-pre {
+      padding: var(--space-sm);
+    }
+
+    .code-block-code {
+      font-size: 0.85rem;
+    }
+
+    .copy-text {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Copy functionality
+  document.addEventListener('DOMContentLoaded', initCopyButtons);
+  document.addEventListener('astro:page-load', initCopyButtons);
+
+  function initCopyButtons() {
+    const copyButtons = document.querySelectorAll('.code-block-copy');
+
+    copyButtons.forEach((button) => {
+      // Skip if already initialized
+      if (button.dataset.initialized) return;
+      button.dataset.initialized = 'true';
+
+      button.addEventListener('click', async () => {
+        const codeBlock = button.closest('.code-block');
+        const code = codeBlock?.querySelector('.code-block-code');
+
+        if (!code) return;
+
+        try {
+          await navigator.clipboard.writeText(code.textContent || '');
+
+          // Show success state
+          const copyIcon = button.querySelector('.copy-icon') as HTMLElement;
+          const checkIcon = button.querySelector('.check-icon') as HTMLElement;
+          const copyText = button.querySelector('.copy-text');
+
+          if (copyIcon) copyIcon.style.display = 'none';
+          if (checkIcon) checkIcon.style.display = 'block';
+          if (copyText) copyText.textContent = 'Copied!';
+          button.classList.add('copied');
+
+          // Reset after 2 seconds
+          setTimeout(() => {
+            if (copyIcon) copyIcon.style.display = 'block';
+            if (checkIcon) checkIcon.style.display = 'none';
+            if (copyText) copyText.textContent = 'Copy';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  }
+</script>

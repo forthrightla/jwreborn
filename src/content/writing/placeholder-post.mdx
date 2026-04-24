@@ -1,0 +1,85 @@
+---
+title: "The Art of Deliberate Practice in Design"
+date: 2025-01-15
+description: "How structured repetition and feedback loops can accelerate skill development for designers at any level."
+heroImage: "/images/writing/placeholder-hero.jpg"
+---
+
+import Blockquote from '../../components/Blockquote.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Figure from '../../components/Figure.astro';
+
+## Why Most Designers Plateau
+
+The first few years of a design career feel like a rocket ship. Every project teaches something new. Every critique reveals blind spots. Growth feels automatic.
+
+Then, somewhere around year three or four, the curve flattens. You're competent. You ship work. But the dramatic leaps in ability slow to a crawl. This isn't inevitable—it's a signal that passive experience has stopped being enough.
+
+Deliberate practice offers a way forward. Unlike casual repetition, it requires focused attention on specific sub-skills, immediate feedback, and work at the edge of current ability.
+
+<Blockquote cite="Anders Ericsson">
+  The difference between an expert and a novice is not just time spent, but how that time is structured. Experts practice with intention; novices practice with hope.
+</Blockquote>
+
+## The Components of Deliberate Practice
+
+Applying this framework to design work requires breaking the craft into discrete, practicable elements:
+
+- **Visual hierarchy** — Can you guide the eye through a composition in a predictable sequence?
+- **Typography pairing** — Do your font combinations create appropriate contrast and harmony?
+- **Color relationships** — Can you build palettes that evoke specific emotional responses?
+- **Layout systems** — Do your grids create rhythm without feeling mechanical?
+- **Interaction patterns** — Are your micro-interactions enhancing or distracting from the core experience?
+
+Each of these can be isolated and drilled. A designer struggling with typography might spend two weeks doing nothing but pairing exercises—fifty combinations, critiqued against established principles, refined, repeated.
+
+<Figure
+  src="/images/case-studies/cerebral/cerebral-home-screens.png"
+  alt="Diagram showing the feedback loop of deliberate practice"
+  caption="Figure 1: The feedback loop of deliberate practice"
+/>
+
+## The Feedback Problem
+
+Design has a feedback problem. Unlike chess or music, where the quality of a move or note is immediately apparent, design feedback is often delayed, filtered through stakeholders, and confounded by factors outside the designer's control.
+
+This makes structured critique essential. Find peers who will be honest. Establish rubrics for evaluation. Record your predictions about how users will respond, then compare against actual behavior.
+
+Here's a simple example of tracking design decisions:
+
+<CodeBlock lang="javascript">
+{`// Track design hypothesis vs. actual user behavior
+const designExperiment = {
+  hypothesis: "Users will prefer the simplified navigation",
+  metric: "task_completion_rate",
+  baseline: 0.73,
+  target: 0.85,
+
+  measure: async function(variant) {
+    const results = await analytics.getMetric(this.metric, variant);
+    return results.value;
+  }
+};`}
+</CodeBlock>
+
+## A Numbered Approach
+
+When establishing your practice routine, follow these steps:
+
+1. **Identify your weakest sub-skill** — Be honest about where you struggle most
+2. **Design focused exercises** — Create drills that isolate that specific skill
+3. **Establish feedback loops** — Find ways to get immediate, actionable feedback
+4. **Track progress over time** — Measure improvement to stay motivated
+5. **Adjust and iterate** — Refine your approach based on what works
+
+## Starting Small
+
+You don't need to overhaul your entire practice. Start with one sub-skill. Spend fifteen minutes a day for two weeks. Track your progress. Adjust based on what you learn.
+
+> The compound effects of small, consistent efforts are remarkable. A year of deliberate practice—even in modest doses—can produce more growth than five years of passive experience.
+
+The plateau isn't permanent. It's an invitation to practice differently.
+
+---
+
+*This is a placeholder post demonstrating the blog's content formatting components.*

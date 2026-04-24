@@ -1,0 +1,292 @@
+---
+/**
+ * Blog Post Page
+ * Renders individual blog posts from the writing collection
+ * Follows patterns from case study pages for consistency
+ */
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// Generate static paths for all blog posts
+export async function getStaticPaths() {
+  const posts = await getCollection('writing');
+  return posts.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(entry);
+
+// Format date
+const formattedDate = entry.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Calculate reading time from word count
+// Average reading speed is ~200-250 words per minute
+const wordCount = entry.body.split(/\s+/).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 220));
+---
+
+<Layout
+  title={`${entry.data.title} - Josh Wright`}
+  currentNav="writing"
+  description={entry.data.description}
+  image={entry.data.heroImage}
+  type="article"
+>
+  <main id="content" class="site-content">
+    <div class="outer">
+      <div class="inner">
+        <article class="post post-full writing-post">
+          <!-- Breadcrumb navigation -->
+          <nav class="post-breadcrumb" aria-label="Breadcrumb">
+            <a href="/writing" class="breadcrumb-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Writing</span>
+            </a>
+          </nav>
+
+          <!-- Post header -->
+          <header class="post-header">
+            <div class="post-meta-group">
+              <time class="post-date" datetime={entry.data.date.toISOString()}>
+                {formattedDate}
+              </time>
+              <span class="post-meta-separator" aria-hidden="true">·</span>
+              <span class="post-reading-time">{readingTime} min read</span>
+            </div>
+            <h1 class="post-title">{entry.data.title}</h1>
+            {entry.data.description && (
+              <p class="post-subtitle">{entry.data.description}</p>
+            )}
+          </header>
+
+          <!-- Hero image -->
+          {entry.data.heroImage && (
+            <div class="post-hero">
+              <picture>
+                <source srcset={`${entry.data.heroImage}?format=avif`} type="image/avif" />
+                <source srcset={`${entry.data.heroImage}?format=webp`} type="image/webp" />
+                <img
+                  src={entry.data.heroImage}
+                  alt={entry.data.title}
+                  loading="eager"
+                />
+              </picture>
+            </div>
+          )}
+
+          <!-- Post content -->
+          <div class="post-content inner-small">
+            <Content />
+          </div>
+
+          <!-- Post footer -->
+          <footer class="post-footer inner-small">
+            <div class="post-footer-divider"></div>
+            <a href="/writing" class="back-to-writing">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back to all writing
+            </a>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* Breadcrumb navigation */
+  .post-breadcrumb {
+    padding-top: var(--space-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .breadcrumb-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--color-accent);
+  }
+
+  .breadcrumb-link svg {
+    flex-shrink: 0;
+  }
+
+  /* Post header */
+  .post-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .post-meta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-base);
+  }
+
+  .post-date,
+  .post-reading-time {
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .post-meta-separator {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+  .post-title {
+    font-size: var(--text-2xl);
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 var(--space-base);
+    color: var(--color-text);
+  }
+
+  .post-subtitle {
+    font-size: var(--text-base);
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Hero image */
+  .post-hero {
+    max-width: 960px;
+    margin: 0 auto var(--space-2xl);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .post-hero picture {
+    display: block;
+  }
+
+  .post-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Post content */
+  .post-content {
+    font-size: var(--text-sm);
+  }
+
+  /* Post footer */
+  .post-footer {
+    margin-top: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .post-footer-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin-bottom: var(--space-xl);
+  }
+
+  .back-to-writing {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .back-to-writing:hover {
+    color: var(--color-accent);
+  }
+
+  .back-to-writing svg {
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+  }
+
+  .back-to-writing:hover svg {
+    transform: translateX(-2px);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .post-breadcrumb {
+      padding-top: var(--space-lg);
+      margin-bottom: var(--space-base);
+    }
+
+    .post-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .post-title {
+      font-size: var(--text-xl);
+    }
+
+    .post-subtitle {
+      font-size: var(--text-sm);
+    }
+
+    .post-hero {
+      margin-bottom: var(--space-xl);
+      border-radius: var(--radius-sm);
+    }
+
+    .post-footer {
+      margin-top: var(--space-2xl);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .post-breadcrumb {
+      padding-top: var(--space-base);
+    }
+
+    .post-meta-group {
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .post-title {
+      font-size: var(--text-lg);
+    }
+
+    .post-footer {
+      margin-top: var(--space-xl);
+      padding-bottom: var(--space-xl);
+    }
+  }
+</style>

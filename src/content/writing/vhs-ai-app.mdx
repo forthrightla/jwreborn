@@ -1,0 +1,94 @@
+---
+title: "A VHS buy/skip rubric for swap meet speedruns"
+date: 2025-01-20
+description: "Designing a repeatable way to decide: buy, skip, or maybe, fast enough to use at the bin."
+heroImage: "/images/writing/vhs-hero.jpg"
+---
+
+import Figure from '../../components/Figure.astro';
+
+I collect VHS tapes. Enough that I needed a system. Mostly 80s and 90s cyberpunk, low-budget paranormal documentaries, and obscure music videos. The kind of stuff that never made it to DVD, let alone streaming.
+
+The problem with hunting for tapes is time. When you're crouched over a plastic bin at a flea market, vendor eyeing you, you don't have time to research every title. You either know what you're looking at or you don't. If you don't, you leave something great behind or go home with garbage.
+
+I wanted a repeatable way to make the call in seconds: buy, skip, or maybe. Not a product. Just a personal workflow I didn’t have to think about.
+
+<Figure
+  src="/images/writing/vhs-collection.jpg"
+  alt="Overhead shot of VHS tape collection spread across a table, showing variety of spine designs and distributor labels from the 80s and 90s"
+  caption="Part of the collection. The spines alone tell you a lot about era and distributor."
+/>
+
+## Codifying my taste
+
+First step was admitting my “taste” is mostly a handful of signals I respond to every time. I already track my collection in a spreadsheet: titles, distributors, release years, genres. I used an LLM as a pattern-finder, then translated the useful parts into a weighted rubric I could actually trust.
+
+What makes a tape feel like *my* tape?
+
+A few patterns were obvious in hindsight. I’m drawn to sci-fi where “cyber” appears in the title or someone jacks into a mainframe. I have a weakness for the specific optimism of 80s action: one man, one headband, all geopolitical problems solved. I also have a deep shelf of paranormal documentaries, mostly for the straight-faced low-budget reenactments presented by a British man surrounded by artificial fog. And then there are the concert tapes: moody British bands and 90s alternative acts who got exactly one MTV special.
+
+There’s a through-line: I gravitate towards things that felt like secrets when you found them at the video store.
+
+<Figure
+  src="/images/writing/vhs-chart.png"
+  alt="Screenshot of analysis output showing extracted patterns like distributor frequency, era clustering, and other signals used to build a scoring rubric"
+  caption="Enough repeatable signals to turn gut feel into a rubric."
+/>
+
+This became a taste profile: a set of weighted signals I can use to evaluate new tapes against my existing collection. This isn’t a universal recommendation engine. It’s a personal rubric with a camera.
+
+## The first attempt that didn’t work
+
+Before building anything, I tried the obvious thing. I dumped tape photos into ChatGPT alongside a condensed version of my taste profile, then asked it to tell me which ones to buy.
+
+It worked at first. Then it didn’t.
+
+After scanning maybe fifteen or twenty tapes in a session, the results started drifting. It would recommend tapes I’d already scanned earlier in the conversation. It would invent titles that didn’t exist. It would contradict its own criteria from a few messages back.
+
+Too much accumulates in the thread, and the model starts dropping constraints. The more I added, the worse it performed.
+
+That failure forced two decisions. The taste profile needed to live outside the chat so it could persist and evolve over time. And each new batch of tapes needed to be evaluated fresh, without the conversation carrying baggage from earlier scans.
+
+## The tool
+
+With that sorted, I put the workflow into a small iOS tool. Point it at a stack of tapes at a sale and it tells me which ones fit my collection and which ones to skip. Each scan is evaluated against the current profile, fresh every time.
+
+The interaction is simple. Snap a photo of a tape (or a stack of them), a vision model extracts details from the cover and spine, and the tool scores each tape against the profile. Green means buy. Red means skip. Yellow means it’s a judgment call.
+
+I optimized for swap meet reality: speed, trust, and consistency.
+
+Speed, because you have maybe ten minutes and weird lighting and someone is always hovering.
+
+Trust, because a score without a rationale is useless. The output includes a short “why” (what it detected and what it matched), so it feels less like a magic 8-ball and more like a repeatable call.
+
+Consistency, because the same tape should score roughly the same today and next weekend. If the tool isn’t confident, it says so.
+
+<Figure
+  src="/images/writing/vhs-screens.png"
+  alt="iPhone screen showing the interface: a photographed VHS tape with an overlay showing match score, detected distributor, and a recommended badge"
+  caption="In practice: a quick photo, a score, and a short rationale."
+/>
+
+It’s not perfect. Worn spines, glare, and hand-written price stickers still trip it up. But it’s reliable enough that I’ve stopped second-guessing myself at sales.
+
+## A small thing that mattered
+
+I’m not going to monetize this. It’s good enough for my specific use case, and that’s the point.
+
+What I wanted was simple: less second-guessing in the bin. “I’ll look it up later” usually means “I won’t.” This turns a quick photo into a consistent call.
+
+A few years ago I wouldn’t have built this. Now it’s feasible.
+
+<Figure
+  src="/images/writing/vhs-flea-market.jpg"
+  alt="Wide shot of an outdoor flea market with folding tables and bins of VHS tapes in the foreground"
+  caption="The natural habitat. Ten minutes goes fast."
+/>
+
+I’m still refining the profile. Every buy and pass adds another labeled example. The rubric keeps getting better at separating “interesting obscurity” from “forgotten for good reason.”
+
+---
+
+Found an excellent copy of *Prayer of the Rollerboys* the other weekend. Corey Haim on rollerblades in a post-apocalyptic LA, fighting a white supremacist gang that sells designer drugs.
+
+The tool flagged it immediately. That was an easy yes.

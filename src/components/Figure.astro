@@ -1,0 +1,137 @@
+---
+/**
+ * Figure Component
+ *
+ * Responsive image with optional caption. Uses the existing
+ * image handling patterns from ResponsiveImage.
+ *
+ * Usage in MDX:
+ *   <Figure
+ *     src="/images/diagram.png"
+ *     alt="System architecture diagram"
+ *   />
+ *
+ * With caption:
+ *   <Figure
+ *     src="/images/diagram.png"
+ *     alt="System architecture diagram"
+ *     caption="Figure 1: The feedback loop of deliberate practice"
+ *   />
+ *
+ * Full-width variant:
+ *   <Figure
+ *     src="/images/hero.png"
+ *     alt="Hero image"
+ *     caption="Photo by Jane Doe"
+ *     fullWidth
+ *   />
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  fullWidth?: boolean;
+}
+
+const { src, alt, caption, fullWidth = false } = Astro.props;
+---
+
+<figure class:list={["figure", { "figure--full-width": fullWidth }]}>
+  <div class="figure-image">
+    <picture>
+      <source srcset={`${src}?format=avif`} type="image/avif" />
+      <source srcset={`${src}?format=webp`} type="image/webp" />
+      <img src={src} alt={alt} loading="lazy" decoding="async" />
+    </picture>
+  </div>
+  {caption && (
+    <figcaption class="figure-caption">{caption}</figcaption>
+  )}
+</figure>
+
+<style>
+  .figure {
+    margin: var(--space-xl) 0;
+    padding: 0;
+  }
+
+  .figure-image {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .figure-image picture {
+    display: block;
+  }
+
+  .figure-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .figure-caption {
+    margin-top: var(--space-sm);
+    font-family: "Funnel Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Full-width variant - breaks out of content container */
+  .figure--full-width {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .figure--full-width .figure-image {
+    border-radius: 0;
+  }
+
+  .figure--full-width .figure-caption {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-base);
+    padding-right: var(--space-base);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .figure {
+      margin: var(--space-lg) 0;
+    }
+
+    /* Disable full-width on mobile */
+    .figure--full-width {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+      left: auto;
+      right: auto;
+    }
+
+    .figure--full-width .figure-image {
+      border-radius: var(--radius-sm);
+    }
+
+    .figure--full-width .figure-caption {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .figure-caption {
+      font-size: 0.8rem;
+    }
+  }
+</style>
