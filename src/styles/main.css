@@ -1052,7 +1052,7 @@ html[data-theme="dark"] .post-subtitle { color: var(--color-text-muted); }
   font-size: var(--text-xl);
   margin: 0;
   font-family: "IBM Plex Serif", serif;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 html[data-theme="dark"] .block-title { color: var(--color-text); }
