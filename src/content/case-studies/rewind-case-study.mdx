@@ -1,0 +1,307 @@
+---
+title: "Solo-building an AI thrifting tool that became a collection platform"
+client: "Rewind"
+thumbnail: "/images/block-rewind.png"
+banner: "/images/case-studies/banner-rewind.png"
+tags: ["0 → 1 Product Strategy"]
+featured: true
+highlight: "Solo-building an AI thrifting tool that became a collection platform"
+logo: "/images/logo-rewind.svg"
+goal: "Help physical media collectors make informed decisions with AI-powered taste intelligence"
+responsibilities: "Product strategy, UX design, Full-stack engineering, Data infrastructure, Community launch"
+duration: "10 weeks (concept to App Store)"
+extraImage: "/images/screenshot-rewind.png"
+extraImageAlt: "Rewind app screens"
+extraImageWidth: "100%"
+accentColor: "#00E5CC"
+showHeroWash: false
+---
+
+import EnhancedOutcomeGrid from '../../components/layouts/EnhancedOutcomeGrid.astro';
+import FeaturedQuote from '../../components/FeaturedQuote.astro';
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
+import BoxesAndArrows from '../../components/BoxesAndArrows.astro';
+
+## Summary
+
+I collect VHS tapes. On a recent trip, I was at a flea market standing in front of a stack of 200 random tapes trying to decide what's worth grabbing. Do I own that tape? Is it any good?
+
+So I built an app. You photograph a stack of tapes and Rewind tells you what fits your taste, flags what you already own, and surfaces stuff you'd walk right past.
+
+Five built-in reviewers each have a completely different take on what makes a tape worth having. You can build your own sixth reviewer, trained on your taste and collection. The catalog covers VHS-specific titles most mainstream databases have no idea exist. All of it, monetized.
+
+Built solo in ten weeks, monetized two weeks after launch.
+
+<EnhancedOutcomeGrid
+  outcomes={[
+    {
+      stat: "0→1",
+      description: "Product strategy, research, design and engineering",
+      colorClass: "primary",
+      shimmer: true
+    },
+    {
+      stat: "57%",
+      description: "of new users scanned within their first session",
+      colorClass: "primary",
+      shimmer: true
+    },
+    {
+      stat: "15:1",
+      description: "collecting-to-scanning ratio, the signal that drove the pivot",
+      colorClass: "primary",
+      shimmer: true
+    }
+  ]}
+  columns={3}
+/>
+
+<FeaturedQuote
+  quote="This is the first [app] that immediately sucked me in. I scanned my entire collection (over 500 tapes) and got all my 'want list' on there, all in the first night. Now I play on it once or twice a day. The aesthetic is so good and everything is so smooth. 10/10"
+  authorName="Gdubb561"
+  authorTitle="App Store review"
+  authorImage="/images/avatar-appstore.png"
+/>
+
+## The origin
+
+It started over the holidays. I was home in the Midwest visiting a friend who collects VHS tapes. I was looking over his eclectic shelves and a lightbulb came on: what if I documented his collection, fed it into an LLM to generate a taste profile, and used that to identify tapes I might not be familiar with when I'm out thrifting?
+
+I tried a quick and dirty version, feeding the taste profile I'd generated into ChatGPT as a seed and then sending it pictures of tape stacks at flea markets. It kind of worked, but it was pretty rough. After a few exchanges it would start re-recommending tapes I'd already scanned or hallucinating titles that didn't exist. I'd have to start over in a new chat, burning tokens like crazy. Chat turned out to be the wrong format for this. I realized that for accuracy, an LLM needed to be fed the profile fresh every time, and that it was overkill to use a frontier model just for image recognition. I needed to decouple these things. I needed an app.
+
+### The weekend prototype
+
+I put together a prototype over a weekend, building it out with Claude Code in Swift. I fed in collection data from a spreadsheet so I could determine if I owned a tape or not. I used a cheaper model for rough OCR, and I used a more capable model to evaluate each recognized tape against the stored taste profile. I built out a basic pipeline on Cloudflare. And.. it worked! The improvement in accuracy was staggering. But it was very slow and very expensive. Regardless, it was enough to start testing with real users.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-prototype.png"
+  alt="The weekend prototype: rough but functional enough to prove the concept"
+/>
+
+
+
+
+
+## Market research & product strategy
+
+### Rapid community research 
+
+While building the prototype, I scraped the communities where collectors hang out. Reddit, Instagram, TikTok, Facebook. Thousands of posts and comments. I wanted to understand how collectors talked, who the influential voices were, and what got people to engage. 
+
+#### Community discussion analysis
+<ResponsiveImage
+  src="/images/case-studies/rewind-community-analysis.png"
+  alt="The scan flow: photograph spines, get AI verdicts"
+/>
+
+I kept seeing the same five types of collectors. Some want the movies they grew up with. Some are preserving tapes that never made it to digital. Different reasons, different criteria. But every single one of them has accidentally bought the same tape twice.
+
+The technical bet was simple. AI was already good at OCR. If I paired that with a database and your synced collection, you could photograph a whole stack of tapes and get answers for all of them at once. Every collecting app on the market made you go one by one via UPC code. Most VHS tapes don't even have barcodes. Stack scanning sidesteps both problems.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-scan-flow.png"
+  alt="The scan flow: photograph spines, get AI verdicts"
+/>
+
+### The differentiator
+
+Scanning a stack tells you what you're looking at. It doesn't tell you what's worth picking up. If you're standing in front of 200 tapes, you need both.
+
+Everything else on the market picked one side. Price-checking apps turned every thrift store trip into a reselling exercise. The community hated them. Collection managers let you catalog what you owned but couldn't tell you anything about a tape you'd never seen before. One collector summed it up: *"There has been an empty hole in the market for a good app that can do this that's reliable."*
+
+Pricing benchmarks from wine scanning, film logging, and trading card apps showed the range. Thrift-culture hobbyists won't pay enterprise prices, but they'll pay for something that respects the hobby.
+
+<EnhancedOutcomeGrid
+  outcomes={[
+    {
+      stat: "100K+",
+      description: "members in target community",
+      colorClass: "muted"
+    },
+    {
+      stat: "5",
+      description: "collector types from AI-assisted community analysis",
+      colorClass: "muted"
+    },
+    {
+      description: "Zero existing tools combining AI evaluation with collection management",
+      variant: "text-only",
+      colorClass: "primary"
+    }
+  ]}
+  columns={3}
+/>
+
+## The product
+
+### The reviewer panel
+
+The prototype started with rubrics modeled on friends' tastes. I had a buddy who only cared about horror distribution labels. Another who collected anything with a synth soundtrack. A third who wanted every tape that was banned, censored, or pulled from shelves. Each of them would look at the same bin of tapes and reach for completely different ones.
+
+So instead of one AI giving you a score, five reviewers evaluate every tape: Bruiser, Sicko, Chrome, Zealot, and Weirdo. Each has a completely different take on what makes a tape worth having. They disagree constantly, and that's the point. You're not checking a number. You're reading five short takes from people who care about different things.
+
+It turns a utility into something you actually want to look at.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-reviewer-details.png"
+  alt="The scan flow: photograph spines, get AI verdicts"
+/>
+
+### Custom profiles
+
+The premium feature is a profile builder. Six screens that capture what you collect, what you avoid, and how you think about taste. It generates a sixth reviewer that's tuned to you specifically.
+
+The builder is free. It only requires five tapes to move forward, but most users selected dozens. A few picked over a hundred. 67% of users who started the flow finished it. That told me where the paywall belongs: not on the builder, but on what it produces. Subscribing activates your custom reviewer across scans and unlocks personalized recommendations.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-reviewer-builder.png"
+  alt="Multi-reviewer verdict panel showing 5 reviewer opinions"
+/>
+
+### Server-side everything
+
+All AI processing runs through edge workers. No API keys on the device, no model dependencies baked into the app binary. The pipeline has two stages so I can change how evaluation works without pushing an app update. Aggressive caching keeps per-scan cost low.
+
+### The design system
+
+The visual direction came from the tapes themselves. Blank VHS packaging from the 80s and 90s. Dark backgrounds, bold type, that specific shade of blue-black. Dark mode only. I built a full design system around it called [Cyberdelia](https://heyrewind.app/design/). Personality tints for all five reviewers, custom backdrops per reviewer and genre, a CRT scanline overlay with adaptive frame rates and a reduced-motion kill switch, and condensed type that reads like a VHS spine.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-design-system.png"
+  alt="Design system: typography, colors, CRT scanline, personality tints"
+/>
+
+## The data foundation
+
+Mainstream databases cover the big releases fine. But VHS had its own world. Distributor exclusives, regional variants, dollar-bin anime, titles that never made it to any other format. If the catalog doesn't have a tape, the app can't identify it.
+
+AI-assisted data pipelines let me build a proprietary catalog covering VHS-specific titles most mainstream databases miss.
+
+Some of the source material is from public databases. Some is from physical materials and offline sources that can't be scraped from the web. The pipeline handles all of it through OCR and AI-structured parsing. That kind of source diversity can't be replicated by hitting public APIs alone.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-admin-dashboard.png"
+  alt="Admin dashboard with data quality monitoring"
+/>
+
+### Dashboards
+
+To manage all of this I built two dashboards. An admin dashboard for the catalog itself. Title browser, data quality monitoring, a human review queue for ambiguous matches. And a separate analytics dashboard with real-time health monitoring, cohort retention, activation funnels, 120+ tracked events. I needed good data to make good product decisions, and the post-launch pivot proved that.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-analytics-dashboard.png"
+  alt="Custom analytics dashboard with health monitoring"
+/>
+
+## The pivot
+
+### Initial launch
+
+Concept to App Store in ten weeks. 99.4% scan success rate. The core technology did what it was supposed to do.
+
+I posted the beta on r/VHS and it got 15K views. 63 people signed up to test it. *"Never downloaded an app so fast,"* one commenter wrote. Another: *"This is super cool! As someone just starting my collection, this is exactly what I've been looking for. Libib and CLZ were just too clunky."*
+
+People were using it. The question was whether they were using it as I'd planned.
+
+### The signal
+
+A week of real post-launch data told an interesting story.
+
+<EnhancedOutcomeGrid
+  outcomes={[
+    {
+      stat: "57%",
+      description: "percentage of users that scanned",
+      colorClass: "primary",
+      shimmer: true
+    },
+    {
+      stat: "15:1",
+      description: "collection adds vs thrifting scans",
+      colorClass: "primary",
+      shimmer: true
+    }
+  ]}
+  columns={2}
+/>
+
+People were using the feature. But they were using the app in a way I hadn't anticipated. The power users weren't at Goodwill deciding whether to grab something. They were sitting at home, scanning their collections.
+
+
+<FeaturedQuote
+  quote="In half an hour I had 605 tapes scanned in. I was self-checking the consistency against the hand-typed excel sheet that took me a weekend to put together, and your app produces more information per line item."
+  authorName="TempleMade_MeBroke"
+  authorTitle="r/VHS community member"
+  authorImage="/images/avatar-reddit.png"
+/>
+
+The scanning feature was a big hit. But where I'd built a thrifting tool, my target users had found a collection management platform.
+
+30% came back on day two with zero re-engagement features. No push notifications, no email, nothing pulling them back. They returned because they had more tapes to add.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-collection-count.png"
+  alt="User collection counts after launch"
+/>
+
+### The new direction
+
+The product I'd built for thrifting was being used for collecting. So I leaned into that, building several quality of life collection management features and sending an update to the beta testers. I could see users using the features immediately in the analytics dashboard I'd built, even without any sort of callout.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-collection-management.png"
+  alt="Collection management, the product users actually wanted"
+/>
+
+In addition to the collection-centric data, I also got a signal via user feedback and community comments that users wanted to track and rate what they watched, not just catalog it. The existing collecting apps didn't do that, and people were adding their VHS collections to Letterboxd lists as a workaround. That's the gap, and that's where I decided to go. Letterboxd for physical media, with AI taste intelligence built in.
+
+Survey data showed that 79% of users also collected DVD, Blu-ray, or LaserDisc. Clearly centering my app around VHS was leaving broad swaths of users on the table. So, I started building out multi-format capabilities.
+
+## Monetizing a price-sensitive community
+
+Scanning is how people find the app. The collection is why they stay. For a price sensitive community, you can't realistically charge for either.
+
+It took three tries to land on what people would pay for. First I tried scan limits and collection caps, which is the angle my competition takes. Users who hit any limit just stopped using the app. Then I tried locking the custom reviewer behind a paywall. Closer, but in testing I realized the profile builder itself was the hook. Gating that took away something of real value.
+
+So now the builder is free. You build your reviewer, see what it produces, get invested in it. Subscribing allows to actually use it across the app. That's the version that clicked.
+
+The VHS collecting community has thrift-culture pricing expectations and deep hostility toward anything extractive. Patterns from bigger apps just didn't translate.
+
+<ResponsiveImage
+  src="/images/case-studies/rewind-inthefield.png"
+  alt="Custom profile builder flow"
+/>
+
+
+## What I Learned
+
+**Build what users do, not what you designed for.** The scanning thesis was technically right. The AI pipeline worked, scans succeeded 99%+ of the time. But users had a different idea of what the product was for. Being wrong about that was the best thing that happened to it.
+
+**Constraints are features.** No prices, no resale data, no flipper energy. I thought that would limit the app. It ended up defining it. Every app in this space built with flipping in mind gets attacked by the community. Every app that shows taste gets embraced.
+
+**AI tools change what one person can ship.** I built the catalog pipeline, the dashboards, the design system, and the iOS app in ten weeks because Claude Code did the heavy lifting on code. The judgment work, what to build, what to skip, what to throw away when the launch data came in, is still entirely human.
+
+<EnhancedOutcomeGrid
+  outcomes={[
+    {
+      stat: "99%+",
+      description: "scan success rate",
+      colorClass: "primary",
+      shimmer: true
+    },
+    {
+      stat: "5x",
+      description: "scan optimization, from 2 min to 25 sec",
+      colorClass: "primary"
+    },
+    {
+      stat: "30%",
+      description: "day two retention rate with no optimization",
+      colorClass: "primary"
+    }
+  ]}
+  columns={3}
+/>
+
+*"This is what AI should be for,"* one user wrote. *"Giving me a library of all my VHS tapes at the press of a button, with all the bells and whistles of a curated paid service."*
+
