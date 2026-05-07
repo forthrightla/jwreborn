@@ -63,9 +63,9 @@ Built solo in ten weeks, monetized two weeks after launch.
   authorImage="/images/avatar-appstore.png"
 />
 
-## Origin story
+## How it started
 
-It started over the holidays. I was home in the Midwest visiting a friend who collects VHS tapes. I was looking over his eclectic shelves and a lightbulb came on: what if I documented his collection, fed it into an LLM to generate a taste profile, and used that to identify tapes I might not be familiar with when I'm out thrifting?
+The idea hit over the holidays. I was home in the Midwest visiting a friend who collects VHS tapes. I was looking over his eclectic shelves and a lightbulb came on: what if I documented his collection, fed it into an LLM to generate a taste profile, and used that to identify tapes I might not be familiar with when I'm out thrifting?
 
 I tried a quick and dirty version, feeding the taste profile I'd generated into ChatGPT as a seed and then sending it pictures of tape stacks at flea markets. It kind of worked, but it was pretty rough. After a few exchanges it would start re-recommending tapes I'd already scanned or hallucinating titles that didn't exist. I'd have to start over in a new chat, burning tokens like crazy. Chat turned out to be the wrong format for this. I realized that for accuracy, an LLM needed to be fed the profile fresh every time, and that it was overkill to use a frontier model just for image recognition. I needed to decouple these things. I needed an app.
 
@@ -160,19 +160,22 @@ Some of the source material is from public databases. Some is from physical mate
 
 ### Dashboards
 
-To manage all of this I built two dashboards. An admin dashboard for the catalog itself: title browser, data quality monitoring, and a human review queue for ambiguous matches.
+I needed good data to make good product decisions. So I built two dashboards.
+An admin dashboard for the catalog: title browser, data quality monitoring, a human review queue for ambiguous matches.
 
 <ResponsiveImage
   src="/images/case-studies/rewind-admin-dashboard.png"
   alt="Admin dashboard with data quality monitoring"
 />
 
-I also built an analytics dashboard with real-time health monitoring, cohort retention, activation funnels, and over 120 tracked events. I needed good data to make good product decisions, and the post-launch pivot proved that.
+An analytics dashboard with real-time health monitoring, cohort retention, activation funnels, 120+ tracked events.
 
 <ResponsiveImage
   src="/images/case-studies/rewind-analytics-dashboard.png"
   alt="Custom analytics dashboard with health monitoring"
 />
+
+The post-launch pivot proved I needed both before launch, not after.
 
 ## Pivoting
 
@@ -180,9 +183,9 @@ I also built an analytics dashboard with real-time health monitoring, cohort ret
 
 I launched the app on TestFlight and posted the beta on r/VHS. The post got 15k views and 63 people signed up to test it. *"Never downloaded an app so fast,"* one commenter wrote. Another: *"This is super cool! As someone just starting my collection, this is exactly what I've been looking for. Libib and CLZ were just too clunky."*
 
-I also approached members of the Austin VHS scene while field testing the app to see if they would be interested in joining  the bets. Several were incredibly enthusiastic, and I was able to do guerrilla testing on features I was prototyping with my actual target users.
+I also approached members of the Austin VHS scene while field testing the app to see if they would be interested in joining the beta. Several were incredibly enthusiastic, and I was able to do guerrilla testing on features I was prototyping with my actual target users.
 
-Real people were using it, and with my analytics dashboard I was able to see what they were doing. This created a feedback loop of iteration where I would see user behavior in aggregate, hear direct feedback from my testers, and then ship incremental updates and features that I could then see them using.
+Real people were using it. The analytics dashboard let me watch what they did, and the testers gave me direct feedback. Ship update, watch usage shift, ship the next one.
 
 Four weeks later, I submitted to the App Store.
 
@@ -246,7 +249,7 @@ Scanning is how people find the app. The collection is why they stay. For a pric
 
 It took three tries to land on what people would pay for. First I tried scan limits and collection caps, which is the angle my competition takes. Users who hit any limit just stopped using the app. Then I tried locking the custom reviewer behind a paywall. Closer, but in testing I realized the profile builder itself was the hook. Gating that took away something of real value.
 
-So now the builder is free. You build your reviewer, see what it produces, get invested in it. Subscribing allows to actually use it across the app. That's the version that clicked.
+So now the builder is free. You build your reviewer, see what it produces, get invested in it. Subscribing activates it across the app. That's the version that clicked.
 
 The VHS collecting community has thrift-culture pricing expectations and deep hostility toward anything extractive. Patterns from bigger apps just didn't translate.
 
@@ -258,7 +261,7 @@ The VHS collecting community has thrift-culture pricing expectations and deep ho
 
 ## What I Learned
 
-**Build what users do, not what you designed for.** The scanning thesis was technically right. The AI pipeline worked, scans succeeded 99%+ of the time. But users had a different idea of what the product was for. Being wrong about that was the best thing that happened to it.
+**Build what users do, not what you designed for.** The scanning thesis was technically right. The AI pipeline worked, scans succeeded 99%+ of the time. But users had a different idea of what the product was for. Being wrong about that was the best thing that happened to it. It's also the fun part.
 
 **Constraints are features.** No prices, no resale data, no flipper energy. I thought that would limit the app. It ended up defining it. Every app in this space built with flipping in mind gets attacked by the community. Every app that shows taste gets embraced.
 
@@ -279,7 +282,7 @@ The VHS collecting community has thrift-culture pricing expectations and deep ho
     },
     {
       stat: "30%",
-      description: "day two retention rate with no optimization",
+      description: "day two retention rate with no re-engagement features",
       colorClass: "primary"
     }
   ]}
