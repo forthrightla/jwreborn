@@ -814,6 +814,24 @@ html[data-theme="dark"] .hero-block {
   color: var(--color-text);
 }
 
+/* Case study CTA button block */
+.case-study-cta {
+  text-align: center;
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+}
+
+.case-study-cta .button {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.case-study-cta .button:hover {
+  color: var(--color-primary-hover);
+  background: rgba(46, 58, 89, 0.08);
+}
+
+
 /* Dark mode glassmorphism */
 html[data-theme="dark"] .case-hero__card {
   background: rgba(15, 23, 42, 0.85);
