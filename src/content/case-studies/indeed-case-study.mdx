@@ -59,7 +59,7 @@ I led a redesign that unified both approaches into a single search experience. I
 
 The experience forced a confusing choice: two separate tabs, one for system-recommended candidates ("Matched Candidates") and one for keyword search.
 
-![The legacy two-tab interface showing Matched Candidates and Search tabs](/images/case-studies/indeed-matchedcandidates.png)
+![The legacy Smart Sourcing interface with separate tabs for matched candidates and keyword search, showing a Registered Nurse query in Austin with candidate cards and sidebar filters](/images/case-studies/indeed-matchedcandidates.png)
 
 The matching algorithm wasn't bad. It was opaque. Recruiters couldn't see where candidates came from or why they were being shown. The system auto-selected a random job on load, so the recommendations often felt irrelevant. Meanwhile, recruiters had spent years honing their own Boolean search strategies. They trusted keywords because they could see the cause and effect: *I typed this, I got that.* The matching tab offered no such legibility.
 
@@ -112,7 +112,7 @@ We needed recruiters to use the matching system, but we couldn't ask them to tru
 
 The first thing recruiters see in the new experience is a prompt to "add your job." But it's a suggestion, not a requirement. If they skip it, the typeahead suggests their open jobs before keyword suggestions. This means job context gets attached naturally during search, without forcing anyone.
 
-![Unified search introduction](/images/case-studies/indeed-searchexamples.png)
+![Two views of the unified search bar: a tooltip announcing the new feature, and a search for nurse showing job posting suggestions and keyword autocomplete](/images/case-studies/indeed-searchexamples.png)
 
 The critical nuance: when a recruiter attaches a job, the system quietly blends matched candidates into the keyword results. The recruiter doesn't see a separate "recommended" section. They just see better candidates. Over time, they learn through their own experience that searches with a job attached produce better results.
 
@@ -133,7 +133,7 @@ The 10% stat did the heavy lifting. It was hard to argue that the current approa
 
 We replaced the two-tab system with a single search interface. Recruiters can now add job context, keywords, or both in one place. The system blends matched and keyword results together.
 
-![The new unified search interface showing job pill and keyword input with blended results](/images/case-studies/indeed-omni.png)
+![The redesigned Smart Sourcing landing page with unified search bar, Add your job pill, three active Registered Nurse postings with View matches links, and recent searches](/images/case-studies/indeed-omni.png)
 
 When recruiters attached a job to their search, the system used that job's requirements to surface matched candidates *alongside* their keyword results. But it didn't label them as "recommended by our algorithm." They just appeared as relevant candidates.
 
@@ -147,7 +147,7 @@ The old two-tab system locked recruiters into Boolean queries and rigid keyword 
 
 Recruiter search was clearly heading toward more conversational, LLM-powered interactions. I wanted to make sure the interface we shipped today wouldn't need to be torn down and rebuilt when that future arrived.
 
-![Natural language search](/images/case-studies/indeed-omnifuture.png)
+![The future natural language search showing a plain English query for a nurse practitioner parsed into colored pills for role, location, experience, and credentials, with matched candidate results below](/images/case-studies/indeed-omnifuture.png)
 
 ## Results
 
