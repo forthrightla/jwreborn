@@ -1,0 +1,130 @@
+media:
+  input: public/images
+  output: /images
+
+settings:
+  merge: true
+
+content:
+  - name: case-studies
+    label: Case Studies
+    type: collection
+    path: src/content/case-studies
+    filename: "{primary}.mdx"
+    view:
+      fields: [title, client, featured, hidden, date]
+      primary: title
+      sort: [date, title]
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: subtitle
+        label: Subtitle
+        type: text
+      - name: seoDescription
+        label: SEO description
+        type: text
+      - name: client
+        label: Client
+        type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: featured
+        label: Featured
+        type: boolean
+        default: false
+      - name: hidden
+        label: Hidden
+        type: boolean
+        default: false
+      - name: password
+        label: Password (leave empty for public)
+        type: string
+      - name: highlight
+        label: Highlight
+        type: text
+      - name: thumbnail
+        label: Thumbnail
+        type: image
+      - name: banner
+        label: Banner
+        type: image
+      - name: logo
+        label: Logo
+        type: image
+      - name: goal
+        label: Goal
+        type: text
+      - name: responsibilities
+        label: Responsibilities
+        type: text
+      - name: duration
+        label: Duration
+        type: string
+      - name: extraImage
+        label: Extra image
+        type: image
+      - name: extraImageAlt
+        label: Extra image alt text
+        type: string
+      - name: extraImageWidth
+        label: Extra image width
+        type: string
+      - name: extraImageHeight
+        label: Extra image height
+        type: string
+      - name: extraImageFullWidth
+        label: Extra image full width
+        type: boolean
+      - name: accentColor
+        label: Accent color (hex)
+        type: string
+      - name: heroWashColor
+        label: Hero wash color (RGB)
+        type: string
+      - name: showHeroWash
+        label: Show hero wash
+        type: boolean
+      # Body is raw MDX (imports + custom components like <EnhancedOutcomeGrid />).
+      # Edited as code, NOT rich-text, so JSX is preserved verbatim.
+      - name: body
+        label: Body (MDX — edit with care, contains components)
+        type: code
+        options:
+          language: mdx
+
+  - name: writing
+    label: Writing
+    type: collection
+    path: src/content/writing
+    filename: "{primary}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      sort: [date, title]
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: description
+        label: Description
+        type: text
+      - name: heroImage
+        label: Hero image
+        type: image
+      - name: body
+        label: Body
+        type: rich-text
