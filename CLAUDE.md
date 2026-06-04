@@ -1,5 +1,8 @@
 # Codebase Reference - joshux.com
 
+## Full documentation
+Diataxis-structured docs live in [`docs/`](./docs/README.md): getting-started tutorial, how-to guides (add a case study, edit via Pages CMS, deploy), reference (content schema, components, design tokens, `.pages.yml`), and explanations (architecture, password protection). Start at `docs/README.md`. Note: `ProjectConstraints.md` is partly stale (it references Decap CMS, which never shipped; Pages CMS is the CMS now).
+
 ## Project Overview
 Personal portfolio site built with **Astro 6.1.9**, featuring case studies and testimonials. Site URL: https://joshux.com
 
