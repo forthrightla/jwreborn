@@ -54,7 +54,9 @@ const testimonials = [
 
 // Get all case studies, filter out hidden ones
 const allCaseStudies = await getCollection("case-studies");
-const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
+const visibleCaseStudies = allCaseStudies.filter(
+  (study) => !study.data.hidden && !study.filePath?.endsWith(".bak.mdx"),
+);
 
 // Create a map of case studies by slug for quick lookup
 const caseStudiesBySlug = Object.fromEntries(
@@ -69,8 +71,8 @@ const featuredCaseStudies = preferredOrder
 ---
 
 <Layout
-  title="Josh Wright - UX Design Lead, Product Strategist, Educator"
-  description="Josh Wright is a UX Design Lead, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes."
+  title="Josh Wright - Austin UX Design Lead and Product Strategist"
+  description="Josh Wright is an Austin UX Design Lead and Product Strategist. View product design, UX research, and strategy case studies for Rewind, Indeed, AXS, LegalZoom, and more."
   image="/images/banner-portraits.png"
 >
   <section id="hero" class="block hero-block outer">

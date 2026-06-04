@@ -18,7 +18,9 @@ const preferredOrder = [
 
 // Get all case studies, filter out hidden ones
 const allCaseStudies = await getCollection("case-studies");
-const visibleCaseStudies = allCaseStudies.filter((study) => !study.data.hidden);
+const visibleCaseStudies = allCaseStudies.filter(
+  (study) => !study.data.hidden && !study.filePath?.endsWith(".bak.mdx"),
+);
 
 const preferredOrderMap = new Map(preferredOrder.map((slug, index) => [slug, index]));
 
@@ -42,9 +44,9 @@ const caseStudies = visibleCaseStudies.sort((a, b) => {
 ---
 
 <Layout
-  title="Case Studies - Josh Wright"
+  title="UX Design and Product Strategy Case Studies - Josh Wright"
   currentNav="case-studies"
-  description="Explore case studies showcasing UX design, product strategy, and user research work across mobile apps, enterprise software, and consumer products."
+  description="Explore Josh Wright’s UX design, product strategy, and user research case studies across mobile apps, enterprise software, event ticketing, healthcare, and 0 to 1 products."
 >
   <section id="hero" class="block hero-block outer">
     <div class="inner">

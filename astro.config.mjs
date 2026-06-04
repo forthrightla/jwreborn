@@ -7,5 +7,10 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://joshux.com',
-  integrations: [sitemap(), mdx()]
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/work/makerspace-case-study/')
+    }),
+    mdx()
+  ]
 });

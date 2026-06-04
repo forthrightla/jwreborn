@@ -8,7 +8,9 @@ import SimplifiedCard from '../../components/SimplifiedCard.astro';
 // Generate static paths for all case studies
 export async function getStaticPaths() {
   const caseStudies = await getCollection('case-studies');
-  return caseStudies.map(entry => ({
+  return caseStudies
+    .filter(entry => !entry.filePath?.endsWith('.bak.mdx'))
+    .map(entry => ({
     params: { slug: entry.id },
     props: { entry },
   }));
@@ -42,15 +44,34 @@ const isPasswordProtected = !!entry.data.password;
 
 // Check if this case study should be hidden from search engines
 const isHidden = !!entry.data.hidden;
+const pageDescription = entry.data.seoDescription || entry.data.subtitle || entry.data.highlight || entry.data.title;
+const caseStudyUrl = `https://joshux.com/work/${entry.id}/`;
+const caseStudyStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "headline": entry.data.title,
+  "name": entry.data.title,
+  "description": pageDescription,
+  "url": caseStudyUrl,
+  "image": entry.data.banner ? `https://joshux.com${entry.data.banner}` : `https://joshux.com${entry.data.thumbnail}`,
+  "author": {
+    "@type": "Person",
+    "name": "Josh Wright",
+    "url": "https://joshux.com"
+  },
+  "about": [entry.data.client, ...(entry.data.tags || [])].filter(Boolean),
+  "keywords": ["UX design", "product strategy", "user research", entry.data.client, ...(entry.data.tags || [])].filter(Boolean).join(", ")
+};
 ---
 
 <Layout
   title={`${entry.data.title} - Josh Wright`}
   currentNav="case-studies"
-  description={entry.data.subtitle}
-  image={entry.data.thumbnail}
+  description={pageDescription}
+  image={entry.data.banner || entry.data.thumbnail}
   type="article"
   noindex={isHidden}
+  structuredData={caseStudyStructuredData}
 >
   <main id="content" class="site-content">
     <div class="outer">

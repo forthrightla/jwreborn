@@ -8,7 +8,8 @@ export interface CaseStudy {
 
 export interface CaseStudyData {
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  seoDescription?: string;
   thumbnail: string;
   banner?: string;
   tags: string[];
@@ -101,6 +102,7 @@ export interface LayoutProps {
   type?: 'website' | 'article';
   useSvgLogo?: boolean;
   noindex?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export interface TestimonialProps {

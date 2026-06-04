@@ -7,7 +7,7 @@ import type { LayoutProps } from '../types';
 import '../styles/reset.css';
 import '../styles/main.css';
 
-const { title, currentNav, description, image, type = 'website', useSvgLogo = true, noindex = false } = Astro.props as LayoutProps;
+const { title, currentNav, description, image, type = 'website', useSvgLogo = true, noindex = false, structuredData } = Astro.props as LayoutProps;
 
 // Default meta values
 const defaultDescription = "Josh Wright is a UX Designer, Product Strategist, and Educator working in Austin. View case studies showcasing thoughtful design, user research, and measurable outcomes.";
@@ -85,6 +85,10 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 				}
 			})
 		}></script>
+
+		{structuredData && (
+			<script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+		)}
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,5 +193,4 @@ const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${im
 	</body>
 	
 </html>
-
 
